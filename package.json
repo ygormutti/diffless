@@ -1,0 +1,8 @@
+{
+  "name": "diffless",
+  "version": "0.0.1",
+  "description": "Extensible diff tool with high signal-to-noise ratio",
+  "main": "index.js",
+  "author": "Ygor Mutti <ygormutti@gmail.com>",
+  "license": "LGPL"
+}
