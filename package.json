@@ -4,5 +4,8 @@
   "description": "Extensible diff tool with high signal-to-noise ratio",
   "main": "index.js",
   "author": "Ygor Mutti <ygormutti@gmail.com>",
-  "license": "LGPL"
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "jison": "^0.4.17"
+  }
 }
