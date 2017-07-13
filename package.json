@@ -6,7 +6,6 @@
   "author": "Ygor Mutti <ygormutti@gmail.com>",
   "license": "LGPL-3.0",
   "dependencies": {
-    "jison": "^0.4.17",
-    "json-lexer": "^1.1.1"
+    "json-tokenize": "^0.3.0"
   }
 }
