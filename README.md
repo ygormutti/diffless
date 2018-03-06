@@ -18,8 +18,16 @@ If so, diffless was made specially for you.
 
 ## How?
 
-The idea is that the more you use diffless, you'll probably spend less time using any diff. It achieves that by means of three kinds of plugins: decoders, algorithms and parsers.
+The idea is that the more you use diffless, you'll probably spend less time using any diff, and if it doesn't support your favorite language you can easily add suport for it.
+
+It achieves that by means of three kinds of plugins: converters (which can be decoders and parsers) and comparers.
+
+### Algorithms
+
+The algorithm plugins do the heavy-lifting of diffless, comparing any kind of
 
 ### Decoders
-### Algorithms
+
+A decoder is useful to compare 
+
 ### Parsers
