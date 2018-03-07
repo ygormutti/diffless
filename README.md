@@ -23,11 +23,15 @@ The idea behind diffless is that the more you use it, the less you use it. :)
 
 Ok, let me rephrase that... if diffless becomes your diff tool of choice you will spend less time reading diff outputs, because you will understand changes faster.
 
-Even if it doesn't support the programming language of what you're comparing you can get an improved diff output out of it, and you can easily extend it too, adding support for your favorite languages, integrating it into your own diff viewer, etc.
+Even if it doesn't support the programming language of what you're comparing you can get an improved diff output out of it, and you can easily extend it too, adding support for your favorite languages, creating your own view for it, integrating it with your code editor, unit testing library, etc.
 
 ## How?
 
-It uses programming language parsers to better understand the code being compared. Also, it uses some nifty techniques to detect more changes than line additions/removals, like block copies between files and some refactorings.
+diffless is all about converters. Converters are pluggable building blocks that take instances of one type and convert them to other type. For example, one could write an zip-to-directory converter so that when diffless receives a zip file and a directory as inputs it will know that it can use this converter to make both arguments of same type and will be able to compare them. The input and output types of the converter are not necessarily different. For example, one could a JSON formatter converter, that takes a JSON and outputs the same JSON pretty-printed (to ease diff visibility).
+
+It can use programming language parsers to better assess the code being compared and determine the importance of each change. Parsers are converters too! For example, a JavaScript tokenizer would convert JavaScript source code into a sequence of tokens, and a comparer converter could convert a pair of token sequences into one diff result, an abstraction provided by diffless itself, that store everything needed to display the changes in any view.
+
+Also, depending on the algorithms plugged in, it could use some nifty techniques to detect more changes than line additions/removals, like block copies between files and some refactorings.
 
 The better of all is that all those techniques are not dependent on any specific programming language so, once you integrate a new parser with diffless, you get them for free.
 
