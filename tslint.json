@@ -1,0 +1,15 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "rules": {
+        "interface-name": false,
+        "callable-types": false,
+        "max-classes-per-file": false,
+        "quotemark": false,
+        "arrow-parens": false,
+        "array-type": false,
+        "member-ordering": false
+    }
+}
