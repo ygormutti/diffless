@@ -1,0 +1,15 @@
+{
+    "message": "Validation Failed",
+    "errors": [
+        {
+            "resource": "Issue",
+            "field": "title",
+            "code": "missing_field"
+        },
+        {
+            "resource": "Issue",
+            "field": "milestone",
+            "code": "invalid"
+        }
+    ]
+}
