@@ -1,46 +1,51 @@
+import { normalize } from "path";
+
 export type DocumentUri = string;
 
-export interface Document {
-    uri: DocumentUri;
-    content: string;
+export class Document {
+    public readonly content: string;
+    public readonly lines: string[];
+
+    constructor(readonly uri: string, content: string) {
+        this.content = normalizeEndOfLines(content);
+        this.lines = this.content.split('\n');
+    }
 }
 
-export class StringDocument implements Document {
-    constructor(
-        readonly uri: string,
-        readonly content: string,
-    ) { }
+function normalizeEndOfLines(content: string): string {
+    return content.replace('\r\n', '\n').replace('\r', '\n');
 }
 
 // See https://microsoft.github.io/language-server-protocol/specification
 
-export interface Position {
-    /**
-     * Line position in a document (one-based).
-     */
-    line: number;
+export class Position {
+    constructor(
+        /**
+         * Line position in a document (one-based).
+         */
+        readonly line: number,
 
-    /**
-     * Character offset on a line in a document (one-based). Assuming that the line is
-     * represented as a string, the `character` value represents the gap between the
-     * `character` and `character + 1`.
-     *
-     * If the character value is greater than the line length it defaults back to the
-     * line length.
-     */
-    character: number;
+        /**
+         * Character offset on a line in a document (one-based). Assuming that the line is
+         * represented as a string, the `character` value represents the gap between the
+         * `character` and `character + 1`.
+         */
+        readonly character: number,
+    ) { }
 }
 
-export interface Range {
-    /**
-     * The range's start position.
-     */
-    start: Position;
+export class Range {
+    constructor(
+        /**
+         * The range's start position.
+         */
+        readonly start: Position,
 
-    /**
-     * The range's end position.
-     */
-    end: Position;
+        /**
+         * The range's end position.
+         */
+        readonly end: Position,
+    ) { }
 }
 
 export interface Location {
@@ -64,8 +69,8 @@ export enum ChangeLevel {
 }
 
 export interface Change {
-    right?: Location,
-    left?: Location,
+    right?: Location;
+    left?: Location;
     type: ChangeType;
     level: ChangeLevel;
 }
@@ -74,6 +79,6 @@ export class Diff {
     constructor(
         readonly left: Document,
         readonly right: Document,
-        readonly changes: Set<Change>
+        readonly changes: Set<Change>,
     ) { }
 }

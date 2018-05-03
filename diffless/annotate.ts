@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { partition } from 'lodash';
 
-import { StringDocument, Change, Location, Position, ChangeLevel, ChangeType, Document } from './model';
+import { Change, ChangeLevel, ChangeType, Document, Location, Position } from './model';
 
 const { argv } = process;
 
@@ -21,11 +21,11 @@ function toChange(objFromJson: JsonChange): Change {
         ...objFromJson,
         level: ChangeLevel[objFromJson.level],
         type: ChangeType[objFromJson.type],
-    }
+    };
 }
 
-const left = new StringDocument("string:left", readTextFile(argv[2]));
-const right = new StringDocument("string:right", readTextFile(argv[3]));
+const left = new Document("string:left", readTextFile(argv[2]));
+const right = new Document("string:right", readTextFile(argv[3]));
 
 const jsonChanges = JSON.parse(readTextFile(argv[4])) as Array<JsonChange>;
 const changes = jsonChanges.map(c => toChange(c));
@@ -37,7 +37,7 @@ class ChangeIndex {
         this.index = [];
     }
 
-    add(location: Location, change: Change) {
+    public add(location: Location, change: Change) {
         const { start, end } = location.range;
         this.addToPosition(start, change);
         this.addToPosition(end, change);
@@ -45,13 +45,13 @@ class ChangeIndex {
 
     private addToPosition(position: Position, change: Change) {
         const { line, character } = position;
-        if (!this.index[line]) this.index[line] = []
+        if (!this.index[line]) { this.index[line] = []; }
 
         let changes = this.index[line][character];
         if (!changes) {
             changes = [];
             this.index[line][character] = changes;
-        };
+        }
 
         changes.push(change);
 
@@ -61,9 +61,9 @@ class ChangeIndex {
         });
     }
 
-    get(position: Position): Array<Change> {
+    public get(position: Position): Array<Change> {
         const { line, character } = position;
-        if (!this.index[line] || !this.index[line][character]) return []
+        if (!this.index[line] || !this.index[line][character]) { return []; }
         return this.index[line][character];
     }
 }
@@ -72,8 +72,8 @@ const leftChangeIndex = new ChangeIndex();
 const rightChangeIndex = new ChangeIndex();
 changes.forEach(change => {
     const { left, right } = change;
-    if (left) leftChangeIndex.add(left, change);
-    if (right) rightChangeIndex.add(right, change);
+    if (left) { leftChangeIndex.add(left, change); }
+    if (right) { rightChangeIndex.add(right, change); }
 });
 
 function generatePreCode(document: Document, changeIndex: ChangeIndex) {
@@ -89,12 +89,12 @@ function generatePreCode(document: Document, changeIndex: ChangeIndex) {
 
             for (const change of ending) {
                 pendingChanges.delete(change);
-                html += '</span>'
+                html += '</span>';
             }
 
             for (const change of starting) {
                 pendingChanges.add(change);
-                html += `<span class="${ChangeLevel[change.level]} ${ChangeType[change.type]}">`
+                html += `<span class="${ChangeLevel[change.level]} ${ChangeType[change.type]}">`;
             }
 
             html += character;
@@ -108,12 +108,12 @@ function generatePreCode(document: Document, changeIndex: ChangeIndex) {
 
         for (const change of ending) {
             pendingChanges.delete(change);
-            html += '</span>'
+            html += '</span>';
         }
 
         for (const change of starting) {
             pendingChanges.add(change);
-            html += `<span class="${ChangeLevel[change.level]} ${ChangeType[change.type]}">`
+            html += `<span class="${ChangeLevel[change.level]} ${ChangeType[change.type]}">`;
         }
         // FIXME DRY
 
@@ -136,15 +136,15 @@ const finalHtml = `<html>
   .Add {
     background-color: rgba(0,255,0,0.3);
   }
-  
+
   .Delete {
     background-color: rgba(255,0,0,0.3);
   }
-  
+
   .Move {
     background-color: rgba(0,0,255,0.3);
   }
-    
+
   .string_left {
     width: 50%;
     float: left;
