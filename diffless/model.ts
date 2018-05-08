@@ -3,17 +3,49 @@ import { normalize } from "path";
 export type DocumentUri = string;
 
 export class Document {
-    public readonly content: string;
-    public readonly lines: string[];
+    readonly content: string;
+    readonly lines: string[];
+    readonly characters: Character[];
 
     constructor(readonly uri: string, content: string) {
         this.content = normalizeEndOfLines(content);
         this.lines = this.content.split('\n');
+        this.characters = buildCharacters(this);
     }
 }
 
 function normalizeEndOfLines(content: string): string {
     return content.replace('\r\n', '\n').replace('\r', '\n');
+}
+
+function buildCharacters(document: Document): Character[] {
+    const characters: Character[] = [];
+    for (const [lineOffset, line] of document.lines.entries()) {
+        const lineNumber = lineOffset + 1;
+        for (const [characterOffset, character] of Array.from(line).entries()) {
+            characters.push(new Character(character, new Position(lineNumber, characterOffset + 1)));
+        }
+    }
+    return characters;
+}
+
+export interface Positioned {
+    position: Position;
+}
+
+export class Character implements Positioned {
+    constructor(
+        readonly value: string,
+        readonly position: Position,
+    ) { }
+
+    equals(that: Character) {
+        return this.value === that.value;
+    }
+
+    static equal(a: Character, b: Character) {
+        return a.equals(b);
+    }
 }
 
 // See https://microsoft.github.io/language-server-protocol/specification
@@ -48,9 +80,11 @@ export class Range {
     ) { }
 }
 
-export interface Location {
-    uri: DocumentUri;
-    range: Range;
+export class Location {
+    constructor(
+        readonly uri: DocumentUri,
+        readonly range: Range,
+    ) { }
 }
 
 export enum ChangeType {
@@ -63,16 +97,19 @@ export enum ChangeType {
 }
 
 export enum ChangeLevel {
+    Binary,
     Textual,
     Lexical,
     Semantic,
 }
 
-export interface Change {
-    right?: Location;
-    left?: Location;
-    type: ChangeType;
-    level: ChangeLevel;
+export class Change {
+    constructor(
+        readonly level: ChangeLevel,
+        readonly type: ChangeType,
+        readonly left?: Location,
+        readonly right?: Location,
+    ) { }
 }
 
 export class Diff {
