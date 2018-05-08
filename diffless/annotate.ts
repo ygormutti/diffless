@@ -1,34 +1,9 @@
 import * as fs from 'fs';
 import { partition } from 'lodash';
 
-import { Change, ChangeLevel, ChangeType, Document, Location, Position } from './model';
-
-const { argv } = process;
-
-function readTextFile(path: string, encoding: string = 'utf8') {
-    return fs.readFileSync(path, { encoding });
-}
-
-interface JsonChange {
-    right?: Location;
-    left?: Location;
-    level: keyof typeof ChangeLevel;
-    type: keyof typeof ChangeType;
-}
-
-function toChange(objFromJson: JsonChange): Change {
-    return {
-        ...objFromJson,
-        level: ChangeLevel[objFromJson.level],
-        type: ChangeType[objFromJson.type],
-    };
-}
-
-const left = new Document("string:left", readTextFile(argv[2]));
-const right = new Document("string:right", readTextFile(argv[3]));
-
-const jsonChanges = JSON.parse(readTextFile(argv[4])) as Array<JsonChange>;
-const changes = jsonChanges.map(c => toChange(c));
+import { arrayDiff, ArrayDiffArgument } from './array_diff';
+import { dynamicProgrammingLCS } from './lcs';
+import { Change, ChangeLevel, ChangeType, Character, Document, Location, Position } from './model';
 
 class ChangeIndex {
     private index: Array<Array<Array<Change>>>;
@@ -37,7 +12,7 @@ class ChangeIndex {
         this.index = [];
     }
 
-    public add(location: Location, change: Change) {
+    add(location: Location, change: Change) {
         const { start, end } = location.range;
         this.addToPosition(start, change);
         this.addToPosition(end, change);
@@ -61,98 +36,145 @@ class ChangeIndex {
         });
     }
 
-    public get(position: Position): Array<Change> {
+    get(position: Position): Array<Change> {
         const { line, character } = position;
         if (!this.index[line] || !this.index[line][character]) { return []; }
         return this.index[line][character];
     }
 }
 
-const leftChangeIndex = new ChangeIndex();
-const rightChangeIndex = new ChangeIndex();
-changes.forEach(change => {
-    const { left, right } = change;
-    if (left) { leftChangeIndex.add(left, change); }
-    if (right) { rightChangeIndex.add(right, change); }
-});
-
-function generatePreCode(document: Document, changeIndex: ChangeIndex) {
-    const lines = document.content.split('\n');
+function buildAnnotatedDocumentHTML(document: Document, changeIndex: ChangeIndex) {
+    const { lines, uri } = document;
     const pendingChanges = new Set();
-    let html = `<pre class="${document.uri.replace(':', '_')}"><code>`;
+    let html = `<pre class="${uri.replace(':', '_')}"><code>`;
 
-    for (const [lineIndex, line] of lines.entries()) {
-        for (const [characterIndex, character] of line.split('').entries()) {
-            const position = { line: lineIndex + 1, character: characterIndex + 1 };
-            const changesHere = changeIndex.get(position);
-            const [ending, starting] = partition(changesHere, c => pendingChanges.has(c));
+    for (const [lineOffset, line] of lines.entries()) {
+        const lineNumber = lineOffset + 1;
 
-            for (const change of ending) {
-                pendingChanges.delete(change);
-                html += '</span>';
-            }
-
-            for (const change of starting) {
-                pendingChanges.add(change);
-                html += `<span class="${ChangeLevel[change.level]} ${ChangeType[change.type]}">`;
-            }
-
+        for (const [characterOffset, character] of Array.from(line).entries()) {
+            const position = new Position(lineNumber, characterOffset + 1);
+            html += buildPositionTags(position, changeIndex, pendingChanges);
             html += character;
         }
 
-        // FIXME DRY
-        const position = { line: lineIndex + 1, character: line.length + 1 };
-        const changesHere = changeIndex.get(position);
-
-        const [ending, starting] = partition(changesHere, c => pendingChanges.has(c));
-
-        for (const change of ending) {
-            pendingChanges.delete(change);
-            html += '</span>';
-        }
-
-        for (const change of starting) {
-            pendingChanges.add(change);
-            html += `<span class="${ChangeLevel[change.level]} ${ChangeType[change.type]}">`;
-        }
-        // FIXME DRY
-
+        const lineEndPosition = new Position(lineNumber, line.length + 1);
+        html += buildPositionTags(lineEndPosition, changeIndex, pendingChanges);
         html += '<br/>\n';
     }
     html += '</code></pre>';
     return html;
 }
 
-const leftPreCode = generatePreCode(left, leftChangeIndex);
-const rightPreCode = generatePreCode(right, rightChangeIndex);
+function buildPositionTags(
+    position: Position,
+    changeIndex: ChangeIndex,
+    pendingChanges: Set<any>,
+) {
+    const changesHere = changeIndex.get(position);
+    const [ending, starting] = partition(changesHere, c => pendingChanges.has(c));
+    let html = '';
+    for (const change of ending) {
+        pendingChanges.delete(change);
+        html += '</span>';
+    }
+    for (const change of starting) {
+        pendingChanges.add(change);
+        html += `<span class="${ChangeLevel[change.level]} ${ChangeType[change.type]}">`;
+    }
+    return html;
+}
 
-const finalHtml = `<html>
+export function buildAnnotatedHTML(
+    leftDocument: Document,
+    rightDocument: Document,
+    changes: Change[],
+    threshold: ChangeLevel = ChangeLevel.Binary,
+) {
+    const leftChangeIndex = new ChangeIndex();
+    const rightChangeIndex = new ChangeIndex();
+    changes.forEach(change => {
+        const { left, right } = change;
+        if (left) { leftChangeIndex.add(left, change); }
+        if (right) { rightChangeIndex.add(right, change); }
+    });
+
+    const leftPreCode = buildAnnotatedDocumentHTML(leftDocument, leftChangeIndex);
+    const rightPreCode = buildAnnotatedDocumentHTML(rightDocument, rightChangeIndex);
+
+    return `<html>
 <body>
 <style>
+    .Add {
+        background-color: rgba(0,255,0,0.3);
+    }
 
-.Textual {
-    display:none;
-}
-  .Add {
-    background-color: rgba(0,255,0,0.3);
-  }
+    .Delete {
+        background-color: rgba(255,0,0,0.3);
+    }
 
-  .Delete {
-    background-color: rgba(255,0,0,0.3);
-  }
+    .Move {
+        background-color: rgba(0,0,255,0.3);
+    }
 
-  .Move {
-    background-color: rgba(0,0,255,0.3);
-  }
+    .${ChangeLevel[threshold]} {
+        background-color: rgba(0,0,0,-0.3);
+    }
 
-  .string_left {
-    width: 50%;
-    float: left;
-  }
+    .string_left {
+        width: 50%;
+        float: left;
+    }
 </style>
 ${leftPreCode}
 ${rightPreCode}
 </body>
 </html>`;
+}
 
-console.log(finalHtml);
+function annotateWithChangesFile(leftPath: string, rightPath: string, changesPath: string) {
+    const { argv } = process;
+    const left = new Document("string:left", readTextFile(leftPath));
+    const right = new Document("string:right", readTextFile(rightPath));
+
+    const jsonChanges = JSON.parse(readTextFile(argv[4])) as Array<JsonChange>;
+    const changes = jsonChanges.map(c => toChange(c));
+
+    return buildAnnotatedHTML(left, right, changes);
+}
+
+function readTextFile(path: string, encoding: string = 'utf8') {
+    return fs.readFileSync(path, { encoding });
+}
+
+interface JsonChange {
+    right?: Location;
+    left?: Location;
+    level: keyof typeof ChangeLevel;
+    type: keyof typeof ChangeType;
+}
+
+function toChange(objFromJson: JsonChange): Change {
+    return {
+        ...objFromJson,
+        level: ChangeLevel[objFromJson.level],
+        type: ChangeType[objFromJson.type],
+    };
+}
+
+export function annotateWithDiff(leftPath: string, rightPath: string) {
+    const left = new Document("string:left", readTextFile(leftPath));
+    const right = new Document("string:right", readTextFile(rightPath));
+
+    const changes = arrayDiff(
+        dynamicProgrammingLCS,
+        ChangeLevel.Textual,
+        Character.equal,
+        new ArrayDiffArgument(left.uri, left.characters),
+        new ArrayDiffArgument(right.uri, right.characters),
+    );
+
+    return buildAnnotatedHTML(left, right, changes);
+}
+
+// const { argv } = process;
+// annotateWithDiff(argv[2], argv[3], argv[4]);
