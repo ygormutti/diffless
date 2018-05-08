@@ -1,12 +1,12 @@
 /**
- * Function that finds the LCS between two arrays
+ * Function type that finds the LCS between two arrays
  */
 export interface LCS {
     <TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]): LCSResult<TItem>;
 }
 
 /**
- * Function that checks if two objects are equal according to some criteria
+ * Function type that checks if two objects are equal according to some criteria
  */
 export interface Equal<T> {
     (left: T, right: T): boolean;
