@@ -10,6 +10,14 @@
         "quotemark": false,
         "arrow-parens": false,
         "array-type": false,
-        "member-ordering": false
+        "member-ordering": false,
+        "member-access": [
+            true,
+            "no-public"
+        ],
+        "curly": [
+            true,
+            "ignore-same-line"
+        ]
     }
 }
