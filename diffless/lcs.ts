@@ -2,7 +2,7 @@
  * Function that finds the LCS between two arrays
  */
 export interface LCS {
-    <T>(equal: Equal<T>, left: T[], right: T[]): LCSResult<T>;
+    <TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]): LCSResult<TItem>;
 }
 
 /**
@@ -15,9 +15,9 @@ export interface Equal<T> {
 /**
  * The Longest Common Subsequence of two arrays an its offset in both arrays
  */
-export class LCSResult<T> {
+export class LCSResult<TItem> {
     constructor(
-        readonly lcs: T[],
+        readonly lcs: TItem[],
         readonly leftOffset: number,
         readonly rightOffset: number,
     ) { }
@@ -39,14 +39,14 @@ function getInitialTable(rows: number, columns: number): number[][] {
  * @param left left sequence
  * @param right right sequence
  */
-export function dynamicProgrammingLCS<T>(equal: Equal<T>, left: T[], right: T[]): LCSResult<T> {
+export function dynamicProgrammingLCS<TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]): LCSResult<TItem> {
     if (!left || !left.length || !right || !right.length) {
         return new LCSResult([], 0, 0);
     }
 
     const table = getInitialTable(left.length, right.length);
 
-    let lcs: T[] = [];
+    let lcs: TItem[] = [];
     let lcsLength = 0;
     let lcsLeftOffset = 0;
     let lcsRightOffset = 0;
