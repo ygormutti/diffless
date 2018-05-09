@@ -1,5 +1,3 @@
-import { normalize } from "path";
-
 export type DocumentUri = string;
 
 export class Document {
