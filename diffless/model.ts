@@ -23,6 +23,7 @@ function buildCharacters(document: Document): Character[] {
         for (const [characterOffset, character] of Array.from(line).entries()) {
             characters.push(new Character(character, new Position(lineNumber, characterOffset + 1)));
         }
+        characters.push(new Character('\n', new Position(lineNumber, line.length + 1)));
     }
     return characters;
 }
