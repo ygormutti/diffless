@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { partition } from 'lodash';
 
-import { arrayDiff, ArrayDiffArgument } from './array_diff';
+import { arrayDiff } from './array-diff';
 import { dynamicProgrammingLCS } from './lcs';
 import { Change, ChangeLevel, ChangeType, Character, Document, Location, Position } from './model';
 
@@ -133,8 +133,8 @@ ${rightPreCode}
 
 function annotateWithChangesFile(leftPath: string, rightPath: string, changesPath: string) {
     const { argv } = process;
-    const left = new Document("string:left", readTextFile(leftPath));
-    const right = new Document("string:right", readTextFile(rightPath));
+    const left = new Document('string:left', readTextFile(leftPath));
+    const right = new Document('string:right', readTextFile(rightPath));
 
     const jsonChanges = JSON.parse(readTextFile(argv[4])) as Array<JsonChange>;
     const changes = jsonChanges.map(c => toChange(c));
@@ -162,15 +162,16 @@ function toChange(objFromJson: JsonChange): Change {
 }
 
 export function annotateWithDiff(leftPath: string, rightPath: string) {
-    const left = new Document("string:left", readTextFile(leftPath));
-    const right = new Document("string:right", readTextFile(rightPath));
+    const left = new Document('string:left', readTextFile(leftPath));
+    const right = new Document('string:right', readTextFile(rightPath));
 
     const changes = arrayDiff(
         dynamicProgrammingLCS,
         ChangeLevel.Textual,
         Character.equal,
-        new ArrayDiffArgument(left.uri, left.characters),
-        new ArrayDiffArgument(right.uri, right.characters),
+        d => d.characters,
+        left,
+        right,
     );
 
     return buildAnnotatedHTML(left, right, changes);

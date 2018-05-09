@@ -1,20 +1,18 @@
-import { Equal, LCS, LCSResult } from "./lcs";
+import { Equal, LCS, LCSResult } from './lcs';
 import {
     Change,
     ChangeLevel,
     ChangeType,
+    Document,
     DocumentUri,
     Location,
     Position,
     Positioned,
     Range,
-} from "./model";
+} from './model';
 
-export class ArrayDiffArgument<T extends Positioned> {
-    constructor(
-        readonly documentUri: DocumentUri,
-        readonly array: T[],
-    ) { }
+export interface ItemMapper<T extends Positioned> {
+    (document: Document): T[];
 }
 
 class ItemWrapper<T> {
@@ -30,11 +28,12 @@ export function arrayDiff<T extends Positioned>(
     lcs: LCS,
     level: ChangeLevel,
     equal: Equal<T>,
-    left: ArrayDiffArgument<T>,
-    right: ArrayDiffArgument<T>,
+    itemMapper: ItemMapper<T>,
+    left: Document,
+    right: Document,
 ): Change[] {
-    const leftWrapped = left.array.map(wrapItem);
-    const rightWrapped = right.array.map(wrapItem);
+    const leftWrapped = itemMapper(left).map(wrapItem);
+    const rightWrapped = itemMapper(right).map(wrapItem);
     const equalWrapped = wrapEqual(equal);
     const lcsResults: LCSResult<ItemWrapper<T>>[] = [];
 
@@ -49,12 +48,12 @@ export function arrayDiff<T extends Positioned>(
     let changes: Change[] = [];
 
     const additions = findUnpairedRanges(rightWrapped).map(
-        r => new Change(level, ChangeType.Add, undefined, new Location(right.documentUri, r)),
+        r => new Change(level, ChangeType.Add, undefined, new Location(right.uri, r)),
     );
     changes = changes.concat(additions);
 
     const deletions = findUnpairedRanges(leftWrapped).map(
-        r => new Change(level, ChangeType.Delete, new Location(left.documentUri, r), undefined),
+        r => new Change(level, ChangeType.Delete, new Location(left.uri, r), undefined),
     );
     changes = changes.concat(deletions);
 
