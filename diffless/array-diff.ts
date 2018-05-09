@@ -102,6 +102,7 @@ function findUnpairedRanges<T extends Positioned>(array: ItemWrapper<T>[]): Rang
     let end: Position | undefined;
     for (const wrapper of array) {
         const { paired, item: { position } } = wrapper;
+        end = position;
         if (start === undefined) {
             if (paired) {
                 continue;
@@ -110,13 +111,15 @@ function findUnpairedRanges<T extends Positioned>(array: ItemWrapper<T>[]): Rang
             }
         } else {
             if (paired) {
-                ranges.push(new Range(start, end!));
+                ranges.push(new Range(start, end));
                 start = undefined;
-                end = undefined;
-            } else {
-                end = position;
             }
         }
+    }
+
+    if (start !== undefined && end !== undefined) {
+        end = new Position(end.line, end.character + 1);
+        ranges.push(new Range(start, end));
     }
 
     return ranges;
