@@ -12,3 +12,7 @@ export const moduleFileExtensions = [
     'json',
     'node',
 ];
+
+export const snapshotSerializers = [
+    './jest-changes-serializer',
+];
