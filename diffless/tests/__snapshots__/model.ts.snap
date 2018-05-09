@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`model Document should build array of characters correctly 1`] = `
+Array [
+  Character {
+    "position": Position {
+      "character": 1,
+      "line": 1,
+    },
+    "value": "a",
+  },
+  Character {
+    "position": Position {
+      "character": 2,
+      "line": 1,
+    },
+    "value": "c",
+  },
+  Character {
+    "position": Position {
+      "character": 3,
+      "line": 1,
+    },
+    "value": "
+",
+  },
+  Character {
+    "position": Position {
+      "character": 1,
+      "line": 2,
+    },
+    "value": "d",
+  },
+  Character {
+    "position": Position {
+      "character": 2,
+      "line": 2,
+    },
+    "value": "c",
+  },
+  Character {
+    "position": Position {
+      "character": 3,
+      "line": 2,
+    },
+    "value": "
+",
+  },
+  Character {
+    "position": Position {
+      "character": 1,
+      "line": 3,
+    },
+    "value": "b",
+  },
+  Character {
+    "position": Position {
+      "character": 2,
+      "line": 3,
+    },
+    "value": "
+",
+  },
+  Character {
+    "position": Position {
+      "character": 1,
+      "line": 4,
+    },
+    "value": "c",
+  },
+  Character {
+    "position": Position {
+      "character": 2,
+      "line": 4,
+    },
+    "value": "
+",
+  },
+]
+`;
