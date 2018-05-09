@@ -7,7 +7,10 @@
         "interface-name": false,
         "callable-types": false,
         "max-classes-per-file": false,
-        "quotemark": false,
+        "quotemark": [
+            true,
+            "single"
+        ],
         "arrow-parens": false,
         "array-type": false,
         "member-ordering": false,
