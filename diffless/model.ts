@@ -1,21 +1,15 @@
 export type DocumentUri = string;
 
 export class Document {
-    readonly content: string;
     readonly characters: Character[];
 
-    constructor(readonly uri: string, content: string) {
-        this.content = normalizeEndOfLines(content);
-        this.characters = buildCharacters(this);
+    constructor(readonly uri: string, readonly content: string) {
+        this.characters = buildCharacters(content);
     }
 }
 
-function normalizeEndOfLines(content: string): string {
-    return content.replace('\r\n', '\n').replace('\r', '\n');
-}
-
-function buildCharacters(document: Document): Character[] {
-    const lines = document.content.split('\n');
+function buildCharacters(content: string): Character[] {
+    const lines = normalizeEndOfLines(content).split('\n');
     const characters: Character[] = [];
     for (const [lineOffset, line] of lines.entries()) {
         const lineNumber = lineOffset + 1;
@@ -25,6 +19,10 @@ function buildCharacters(document: Document): Character[] {
         characters.push(new Character('\n', new Position(lineNumber, line.length + 1)));
     }
     return characters;
+}
+
+function normalizeEndOfLines(content: string): string {
+    return content.replace('\r\n', '\n').replace('\r', '\n');
 }
 
 export interface Positioned {
