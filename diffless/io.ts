@@ -140,7 +140,7 @@ export function annotateWithChangesFile(leftPath: string, rightPath: string, cha
     const left = new Document('string:left', readTextFile(leftPath));
     const right = new Document('string:right', readTextFile(rightPath));
 
-    const jsonChanges = JSON.parse(readTextFile(argv[4])) as Array<JsonChange>;
+    const jsonChanges = JSON.parse(readTextFile(changesPath)) as Array<JsonChange>;
     const changes = jsonChanges.map(c => toChange(c));
 
     return buildAnnotatedHTML(left, right, changes);
@@ -180,10 +180,3 @@ export function annotateWithDiff(leftPath: string, rightPath: string) {
 
     return buildAnnotatedHTML(left, right, changes);
 }
-
-const { argv } = process;
-// tslint:disable-next-line:no-console
-console.log(annotateWithDiff(argv[2], argv[3]));
-
-// // tslint:disable-next-line:no-console
-// console.log(annotateWithChangesFile(argv[2], argv[3], argv[4]));
