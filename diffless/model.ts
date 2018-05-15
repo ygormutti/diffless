@@ -2,12 +2,10 @@ export type DocumentUri = string;
 
 export class Document {
     readonly content: string;
-    readonly lines: string[];
     readonly characters: Character[];
 
     constructor(readonly uri: string, content: string) {
         this.content = normalizeEndOfLines(content);
-        this.lines = this.content.split('\n');
         this.characters = buildCharacters(this);
     }
 }
@@ -17,8 +15,9 @@ function normalizeEndOfLines(content: string): string {
 }
 
 function buildCharacters(document: Document): Character[] {
+    const lines = document.content.split('\n');
     const characters: Character[] = [];
-    for (const [lineOffset, line] of document.lines.entries()) {
+    for (const [lineOffset, line] of lines.entries()) {
         const lineNumber = lineOffset + 1;
         for (const [characterOffset, character] of Array.from(line).entries()) {
             characters.push(new Character(character, new Position(lineNumber, characterOffset + 1)));

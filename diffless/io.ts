@@ -44,22 +44,17 @@ class ChangeIndex {
 }
 
 function buildAnnotatedDocumentHTML(document: Document, changeIndex: ChangeIndex) {
-    const { lines, uri } = document;
+    const { characters, uri } = document;
     const pendingChanges = new Set();
     let html = `<pre class="${uri.replace(':', '_')}"><code>`;
 
-    for (const [lineOffset, line] of lines.entries()) {
-        const lineNumber = lineOffset + 1;
-
-        for (const [characterOffset, character] of Array.from(line).entries()) {
-            const position = new Position(lineNumber, characterOffset + 1);
-            html += buildPositionTags(position, changeIndex, pendingChanges);
-            html += character;
+    for (const character of characters) {
+        html += buildPositionTags(character.position, changeIndex, pendingChanges);
+        if (character.value === '\n') {
+            html += '<br/>\n';
+        } else {
+            html += character.value;
         }
-
-        const lineEndPosition = new Position(lineNumber, line.length + 1);
-        html += buildPositionTags(lineEndPosition, changeIndex, pendingChanges);
-        html += '<br/>\n';
     }
     html += '</code></pre>';
     return html;
