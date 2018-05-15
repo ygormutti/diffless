@@ -104,6 +104,11 @@ export function buildAnnotatedHTML(
     return `<html>
 <body>
 <style>
+    body {
+        background-color: black;
+        color: white;
+    }
+
     .Add {
         background-color: rgba(0,255,0,0.3);
     }
@@ -131,8 +136,7 @@ ${rightPreCode}
 </html>`;
 }
 
-function annotateWithChangesFile(leftPath: string, rightPath: string, changesPath: string) {
-    const { argv } = process;
+export function annotateWithChangesFile(leftPath: string, rightPath: string, changesPath: string) {
     const left = new Document('string:left', readTextFile(leftPath));
     const right = new Document('string:right', readTextFile(rightPath));
 
@@ -177,5 +181,9 @@ export function annotateWithDiff(leftPath: string, rightPath: string) {
     return buildAnnotatedHTML(left, right, changes);
 }
 
-// const { argv } = process;
-// annotateWithDiff(argv[2], argv[3], argv[4]);
+const { argv } = process;
+// tslint:disable-next-line:no-console
+console.log(annotateWithDiff(argv[2], argv[3]));
+
+// // tslint:disable-next-line:no-console
+// console.log(annotateWithChangesFile(argv[2], argv[3], argv[4]));
