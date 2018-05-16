@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { partition } from 'lodash';
 
-import { arrayDiff } from './array-diff';
+import { charactersDiff } from './array-diff';
 import { dynamicProgrammingLCS } from './lcs';
 import { Change, ChangeLevel, ChangeType, Character, Document, Location, Position } from './model';
 
@@ -164,11 +164,8 @@ export function annotateWithDiff(leftPath: string, rightPath: string) {
     const left = new Document('string:left', readTextFile(leftPath));
     const right = new Document('string:right', readTextFile(rightPath));
 
-    const changes = arrayDiff(
+    const changes = charactersDiff(
         dynamicProgrammingLCS,
-        ChangeLevel.Textual,
-        Character.equal,
-        d => d.characters,
         left,
         right,
     );
