@@ -6,14 +6,15 @@ An extensible, programming language aware, high signal-to-noise ratio diff tool.
 
 Have you ever...
 
- * refactored and styled code, tried to review the changes and had hard times understanding what *really* changed?
- * gave up understanding diff output and decided to just read the entire code
- * redid your changes atop another version to feel safe while merging branches, or even worse...
- * avoided branching and concurrent work on the same code fearing merge conflicts
- * tried "smart" diff tools that...
-   * didn't support the language you were using;
-   * were closed source, so you couldn't implement support for it either;
-   * were halfway done or hard to use? (like most academic tools)
+* refactored and styled code, tried to review the changes and had hard times understanding what *really* changed?
+* gave up understanding diff output and decided to just read the entire code
+* redid your changes atop another version to feel safe while merging branches, or even worse...
+* avoided branching and concurrent work on the same code fearing merge conflicts
+* tried "smart" diff tools that...
+  * charged you for an expensive subscription or license
+  * didn't support the language you were using;
+  * were closed source, so you couldn't implement support for it either;
+  * were halfway done or hard to use? (like most academic tools)
 
 If so, diffless was made specially for you.
 
