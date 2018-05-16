@@ -1,4 +1,8 @@
 /**
+ * Longest Common Subsequence model and implementation
+ */
+
+/**
  * Function type that finds the LCS between two arrays
  */
 export interface LCS {
@@ -23,18 +27,9 @@ export class LCSResult<TItem> {
     ) { }
 }
 
-function getInitialTable(rows: number, columns: number): number[][] {
-    const table = new Array(rows);
-    for (let i = 0; i < rows; i++) {
-        const row = new Array(columns);
-        row.fill(0);
-        table[i] = row;
-    }
-    return table;
-}
-
 /**
  * Solves LCS by using dynamic programming in O(left.length * right.length) time and space
+ *
  * Based on: https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#JavaScript
  * @param left left sequence
  * @param right right sequence
@@ -85,4 +80,14 @@ export function dynamicProgrammingLCS<TItem>(equal: Equal<TItem>, left: TItem[],
     }
 
     return new LCSResult(lcs, csLeftOffset, csRightOffset);
+}
+
+function getInitialTable(rows: number, columns: number): number[][] {
+    const table = new Array(rows);
+    for (let i = 0; i < rows; i++) {
+        const row = new Array(columns);
+        row.fill(0);
+        table[i] = row;
+    }
+    return table;
 }
