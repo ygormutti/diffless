@@ -4,6 +4,7 @@ import { partition } from 'lodash';
 import { charactersDiff } from './array-diff';
 import { dynamicProgrammingLCS } from './lcs';
 import { Change, ChangeLevel, ChangeType, Character, Document, Location, Position } from './model';
+import { stripMargin } from './util';
 
 class ChangeIndex {
     private index: Array<Array<Array<Change>>>;
@@ -96,39 +97,40 @@ export function buildAnnotatedHTML(
     const leftPreCode = buildAnnotatedDocumentHTML(leftDocument, leftChangeIndex);
     const rightPreCode = buildAnnotatedDocumentHTML(rightDocument, rightChangeIndex);
 
-    return `<html>
-<body>
-<style>
-    body {
-        background-color: black;
-        color: white;
-    }
-
-    .Add {
-        background-color: rgba(0,255,0,0.3);
-    }
-
-    .Delete {
-        background-color: rgba(255,0,0,0.3);
-    }
-
-    .Move {
-        background-color: rgba(0,0,255,0.3);
-    }
-
-    .${ChangeLevel[threshold]} {
-        background-color: rgba(0,0,0,-0.3);
-    }
-
-    .string_left {
-        width: 50%;
-        float: left;
-    }
-</style>
-${leftPreCode}
-${rightPreCode}
-</body>
-</html>`;
+    return stripMargin
+    `<html>
+    |<body>
+    |<style>
+    |    body {
+    |        background-color: black;
+    |        color: white;
+    |    }
+    |
+    |    .Add {
+    |        background-color: rgba(0,255,0,0.3);
+    |    }
+    |
+    |    .Delete {
+    |        background-color: rgba(255,0,0,0.3);
+    |    }
+    |
+    |    .Move {
+    |        background-color: rgba(0,0,255,0.3);
+    |    }
+    |
+    |    .${ChangeLevel[threshold]} {
+    |        background-color: rgba(0,0,0,-0.3);
+    |    }
+    |
+    |    .string_left {
+    |        width: 50%;
+    |        float: left;
+    |    }
+    |</style>
+    |${leftPreCode}
+    |${rightPreCode}
+    |</body>
+    |</html>`;
 }
 
 export function annotateWithChangesFile(leftPath: string, rightPath: string, changesPath: string) {
