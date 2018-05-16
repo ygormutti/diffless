@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array-diff charactersDiff should detect additions and deletions correctly 1`] = `
+Array [
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [2:2; 3:1),
+      "uri": "string:right",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [3:3; 3:4),
+      "uri": "string:right",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": Location {
+      "range": [1:1; 1:2),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [2:2; 3:2),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+]
+`;
+
+exports[`array-diff charactersDiff should detect moves correctly 1 1`] = `
+Array [
+  Object {
+    "left": Location {
+      "range": [1:1; 2:1),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": Location {
+      "range": [2:1; 3:1),
+      "uri": "string:right",
+    },
+    "type": "Move",
+  },
+]
+`;
+
+exports[`array-diff charactersDiff should detect moves correctly 2 1`] = `
+Array [
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [3:1; 3:2),
+      "uri": "string:right",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": Location {
+      "range": [1:1; 2:1),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": Location {
+      "range": [2:2; 3:1),
+      "uri": "string:right",
+    },
+    "type": "Move",
+  },
+  Object {
+    "left": Location {
+      "range": [3:2; 4:1),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": Location {
+      "range": [3:2; 4:1),
+      "uri": "string:right",
+    },
+    "type": "Move",
+  },
+]
+`;
+
+exports[`array-diff charactersDiff should detect moves correctly 3 1`] = `
+Array [
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [1:4; 2:1),
+      "uri": "string:right",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": Location {
+      "range": [3:1; 3:4),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": Location {
+      "range": [2:1; 2:4),
+      "uri": "string:right",
+    },
+    "type": "Move",
+  },
+]
+`;
