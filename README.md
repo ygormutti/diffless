@@ -27,24 +27,4 @@ Even if it doesn't support the programming language of what you're comparing you
 
 ## How?
 
-diffless is all about converters. Converters are pluggable building blocks that take instances of one type and convert them to other type. For example, one could write an zip-to-directory converter so that when diffless receives a zip file and a directory as inputs it will know that it can use this converter to make both arguments of same type and will be able to compare them. The input and output types of the converter are not necessarily different. For example, one could a JSON formatter converter, that takes a JSON and outputs the same JSON pretty-printed (to ease diff visibility).
-
-It can use programming language parsers to better assess the code being compared and determine the importance of each change. Parsers are converters too! For example, a JavaScript tokenizer would convert JavaScript source code into a sequence of tokens, and a comparer converter could convert a pair of token sequences into one diff result, an abstraction provided by diffless itself, that store everything needed to display the changes in any view.
-
-Also, depending on the algorithms plugged in, it could use some nifty techniques to detect more changes than line additions/removals, like block copies between files and some refactorings.
-
-The better of all is that all those techniques are not dependent on any specific programming language so, once you integrate a new parser with diffless, you get them for free.
-
-It achieves that by converters, which can be of: comparers and converters, which can be parsers and decoders.
-
-### Comparers
-
-The comparers do the heavy-lifting in diffless, defining the model comparing any kind of data structure.
-
-Currently, the only available algorithm plugin supports sequence comparison. I dream of writing more algorithms in the future, to compare trees and graphs, and even data flows. Anyone can develop algorithms, and
-
-### Decoders
-
-A decoder is useful to compare 
-
-### Parsers
+I'm still figuring it out, haha.
