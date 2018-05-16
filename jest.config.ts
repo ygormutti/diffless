@@ -14,5 +14,7 @@ export const moduleFileExtensions = [
 ];
 
 export const snapshotSerializers = [
-    './jest-changes-serializer',
+    './jest-serializers/position',
+    './jest-serializers/range',
+    './jest-serializers/changes',
 ];
