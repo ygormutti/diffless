@@ -5,16 +5,12 @@
 /**
  * Function type that finds the LCS between two arrays
  */
-export interface LCS {
-    <TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]): LCSResult<TItem>;
-}
+export type LCS = <TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]) => LCSResult<TItem>;
 
 /**
  * Function type that checks if two objects are equal according to some criteria
  */
-export interface Equal<T> {
-    (left: T, right: T): boolean;
-}
+export type Equal<T> = (left: T, right: T) => boolean;
 
 /**
  * The Longest Common Subsequence of two arrays an its offset in both arrays
@@ -30,11 +26,17 @@ export class LCSResult<TItem> {
 /**
  * Solves LCS by using dynamic programming in O(left.length * right.length) time and space
  *
- * Based on: https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#JavaScript
+ * Based on:
+ * https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#JavaScript
+ *
  * @param left left sequence
  * @param right right sequence
  */
-export function dynamicProgrammingLCS<TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]): LCSResult<TItem> {
+export function dynamicProgrammingLCS<TItem>(
+    equal: Equal<TItem>,
+    left: TItem[],
+    right: TItem[],
+): LCSResult<TItem> {
     if (!left || !left.length || !right || !right.length) {
         return new LCSResult([], 0, 0);
     }

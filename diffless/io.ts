@@ -7,7 +7,7 @@ import { Change, ChangeLevel, ChangeType, Character, Document, Location, Positio
 import { stripMargin } from './util';
 
 class ChangeIndex {
-    private index: Array<Array<Array<Change>>>;
+    private index: Change[][][];
 
     constructor() {
         this.index = [];
@@ -37,7 +37,7 @@ class ChangeIndex {
         });
     }
 
-    get(position: Position): Array<Change> {
+    get(position: Position): Change[] {
         const { line, character } = position;
         if (!this.index[line] || !this.index[line][character]) { return []; }
         return this.index[line][character];
@@ -98,7 +98,7 @@ export function buildAnnotatedHTML(
     const rightPreCode = buildAnnotatedDocumentHTML(rightDocument, rightChangeIndex);
 
     return stripMargin
-    `<html>
+        `<html>
     |<body>
     |<style>
     |    body {
@@ -137,7 +137,7 @@ export function annotateWithChangesFile(leftPath: string, rightPath: string, cha
     const left = new Document('string:left', readTextFile(leftPath));
     const right = new Document('string:right', readTextFile(rightPath));
 
-    const jsonChanges = JSON.parse(readTextFile(changesPath)) as Array<JsonChange>;
+    const jsonChanges = JSON.parse(readTextFile(changesPath)) as JsonChange[];
     const changes = jsonChanges.map(c => toChange(c));
 
     return buildAnnotatedHTML(left, right, changes);

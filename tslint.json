@@ -4,15 +4,23 @@
         "tslint:recommended"
     ],
     "rules": {
-        "interface-name": false,
-        "callable-types": false,
+        "interface-name": [
+            true,
+            "never-prefix"
+        ],
         "max-classes-per-file": false,
         "quotemark": [
             true,
             "single"
         ],
-        "arrow-parens": false,
-        "array-type": false,
+        "arrow-parens": [
+            true,
+            "ban-single-arg-parens"
+        ],
+        "array-type": [
+            true,
+            "array"
+        ],
         "member-ordering": false,
         "member-access": [
             true,
@@ -21,6 +29,10 @@
         "curly": [
             true,
             "ignore-same-line"
+        ],
+        "max-line-length": [
+            true,
+            110
         ]
     }
 }
