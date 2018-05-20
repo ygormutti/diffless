@@ -37,6 +37,14 @@ export class Position {
         readonly character: number,
     ) { }
 
+    get lineOffset() {
+        return this.line - 1;
+    }
+
+    get characterOffset() {
+        return this.character - 1;
+    }
+
     equals(other: Position) {
         return this.line === other.line && this.character === other.character;
     }
@@ -93,9 +101,38 @@ export class Document {
         this.characters = buildCharacters(this.lines);
     }
 
-    getCharacterAt(position: Position): string {
-        const line = this.lines[position.line - 1];
-        return position.character > line.length ? EOL : line[position.character - 1];
+    getPosition(position: Position): string {
+        const line = this.lines[position.lineOffset];
+        return position.character > line.length ? EOL : line[position.characterOffset];
+    }
+
+    getRange(range: Range): string {
+        const { start, end } = range;
+        const lines = this.lines.filter((_, i) => start.lineOffset <= i && i <= end.lineOffset);
+
+        if (lines.length === 1) {
+            return lines[0].substring(start.characterOffset, end.characterOffset);
+        }
+
+        let rangeString = '';
+        for (let lineOffset = 0; lineOffset < lines.length; lineOffset++) {
+            const line = lines[lineOffset];
+            let startOffset = 0;
+            let endOffset = line.length + 1;
+            if (lineOffset === 0) {
+                // first line
+                startOffset = start.characterOffset;
+            } else if (lineOffset === lines.length - 1) {
+                // last line
+                endOffset = end.characterOffset;
+            }
+
+            rangeString += line.substring(startOffset, endOffset);
+            if (endOffset > line.length) {
+                rangeString += EOL;
+            }
+        }
+        return rangeString;
     }
 }
 
