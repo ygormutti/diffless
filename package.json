@@ -6,7 +6,8 @@
   "author": "Ygor Mutti <ygormutti@gmail.com>",
   "license": "LGPL-3.0",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint --project ."
   },
   "dependencies": {
     "json-tokenize": "^0.3.0",
