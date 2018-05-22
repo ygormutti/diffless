@@ -21,10 +21,6 @@ exports[`annotateWithChangesFile should match snapshot 1`] = `
         background-color: rgba(0,0,255,0.3);
     }
 
-    .Binary {
-        background-color: rgba(0,0,0,-0.3);
-    }
-
     .string_left {
         width: 50%;
         float: left;
@@ -85,10 +81,6 @@ exports[`annotateWithDiff should work with diff 1`] = `
 
     .Move {
         background-color: rgba(0,0,255,0.3);
-    }
-
-    .Binary {
-        background-color: rgba(0,0,0,-0.3);
     }
 
     .string_left {

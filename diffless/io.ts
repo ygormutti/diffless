@@ -84,7 +84,6 @@ export function buildAnnotatedHTML(
     leftDocument: Document,
     rightDocument: Document,
     changes: Change[],
-    threshold: ChangeLevel = ChangeLevel.Binary,
 ) {
     const leftChangeIndex = new ChangeIndex();
     const rightChangeIndex = new ChangeIndex();
@@ -116,10 +115,6 @@ export function buildAnnotatedHTML(
     |
     |    .Move {
     |        background-color: rgba(0,0,255,0.3);
-    |    }
-    |
-    |    .${ChangeLevel[threshold]} {
-    |        background-color: rgba(0,0,0,-0.3);
     |    }
     |
     |    .string_left {
