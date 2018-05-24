@@ -2,7 +2,7 @@ export const transform = {
     '^.+\\.tsx?$': 'ts-jest',
 };
 
-export const testRegex = '(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$';
+export const testRegex = '/tests/(?!test-).*\\.tsx?$';
 
 export const moduleFileExtensions = [
     'ts',
