@@ -1,4 +1,4 @@
-import { annotateWithChangesFile, annotateWithDiff } from '../io';
+import { annotateWithChangesFile, annotateWithDiff } from '../cli';
 import { fixture } from './test-util';
 
 describe('annotateWithDiff', () => {
