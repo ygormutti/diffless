@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "json-tokenize": "^0.3.0",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.5",
+    "preact": "^8.2.9",
+    "preact-render-to-string": "^3.7.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
