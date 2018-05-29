@@ -1,4 +1,4 @@
-import { annotateWithChangesFile } from '../io';
+import { annotateWithChangesFile } from '../cli';
 
 const { argv } = process;
 

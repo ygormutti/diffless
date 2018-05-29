@@ -1,4 +1,4 @@
-import { annotateWithDiff } from '../io';
+import { annotateWithDiff } from '../cli';
 
 const { argv } = process;
 
