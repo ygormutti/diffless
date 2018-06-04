@@ -10,6 +10,7 @@
     "lint": "tslint --project ."
   },
   "dependencies": {
+    "decko": "^1.2.0",
     "json-tokenize": "^0.3.0",
     "lodash": "^4.17.5",
     "preact": "^8.2.9",
