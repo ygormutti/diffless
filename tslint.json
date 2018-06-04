@@ -11,7 +11,8 @@
         "max-classes-per-file": false,
         "quotemark": [
             true,
-            "single"
+            "single",
+            "jsx-double"
         ],
         "arrow-parens": [
             true,
