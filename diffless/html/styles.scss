@@ -52,10 +52,10 @@ body {
 }
 
 .LineView {
+    font-family: "monospace";
     font-size: 12px;
     
     &-number {
-        font-family: "monospace";
         color: #5a5a5a;
         text-align: right;
         
