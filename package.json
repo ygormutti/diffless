@@ -10,6 +10,7 @@
     "lint": "tslint --project ."
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "decko": "^1.2.0",
     "json-tokenize": "^0.3.0",
     "lodash": "^4.17.5",
@@ -17,6 +18,7 @@
     "preact-render-to-string": "^3.7.0"
   },
   "devDependencies": {
+    "@types/classnames": "2.2.4",
     "@types/jest": "22.2.3",
     "@types/lodash": "4.14.107",
     "@types/node": "9.6.5",
