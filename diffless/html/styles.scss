@@ -1,0 +1,75 @@
+$spacer: 4px;
+
+body {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: "monospace";
+    font-size: 14px;
+}
+
+.Add {
+    background-color: rgba(0,255,0,0.3);
+}
+
+.Delete {
+    background-color: rgba(255,0,0,0.3);
+}
+
+.Move {
+    background-color: rgba(0,0,255,0.3);
+}
+
+.EnumMultiSelect {
+    span {
+        text-transform: uppercase;
+    }
+    
+    label {
+        padding-left: 2 * $spacer;
+    }
+}
+
+.FileDiff {
+    &-controls {
+        margin: 8px;
+    }
+}
+
+.SideBySideFileDiff {
+    &-left {
+        width: 50%;
+        float: left;
+    }
+}
+
+.DocumentView {
+    padding: 8px;
+    
+    &-header {
+        color: white;
+        margin-bottom: $spacer;
+    }
+}
+
+.LineView {
+    font-size: 12px;
+    
+    &-number {
+        font-family: "monospace";
+        color: #5a5a5a;
+        text-align: right;
+        
+        &:after {
+            content: attr(data-number);
+        }
+    }
+    
+    
+    &-content {
+        padding-left: 16px;
+        
+        > pre {
+            margin-bottom: 0;
+        }
+    }
+}

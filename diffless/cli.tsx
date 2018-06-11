@@ -1,8 +1,13 @@
 import { readFileSync } from 'fs';
+import { join } from 'path';
+import { h } from 'preact';
+import { render } from 'preact-render-to-string';
+
 import { charactersDiff } from './array-diff';
-import { buildAnnotatedHTML } from './html';
+import FileDiff from './html/components/file-diff';
 import { dynamicProgrammingLCS } from './lcs';
 import { Change, ChangeLevel, ChangeType, Document, Location } from './model';
+import { stripMargin } from './util';
 
 export function annotateWithDiff(leftPath: string, rightPath: string) {
     const left = new Document('string:left', readTextFile(leftPath));
@@ -19,6 +24,32 @@ export function annotateWithDiff(leftPath: string, rightPath: string) {
 
 function readTextFile(path: string, encoding: string = 'utf8') {
     return readFileSync(path, { encoding });
+}
+
+export function buildAnnotatedHTML(
+    left: Document,
+    right: Document,
+    changes: Change[],
+) {
+    const diffHtml = render(<FileDiff left={left} right={right} changes={changes} />);
+    const props = { changes, left, right };
+
+    return stripMargin
+        `<html>
+        |<head>
+        |    <meta charset="utf-8" />
+        |    <link rel="stylesheet" href="index.css" />
+        |</head>
+        |<body>
+        |
+        |<div id="diff">
+        |${diffHtml}
+        |</div>
+        |
+        |<script>window.props = ${JSON.stringify(props).replace(/<|>/g, '')};</script>
+        |<script src="index.js"></script>
+        |</body>
+        |</html>`;
 }
 
 export function annotateWithChangesFile(leftPath: string, rightPath: string, changesPath: string) {
