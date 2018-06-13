@@ -1,4 +1,4 @@
-import { Range } from '../diffless/model';
+import { Range } from '../../diffless/model';
 
 export function test(val: any): val is Range {
     return val && val instanceof Range;

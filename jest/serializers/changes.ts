@@ -1,5 +1,5 @@
-import { Change, ChangeLevel, ChangeType } from '../diffless/model';
-import { sortChanges } from '../diffless/util';
+import { Change, ChangeLevel, ChangeType } from '../../diffless/model';
+import { sortChanges } from '../../diffless/util';
 
 export function test(val: any): val is Change[] {
     return val && val.length && val[0] instanceof Change;
