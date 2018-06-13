@@ -36,7 +36,8 @@ export default class ChangeView extends Component<Props> {
     onMouseOut() { this.toggleChangeHighlight(false); }
 
     toggleChangeHighlight(mouseIsOver: boolean) {
-        const { change, toggleChangeHighlight } = this.props;
+        const { change, enabled, toggleChangeHighlight } = this.props;
+        if (!enabled) return;
         toggleChangeHighlight(change, mouseIsOver);
     }
 }
