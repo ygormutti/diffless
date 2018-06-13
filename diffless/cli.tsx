@@ -10,8 +10,8 @@ import { Change, ChangeLevel, ChangeType, Document, Location } from './model';
 import { stripMargin } from './util';
 
 export function annotateWithDiff(leftPath: string, rightPath: string) {
-    const left = new Document('string:left', readTextFile(leftPath));
-    const right = new Document('string:right', readTextFile(rightPath));
+    const left = new Document('file://' + leftPath, readTextFile(leftPath));
+    const right = new Document('file://' + rightPath, readTextFile(rightPath));
 
     const changes = charactersDiff(
         dynamicProgrammingLCS,
