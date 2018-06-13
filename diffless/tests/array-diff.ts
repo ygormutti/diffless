@@ -2,6 +2,8 @@ import { charactersDiff } from '../array-diff';
 import { dynamicProgrammingLCS } from '../lcs';
 import { ChangeLevel, Character, Document } from '../model';
 import { stripMargin } from '../util';
+import { announceHtml } from './test-util';
+
 
 describe('array-diff', () => {
     describe('charactersDiff', () => {
@@ -21,6 +23,7 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
+            announceHtml(left, right, changes);
         });
 
         it('should detect moves correctly 1', () => {
@@ -35,6 +38,7 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
+            announceHtml(left, right, changes);
         });
 
         it('should detect moves correctly 2', () => {
@@ -51,6 +55,8 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
+            announceHtml(left, right, changes);
+
         });
 
         it('should detect moves correctly 3', () => {
@@ -67,6 +73,8 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
+            announceHtml(left, right, changes);
+
         });
     });
 });

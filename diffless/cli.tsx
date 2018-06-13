@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { h } from 'preact';
 import { render } from 'preact-render-to-string';
@@ -77,4 +77,17 @@ function toChange(objFromJson: JsonChange): Change {
         level: ChangeLevel[objFromJson.level],
         type: ChangeType[objFromJson.type],
     };
+}
+
+export function saveAnnotatedHtml(
+    left: Document,
+    right: Document,
+    changes: Change[],
+    outputPath: string,
+) {
+    writeTextFile(outputPath, buildAnnotatedHTML(left, right, changes));
+}
+
+function writeTextFile(path: string, content: string, encoding: string = 'utf8') {
+    return writeFileSync(path, content, { encoding });
 }
