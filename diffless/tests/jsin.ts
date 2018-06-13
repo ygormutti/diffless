@@ -17,8 +17,6 @@ class Mock {
     }
 }
 
-JSIN.map(Mock);
-
 describe('JSIN', () => {
     it(' enabled should decorate constructor with key', () => {
         const ctor = Mock as any;

@@ -26,10 +26,6 @@ export class BaseJSIN {
         this.mapping[key] = constructor;
     }
 
-    map(constructor: Constructor) {
-        this.mapping[(constructor as any)[this.metaKey]] = constructor;
-    }
-
     stringify(obj: any, replacer?: Transformer, space?: string | number): string {
         return JSON.stringify(obj, (key, value) => {
             if (replacer) value = replacer(key, value);
