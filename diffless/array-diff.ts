@@ -14,9 +14,7 @@ import {
     Ranged,
 } from './model';
 
-export interface ItemMapper<TItem extends Ranged> {
-    (document: Document): TItem[];
-}
+export type ItemMapper<TItem extends Ranged> = (document: Document) => TItem[];
 
 class ItemWrapper<TItem extends Ranged> {
     constructor(
