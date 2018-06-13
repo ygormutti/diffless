@@ -4,7 +4,6 @@ import { ChangeLevel, Character, Document } from '../model';
 import { stripMargin } from '../util';
 import { announceHtml } from './test-util';
 
-
 describe('array-diff', () => {
     describe('charactersDiff', () => {
         const diff = charactersDiff(dynamicProgrammingLCS);
