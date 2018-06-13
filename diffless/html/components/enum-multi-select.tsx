@@ -10,8 +10,8 @@ export interface Props {
 }
 
 export default class EnumMultiSelect extends Component<Props> {
-    constructor() {
-        super();
+    constructor(props: Props) {
+        super(props);
     }
 
     @bind

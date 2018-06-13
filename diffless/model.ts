@@ -1,3 +1,5 @@
+import { JSIN } from './jsin';
+
 /**
  * Model classes and interfaces.
  *
@@ -19,6 +21,7 @@ export const EOL = '\n';
  *
  * A position is between two characters like an ‘insert’ cursor in a editor.
  */
+@JSIN.enabled
 export class Position {
     constructor(
         /**
@@ -61,6 +64,7 @@ export class Position {
  * If you want to specify a range that contains a line including the line ending character(s)
  * then use an end position denoting the start of the next line.
  */
+@JSIN.enabled
 export class Range {
     constructor(
         /**
@@ -89,6 +93,7 @@ export interface Ranged {
 /**
  * A text document
  */
+@JSIN.enabled
 export class Document {
     readonly lines: string[];
     readonly characters: Character[];
@@ -174,11 +179,16 @@ export class Character implements Ranged {
     }
 }
 
+@JSIN.enabled
 export class Location {
     constructor(
         readonly uri: DocumentUri,
         readonly range: Range,
     ) { }
+
+    toString() {
+        return `${this.range.toString()} @ ${this.uri}`;
+    }
 }
 
 export enum ChangeType {
@@ -197,6 +207,7 @@ export enum ChangeLevel {
     Semantic,
 }
 
+@JSIN.enabled
 export class Change {
     constructor(
         readonly level: ChangeLevel,
@@ -204,12 +215,19 @@ export class Change {
         readonly left?: Location,
         readonly right?: Location,
     ) { }
+
+    toString() {
+        return `${ChangeLevel[this.level]} ${ChangeType[this.type].toLowerCase()}. ` +
+            `Left: ${this.left ? this.left.toString() : ''}. ` +
+            `Right: ${this.right ? this.right.toString() : ''}`;
+    }
 }
 
 export class Diff {
     constructor(
         readonly left: Document,
         readonly right: Document,
-        readonly changes: Set<Change>,
+        readonly changes: Change,
+        readonly pairedLines: [number, number][],
     ) { }
 }

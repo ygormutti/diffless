@@ -7,16 +7,22 @@ body {
     font-size: 14px;
 }
 
-.Add {
+.ChangeView--enabled.Add {
     background-color: rgba(0,255,0,0.3);
 }
 
-.Delete {
+.ChangeView--enabled.Delete {
     background-color: rgba(255,0,0,0.3);
 }
 
-.Move {
+.ChangeView--enabled.Move {
     background-color: rgba(0,0,255,0.3);
+}
+
+.ChangeView--highlighted {
+    border: 1px solid white;
+    margin: -1px;    
+    box-sizing: border-box;
 }
 
 .EnumMultiSelect {

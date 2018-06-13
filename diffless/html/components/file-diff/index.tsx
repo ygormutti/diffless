@@ -1,5 +1,6 @@
-import { bind } from 'decko';
+import { bind, debounce } from 'decko';
 import { Component, h } from 'preact';
+
 import { Change, ChangeLevel, ChangeType, Document } from '../../../model';
 import { intEnumKeys } from '../../../util';
 
@@ -19,27 +20,13 @@ export interface State {
 }
 
 export default class FileDiff extends Component<Props, State> {
-    constructor() {
-        super();
+    constructor(props: Props) {
+        super(props);
 
         this.state = {
             enabledChangeLevels: Array(intEnumKeys(ChangeLevel).length).fill(true),
             enabledChangeTypes: Array(intEnumKeys(ChangeType).length).fill(true),
         };
-    }
-
-    @bind
-    toggleLevel(changeLevel: ChangeLevel) {
-        const { enabledChangeLevels } = this.state;
-        enabledChangeLevels[changeLevel] = !enabledChangeLevels[changeLevel];
-        this.setState({ enabledChangeLevels });
-    }
-
-    @bind
-    toggleType(changeType: ChangeType) {
-        const { enabledChangeTypes } = this.state;
-        enabledChangeTypes[changeType] = !enabledChangeTypes[changeType];
-        this.setState({ enabledChangeTypes });
     }
 
     render() {
@@ -70,8 +57,33 @@ export default class FileDiff extends Component<Props, State> {
                     enabledChangeLevels={enabledChangeLevels}
                     enabledChangeTypes={enabledChangeTypes}
                     highlightedChange={highlightedChange}
+                    setHighlightedChange={this.setHighlightedChange}
                 />
+
+                <div>
+                    {highlightedChange ? highlightedChange.toString() : ''}
+                </div>
             </div>
         );
+    }
+
+    @bind
+    toggleLevel(changeLevel: ChangeLevel) {
+        const { enabledChangeLevels } = this.state;
+        enabledChangeLevels[changeLevel] = !enabledChangeLevels[changeLevel];
+        this.setState({ enabledChangeLevels });
+    }
+
+    @bind
+    toggleType(changeType: ChangeType) {
+        const { enabledChangeTypes } = this.state;
+        enabledChangeTypes[changeType] = !enabledChangeTypes[changeType];
+        this.setState({ enabledChangeTypes });
+    }
+
+    @bind
+    @debounce
+    setHighlightedChange(change?: Change) {
+        this.setState({ highlightedChange: change });
     }
 }

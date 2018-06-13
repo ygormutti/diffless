@@ -5,6 +5,7 @@ import { render } from 'preact-render-to-string';
 
 import { charactersDiff } from './array-diff';
 import FileDiff from './html/components/file-diff';
+import { JSIN } from './jsin';
 import { dynamicProgrammingLCS } from './lcs';
 import { Change, ChangeLevel, ChangeType, Document, Location } from './model';
 import { stripMargin } from './util';
@@ -47,7 +48,7 @@ export function buildAnnotatedHTML(
         |${diffHtml}
         |</div>
         |
-        |<script>window.props = ${JSON.stringify(props).replace(/<|>/g, '')};</script>
+        |<script>window.props = ${JSIN.stringify(JSIN.stringify(props))};</script>
         |<script src="index.js"></script>
         |</body>
         |</html>`;
@@ -57,7 +58,7 @@ export function annotateWithChangesFile(leftPath: string, rightPath: string, cha
     const left = new Document('string:left', readTextFile(leftPath));
     const right = new Document('string:right', readTextFile(rightPath));
 
-    const jsonChanges = JSON.parse(readTextFile(changesPath)) as JsonChange[];
+    const jsonChanges = JSIN.parse(readTextFile(changesPath)) as JsonChange[];
     const changes = jsonChanges.map(c => toChange(c));
 
     return buildAnnotatedHTML(left, right, changes);

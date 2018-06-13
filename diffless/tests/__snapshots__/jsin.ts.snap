@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JSIN stringify should add metadata to instances of serializable constructors 1`] = `
+"{
+    \\"data\\": {
+        \\"arr\\": [
+            {
+                \\"data\\": {
+                    \\"obj\\": null
+                },
+                \\"__JSIN__\\": \\"Mock_0\\"
+            },
+            true
+        ],
+        \\"obj\\": {
+            \\"data\\": {
+                \\"str\\": \\"myString\\",
+                \\"bool\\": true
+            },
+            \\"__JSIN__\\": \\"Mock_0\\"
+        }
+    },
+    \\"__JSIN__\\": \\"Mock_0\\"
+}"
+`;
