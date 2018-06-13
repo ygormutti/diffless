@@ -8,8 +8,8 @@ export function fixture(path: string) {
 }
 
 let seed = 0;
-export function announceHtml(left: Document, right: Document, changes: Change[]) {
-    const outputPath = `dist/tmp_${seed++}.html`;
+export function announceHtml(left: Document, right: Document, changes: Change[], name?: string) {
+    const outputPath = `dist/tmp_${name || seed++}.html`;
     saveAnnotatedHtml(left, right, changes, outputPath);
-    console.info(`HTML for this test: ${resolve(outputPath)}`);
+    console.info(`HTML saved at: ${resolve(outputPath)}`);
 }

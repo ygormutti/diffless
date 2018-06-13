@@ -22,7 +22,7 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes);
+            announceHtml(left, right, changes, 'basic');
         });
 
         it('should detect moves correctly 1', () => {
@@ -37,7 +37,7 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes);
+            announceHtml(left, right, changes, 'moves1');
         });
 
         it('should detect moves correctly 2', () => {
@@ -54,7 +54,7 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes);
+            announceHtml(left, right, changes, 'moves2');
 
         });
 
@@ -72,8 +72,7 @@ describe('array-diff', () => {
 
             const changes = diff(left, right);
             expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes);
-
+            announceHtml(left, right, changes, 'moves3');
         });
     });
 });
