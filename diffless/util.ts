@@ -38,6 +38,27 @@ export class ChangeIndex {
     }
 }
 
+export function buildChangeIndexes(changes: Change[]): [ChangeIndex, ChangeIndex] {
+    const leftChangeIndex = new ChangeIndex();
+    const rightChangeIndex = new ChangeIndex();
+    changes.forEach(change => {
+        const { left, right } = change;
+        if (left) { leftChangeIndex.add(left, change); }
+        if (right) { rightChangeIndex.add(right, change); }
+    });
+    return [leftChangeIndex, rightChangeIndex];
+}
+
+export function sortChanges(changes: Change[]): void {
+    changes.sort((a: Change, b: Change) => {
+        let value = a.level - b.level;
+        if (!value) {
+            value = a.type - b.type;
+        }
+        return value;
+    });
+}
+
 export function intEnumKeys(E: any): string[] {
     return Object.keys(E).filter(k => typeof E[k as any] === 'number');
 }
