@@ -1,4 +1,4 @@
-import * as classnames from 'classnames';
+import classNames = require('classnames');
 import { bind } from 'decko';
 import { Component, h } from 'preact';
 
@@ -17,7 +17,7 @@ export default class ChangeView extends Component<Props> {
         const { change, children, highlighted, enabled } = this.props;
         return (
             <span
-                className={(classnames as any).default('ChangeView', ChangeType[change.type], {
+                className={classNames('ChangeView', ChangeType[change.type], {
                     'ChangeView--enabled': enabled,
                     'ChangeView--highlighted': highlighted,
                 })}
