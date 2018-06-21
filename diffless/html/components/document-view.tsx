@@ -1,8 +1,6 @@
 import { h } from 'preact';
 import * as model from '../../model';
 
-import LineView from './line-view';
-
 export interface Props {
     document: model.Document;
     children?: any;

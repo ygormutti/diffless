@@ -1,4 +1,3 @@
-import { ChangeLevel } from '../model';
 import { intEnumKeys } from '../util';
 
 enum IntEnum {

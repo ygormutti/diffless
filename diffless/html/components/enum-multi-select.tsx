@@ -22,7 +22,7 @@ export default class EnumMultiSelect extends Component<Props> {
     }
 
     render() {
-        const { label, Enum, enabledValues, onToggle } = this.props;
+        const { label, Enum, enabledValues } = this.props;
         return (
             <div className="EnumMultiSelect">
                 <span>{label}:</span>

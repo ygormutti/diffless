@@ -1,6 +1,5 @@
 import { charactersDiff } from '../index';
-import { dynamicProgrammingLCS } from '../lcs';
-import { ChangeLevel, Character, Document } from '../model';
+import { Document } from '../model';
 import { stripMargin } from '../util';
 import { announceHtml } from './test-util';
 

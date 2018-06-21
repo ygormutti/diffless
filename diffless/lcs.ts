@@ -46,7 +46,6 @@ export function dynamicProgrammingLCS<TItem>(
     let lcs: TItem[] = [];
     let lcsLength = 0;
     let lcsLeftOffset = 0;
-    let lcsRightOffset = 0;
     let csLeftOffset = 0;
     let csRightOffset = 0;
 
@@ -73,7 +72,6 @@ export function dynamicProgrammingLCS<TItem>(
                     } else {
                         // new LCS
                         lcsLeftOffset = csLeftOffset;
-                        lcsRightOffset = csRightOffset;
                         lcs = left.slice(lcsLeftOffset, lcsLeftOffset + lcsLength);
                     }
                 }
