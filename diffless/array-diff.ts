@@ -1,18 +1,22 @@
-import { curry } from 'lodash';
-
 import { Equal, LCS, LCSResult } from './lcs';
 import {
     Change,
     ChangeLevel,
     ChangeType,
-    Character,
     Document,
-    DocumentUri,
     Location,
     Position,
     Range,
     Ranged,
 } from './model';
+
+export interface ArrayDiffOptions<TItem extends Ranged> {
+    level: ChangeLevel;
+    equal: Equal<TItem>;
+    itemMapper: ItemMapper<TItem>;
+    lcsThreshold: number;
+    lcs: LCS;
+}
 
 export type ItemMapper<TItem extends Ranged> = (document: Document) => TItem[];
 
@@ -24,14 +28,11 @@ class ItemWrapper<TItem extends Ranged> {
 }
 
 export function arrayDiff<TItem extends Ranged>(
-    level: ChangeLevel,
-    equal: Equal<TItem>,
-    itemMapper: ItemMapper<TItem>,
-    lcsThreshold: number,
-    lcs: LCS,
+    options: ArrayDiffOptions<TItem>,
     left: Document,
     right: Document,
 ): Change[] {
+    const { level, equal, itemMapper, lcsThreshold, lcs } = options;
     const leftWrapped = itemMapper(left).map(wrapItem);
     const rightWrapped = itemMapper(right).map(wrapItem);
     const equalWrapped = wrapEqual(equal);
@@ -159,10 +160,3 @@ function buildMoveRange(items: ItemWrapper<Ranged>[], offset: number, length: nu
     const end = items[offset + length - 1].item.range.end;
     return new Range(start, end);
 }
-
-export const charactersDiff = curry(arrayDiff)(
-    ChangeLevel.Textual,
-    Character.equal,
-    (d: Document) => d.characters,
-    1,
-);

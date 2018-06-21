@@ -1,4 +1,4 @@
-import { charactersDiff } from '../array-diff';
+import { charactersDiff } from '../index';
 import { dynamicProgrammingLCS } from '../lcs';
 import { ChangeLevel, Character, Document } from '../model';
 import { stripMargin } from '../util';
@@ -6,7 +6,7 @@ import { announceHtml } from './test-util';
 
 describe('array-diff', () => {
     describe('charactersDiff', () => {
-        const diff = charactersDiff(dynamicProgrammingLCS);
+        const diff = charactersDiff;
 
         it('should detect additions and deletions correctly', () => {
             const left = new Document('string:left', stripMargin
