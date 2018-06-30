@@ -19,9 +19,9 @@ describe('array-diff', () => {
                 |fgh`,
             );
 
-            const changes = diff(left, right);
-            expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes, 'basic');
+            const edits = diff(left, right);
+            expect(edits.edits).toMatchSnapshot();
+            announceHtml(left, right, edits.edits, 'basic');
         });
 
         it('should detect moves correctly 1', () => {
@@ -34,9 +34,9 @@ describe('array-diff', () => {
                 |abc`,
             );
 
-            const changes = diff(left, right);
-            expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes, 'moves1');
+            const edits = diff(left, right);
+            expect(edits.edits).toMatchSnapshot();
+            announceHtml(left, right, edits.edits, 'moves1');
         });
 
         it('should detect moves correctly 2', () => {
@@ -51,9 +51,9 @@ describe('array-diff', () => {
                 |ghi`,
             );
 
-            const changes = diff(left, right);
-            expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes, 'moves2');
+            const edits = diff(left, right);
+            expect(edits.edits).toMatchSnapshot();
+            announceHtml(left, right, edits.edits, 'moves2');
 
         });
 
@@ -69,9 +69,9 @@ describe('array-diff', () => {
                 |def`,
             );
 
-            const changes = diff(left, right);
-            expect(changes).toMatchSnapshot();
-            announceHtml(left, right, changes, 'moves3');
+            const edits = diff(left, right);
+            expect(edits.edits).toMatchSnapshot();
+            announceHtml(left, right, edits.edits, 'moves3');
         });
     });
 });

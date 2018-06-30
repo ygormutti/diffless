@@ -5,19 +5,19 @@ import { render } from 'preact-render-to-string';
 import { charactersDiff } from '.';
 import FileDiff from './html/components/file-diff';
 import { JSIN } from './jsin';
-import { Change, ChangeLevel, ChangeType, Document, Location } from './model';
+import { DiffLevel, Document, Edit, EditType, Location } from './model';
 import { stripMargin } from './util';
 
 export function annotateWithDiff(leftPath: string, rightPath: string) {
     const left = new Document('file://' + leftPath, readTextFile(leftPath));
     const right = new Document('file://' + rightPath, readTextFile(rightPath));
 
-    const changes = charactersDiff(
+    const documentDiff = charactersDiff(
         left,
         right,
     );
 
-    return buildAnnotatedHTML(left, right, changes);
+    return buildAnnotatedHTML(left, right, documentDiff.edits);
 }
 
 function readTextFile(path: string, encoding: string = 'utf8') {
@@ -27,10 +27,10 @@ function readTextFile(path: string, encoding: string = 'utf8') {
 export function buildAnnotatedHTML(
     left: Document,
     right: Document,
-    changes: Change[],
+    edits: Edit[],
 ) {
-    const diffHtml = render(<FileDiff left={left} right={right} changes={changes} />);
-    const props = { changes, left, right };
+    const diffHtml = render(<FileDiff left={left} right={right} edits={edits} />);
+    const props = { edits, left, right };
 
     return stripMargin
         `<html>
@@ -51,38 +51,38 @@ export function buildAnnotatedHTML(
         |</html>`;
 }
 
-export function annotateWithChangesFile(leftPath: string, rightPath: string, changesPath: string) {
+export function annotateWithEditsFile(leftPath: string, rightPath: string, editsPath: string) {
     const left = new Document('string:left', readTextFile(leftPath));
     const right = new Document('string:right', readTextFile(rightPath));
 
-    const jsonChanges = JSIN.parse(readTextFile(changesPath)) as JsonChange[];
-    const changes = jsonChanges.map(c => toChange(c));
+    const jsonEdits = JSIN.parse(readTextFile(editsPath)) as JsonEdit[];
+    const edits = jsonEdits.map(c => toEdit(c));
 
-    return buildAnnotatedHTML(left, right, changes);
+    return buildAnnotatedHTML(left, right, edits);
 }
 
-interface JsonChange {
+interface JsonEdit {
     right?: Location;
     left?: Location;
-    level: keyof typeof ChangeLevel;
-    type: keyof typeof ChangeType;
+    level: keyof typeof DiffLevel;
+    type: keyof typeof EditType;
 }
 
-function toChange(objFromJson: JsonChange): Change {
+function toEdit(objFromJson: JsonEdit): Edit {
     return {
         ...objFromJson,
-        level: ChangeLevel[objFromJson.level],
-        type: ChangeType[objFromJson.type],
+        level: DiffLevel[objFromJson.level],
+        type: EditType[objFromJson.type],
     };
 }
 
 export function saveAnnotatedHtml(
     left: Document,
     right: Document,
-    changes: Change[],
+    edits: Edit[],
     outputPath: string,
 ) {
-    writeTextFile(outputPath, buildAnnotatedHTML(left, right, changes));
+    writeTextFile(outputPath, buildAnnotatedHTML(left, right, edits));
 }
 
 function writeTextFile(path: string, content: string, encoding: string = 'utf8') {

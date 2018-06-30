@@ -7,21 +7,21 @@ body {
     font-size: 14px;
 }
 
-.ChangeView--enabled.Add {
+.EditView--enabled.Add {
     background-color: rgba(0,255,0,0.3);
 }
 
-.ChangeView--enabled.Delete {
+.EditView--enabled.Delete {
     background-color: rgba(255,0,0,0.3);
 }
 
-.ChangeView--enabled.Move {
+.EditView--enabled.Move {
     background-color: rgba(0,0,255,0.3);
 }
 
-.ChangeView--highlighted {
+.EditView--highlighted {
     border: 1px solid white;
-    margin: -1px;    
+    margin: -1px;
     box-sizing: border-box;
 }
 
@@ -29,7 +29,7 @@ body {
     span {
         text-transform: uppercase;
     }
-    
+
     label {
         padding-left: 2 * $spacer;
     }
@@ -50,7 +50,7 @@ body {
 
 .DocumentView {
     padding: 8px;
-    
+
     &-header {
         color: white;
         margin-bottom: $spacer;
@@ -60,20 +60,20 @@ body {
 .LineView {
     font-family: "monospace";
     font-size: 12px;
-    
+
     &-number {
         color: #5a5a5a;
         text-align: right;
-        
+
         &:after {
             content: attr(data-number);
         }
     }
-    
-    
+
+
     &-content {
         padding-left: 16px;
-        
+
         > pre {
             margin-bottom: 0;
         }

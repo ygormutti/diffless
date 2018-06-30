@@ -1,37 +1,38 @@
 import { Equal, LCS, LCSResult } from './lcs';
 import {
-    Change,
-    ChangeLevel,
-    ChangeType,
+    DiffLevel,
     Document,
+    DocumentDiff,
+    Edit,
+    EditType,
+    Excerpt,
     Location,
     Position,
     Range,
-    Ranged,
 } from './model';
 
-export interface ArrayDiffOptions<TItem extends Ranged> {
-    level: ChangeLevel;
+export interface ArrayDiffOptions<TItem extends Excerpt> {
+    level: DiffLevel;
     equal: Equal<TItem>;
     itemMapper: ItemMapper<TItem>;
     lcsThreshold: number;
     lcs: LCS;
 }
 
-export type ItemMapper<TItem extends Ranged> = (document: Document) => TItem[];
+export type ItemMapper<TItem extends Excerpt> = (document: Document) => TItem[];
 
-class ItemWrapper<TItem extends Ranged> {
+class ItemWrapper<TItem extends Excerpt> {
     constructor(
         readonly item: TItem,
         public paired: boolean = false,
     ) { }
 }
 
-export function arrayDiff<TItem extends Ranged>(
+export function arrayDiff<TItem extends Excerpt>(
     options: ArrayDiffOptions<TItem>,
     left: Document,
     right: Document,
-): Change[] {
+): DocumentDiff {
     const { level, equal, itemMapper, lcsThreshold, lcs } = options;
     const leftWrapped = itemMapper(left).map(wrapItem);
     const rightWrapped = itemMapper(right).map(wrapItem);
@@ -46,42 +47,42 @@ export function arrayDiff<TItem extends Ranged>(
         result = lcs(equalWrapped, leftWrapped, rightWrapped);
     }
 
-    let changes: Change[] = [];
+    let edits: Edit[] = [];
 
     const deletions = findUnpairedRanges(leftWrapped).map(
-        r => new Change(level, ChangeType.Delete, new Location(left.uri, r), undefined),
+        r => new Edit(level, EditType.Delete, new Location(left.uri, r), undefined),
     );
-    changes = changes.concat(deletions);
+    edits = edits.concat(deletions);
 
     const additions = findUnpairedRanges(rightWrapped).map(
-        r => new Change(level, ChangeType.Add, undefined, new Location(right.uri, r)),
+        r => new Edit(level, EditType.Add, undefined, new Location(right.uri, r)),
     );
-    changes = changes.concat(additions);
+    edits = edits.concat(additions);
 
     const moves = findMoves(lcsResults, leftWrapped, rightWrapped, left, right, level);
-    changes = changes.concat(moves);
+    edits = edits.concat(moves);
 
-    return changes;
+    return new DocumentDiff(left, right, edits, []);
 }
 
-function wrapItem<TItem extends Ranged>(item: TItem): ItemWrapper<TItem> {
+function wrapItem<TItem extends Excerpt>(item: TItem): ItemWrapper<TItem> {
     return new ItemWrapper(item);
 }
 
-function wrapEqual<TItem extends Ranged>(equal: Equal<TItem>): Equal<ItemWrapper<TItem>> {
+function wrapEqual<TItem extends Excerpt>(equal: Equal<TItem>): Equal<ItemWrapper<TItem>> {
     return (l: ItemWrapper<TItem>, r: ItemWrapper<TItem>): boolean => {
         return !r.paired && !l.paired && equal(l.item, r.item);
     };
 }
 
-function pairWrappers(array: ItemWrapper<Ranged>[], offset: number, length: number) {
+function pairWrappers(array: ItemWrapper<Excerpt>[], offset: number, length: number) {
     for (let i = offset; i < (offset + length); i++) {
         const item = array[i];
         item.paired = true;
     }
 }
 
-function findUnpairedRanges(array: ItemWrapper<Ranged>[]): Range[] {
+function findUnpairedRanges(array: ItemWrapper<Excerpt>[]): Range[] {
     const ranges = [];
 
     let start: Position | undefined;
@@ -111,14 +112,14 @@ function findUnpairedRanges(array: ItemWrapper<Ranged>[]): Range[] {
 }
 
 function findMoves(
-    lcsResults: LCSResult<ItemWrapper<Ranged>>[],
-    leftWrapped: ItemWrapper<Ranged>[],
-    rightWrapped: ItemWrapper<Ranged>[],
+    lcsResults: LCSResult<ItemWrapper<Excerpt>>[],
+    leftWrapped: ItemWrapper<Excerpt>[],
+    rightWrapped: ItemWrapper<Excerpt>[],
     left: Document,
     right: Document,
-    level: ChangeLevel,
-): Change[] {
-    const changes: Change[] = [];
+    level: DiffLevel,
+): Edit[] {
+    const edits: Edit[] = [];
 
     const rightSortedResults = lcsResults.slice().sort((a, b) => a.rightOffset - b.rightOffset);
     const leftSortedResults = lcsResults.slice().sort((a, b) => a.leftOffset - b.leftOffset);
@@ -141,8 +142,8 @@ function findMoves(
             const rightRange = buildMoveRange(rightWrapped, rightOffset, length);
             const rightLocation = new Location(right.uri, rightRange);
 
-            const change = new Change(level, ChangeType.Move, leftLocation, rightLocation);
-            changes.push(change);
+            const edit = new Edit(level, EditType.Move, leftLocation, rightLocation);
+            edits.push(edit);
 
             if (result === leftResult) {
                 l++;
@@ -152,10 +153,10 @@ function findMoves(
         }
     }
 
-    return changes;
+    return edits;
 }
 
-function buildMoveRange(items: ItemWrapper<Ranged>[], offset: number, length: number): Range {
+function buildMoveRange(items: ItemWrapper<Excerpt>[], offset: number, length: number): Range {
     const start = items[offset].item.range.start;
     const end = items[offset + length - 1].item.range.end;
     return new Range(start, end);

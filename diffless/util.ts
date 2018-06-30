@@ -1,19 +1,19 @@
-import { Change, Location, Position } from './model';
+import { Edit, Location, Position } from './model';
 
-export class ChangeIndex {
-    private index: Change[][][];
+export class EditIndex {
+    private index: Edit[][][];
 
     constructor() {
         this.index = [];
     }
 
-    add(location: Location, change: Change) {
+    add(location: Location, change: Edit) {
         const { start, end } = location.range;
         this.addToPosition(start, change);
         this.addToPosition(end, change);
     }
 
-    private addToPosition(position: Position, change: Change) {
+    private addToPosition(position: Position, change: Edit) {
         const { line, character } = position;
         if (!this.index[line]) { this.index[line] = []; }
 
@@ -31,16 +31,16 @@ export class ChangeIndex {
         });
     }
 
-    get(position: Position): Change[] {
+    get(position: Position): Edit[] {
         const { line, character } = position;
         if (!this.index[line] || !this.index[line][character]) { return []; }
         return this.index[line][character];
     }
 }
 
-export function buildChangeIndexes(changes: Change[]): [ChangeIndex, ChangeIndex] {
-    const leftChangeIndex = new ChangeIndex();
-    const rightChangeIndex = new ChangeIndex();
+export function buildEditIndexes(changes: Edit[]): [EditIndex, EditIndex] {
+    const leftChangeIndex = new EditIndex();
+    const rightChangeIndex = new EditIndex();
     changes.forEach(change => {
         const { left, right } = change;
         if (left) { leftChangeIndex.add(left, change); }
@@ -49,8 +49,8 @@ export function buildChangeIndexes(changes: Change[]): [ChangeIndex, ChangeIndex
     return [leftChangeIndex, rightChangeIndex];
 }
 
-export function sortChanges(changes: Change[]): void {
-    changes.sort((a: Change, b: Change) => {
+export function sortEdits(changes: Edit[]): void {
+    changes.sort((a: Edit, b: Edit) => {
         let value = a.level - b.level;
         if (!value) {
             value = a.type - b.type;

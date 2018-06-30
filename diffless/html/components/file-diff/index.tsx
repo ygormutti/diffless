@@ -1,7 +1,7 @@
 import { bind, debounce } from 'decko';
 import { Component, h } from 'preact';
 
-import { Change, ChangeLevel, ChangeType, Document } from '../../../model';
+import { DiffLevel, Document, Edit, EditType } from '../../../model';
 import { intEnumKeys } from '../../../util';
 
 import EnumMultiSelect from '../enum-multi-select';
@@ -10,13 +10,13 @@ import SideBySideFileDiff from './side-by-side';
 export interface Props {
     left: Document;
     right: Document;
-    changes: Change[];
+    edits: Edit[];
 }
 
 export interface State {
-    enabledChangeLevels: boolean[];
-    enabledChangeTypes: boolean[];
-    highlightedChange?: Change;
+    enabledDiffLevels: boolean[];
+    enabledEditTypes: boolean[];
+    highlightedEdit?: Edit;
 }
 
 export default class FileDiff extends Component<Props, State> {
@@ -24,28 +24,28 @@ export default class FileDiff extends Component<Props, State> {
         super(props);
 
         this.state = {
-            enabledChangeLevels: Array(intEnumKeys(ChangeLevel).length).fill(true),
-            enabledChangeTypes: Array(intEnumKeys(ChangeType).length).fill(true),
+            enabledDiffLevels: Array(intEnumKeys(DiffLevel).length).fill(true),
+            enabledEditTypes: Array(intEnumKeys(EditType).length).fill(true),
         };
     }
 
     render() {
-        const { left, right, changes } = this.props;
-        const { enabledChangeLevels, enabledChangeTypes, highlightedChange } = this.state;
+        const { left, right, edits } = this.props;
+        const { enabledDiffLevels, enabledEditTypes, highlightedEdit } = this.state;
 
         return (
             <div className="FileDiff">
                 <div className="FileDiff-controls">
                     <EnumMultiSelect
-                        label="Change levels"
-                        Enum={ChangeLevel}
-                        enabledValues={enabledChangeLevels}
+                        label="Diff levels"
+                        Enum={DiffLevel}
+                        enabledValues={enabledDiffLevels}
                         onToggle={this.toggleLevel}
                     />
                     <EnumMultiSelect
-                        label="Change types"
-                        Enum={ChangeType}
-                        enabledValues={enabledChangeTypes}
+                        label="Edit types"
+                        Enum={EditType}
+                        enabledValues={enabledEditTypes}
                         onToggle={this.toggleType}
                     />
                 </div>
@@ -53,37 +53,37 @@ export default class FileDiff extends Component<Props, State> {
                 <SideBySideFileDiff
                     left={left}
                     right={right}
-                    changes={changes}
-                    enabledChangeLevels={enabledChangeLevels}
-                    enabledChangeTypes={enabledChangeTypes}
-                    highlightedChange={highlightedChange}
-                    setHighlightedChange={this.setHighlightedChange}
+                    edits={edits}
+                    enabledDiffLevels={enabledDiffLevels}
+                    enabledEditTypes={enabledEditTypes}
+                    highlightedEdit={highlightedEdit}
+                    setHighlightedEdit={this.setHighlightedEdit}
                 />
 
                 <div>
-                    {highlightedChange ? highlightedChange.toString() : ''}
+                    {highlightedEdit ? highlightedEdit.toString() : ''}
                 </div>
             </div>
         );
     }
 
     @bind
-    toggleLevel(changeLevel: ChangeLevel) {
-        const { enabledChangeLevels } = this.state;
-        enabledChangeLevels[changeLevel] = !enabledChangeLevels[changeLevel];
-        this.setState({ enabledChangeLevels });
+    toggleLevel(diffLevel: DiffLevel) {
+        const { enabledDiffLevels } = this.state;
+        enabledDiffLevels[diffLevel] = !enabledDiffLevels[diffLevel];
+        this.setState({ enabledDiffLevels });
     }
 
     @bind
-    toggleType(changeType: ChangeType) {
-        const { enabledChangeTypes } = this.state;
-        enabledChangeTypes[changeType] = !enabledChangeTypes[changeType];
-        this.setState({ enabledChangeTypes });
+    toggleType(editType: EditType) {
+        const { enabledEditTypes } = this.state;
+        enabledEditTypes[editType] = !enabledEditTypes[editType];
+        this.setState({ enabledEditTypes });
     }
 
     @bind
     @debounce
-    setHighlightedChange(change?: Change) {
-        this.setState({ highlightedChange: change });
+    setHighlightedEdit(edit?: Edit) {
+        this.setState({ highlightedEdit: edit });
     }
 }

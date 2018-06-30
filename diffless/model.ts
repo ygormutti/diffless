@@ -84,10 +84,11 @@ export class Range {
 }
 
 /**
- * An object which has a range field
+ * An object which represents a text excerpt
  */
-export interface Ranged {
+export interface Excerpt {
     range: Range;
+    content: string;
 }
 
 /**
@@ -99,7 +100,7 @@ export class Document {
     readonly characters: Character[];
 
     constructor(
-        readonly uri: string,
+        readonly uri: DocumentUri,
         readonly content: string,
     ) {
         this.lines = normalizeEOLs(content).split(EOL);
@@ -157,21 +158,21 @@ function normalizeEOLs(content: string): string {
     return content.replace('\r\n', EOL).replace('\r', EOL);
 }
 
-export class Character implements Ranged {
+export class Character implements Excerpt {
     readonly range: Range;
 
     constructor(
-        readonly value: string,
+        readonly content: string,
         readonly position: Position,
     ) {
-        const end = value === EOL ?
+        const end = content === EOL ?
             new Position(position.line + 1, 1) :
             new Position(position.line, position.character + 1);
         this.range = new Range(position, end);
     }
 
     equals(that: Character) {
-        return this.value === that.value;
+        return this.content === that.content;
     }
 
     static equal(a: Character, b: Character) {
@@ -191,43 +192,58 @@ export class Location {
     }
 }
 
-export enum ChangeType {
+export enum EditType {
     Add,
     Delete,
-    Edit,
+    Change,
     Move,
     Copy,
     Rename,
 }
 
-export enum ChangeLevel {
+export enum DiffLevel {
     Binary,
     Textual,
     Lexical,
+    Syntactic,
     Semantic,
 }
 
 @JSIN.enabled
-export class Change {
+export class DiffItem {
     constructor(
-        readonly level: ChangeLevel,
-        readonly type: ChangeType,
+        readonly level: DiffLevel,
         readonly left?: Location,
         readonly right?: Location,
     ) { }
+}
+
+@JSIN.enabled
+export class Edit extends DiffItem {
+    constructor(
+        level: DiffLevel,
+        readonly type: EditType,
+        left?: Location,
+        right?: Location,
+    ) {
+        super(level, left, right);
+    }
 
     toString() {
-        return `${ChangeLevel[this.level]} ${ChangeType[this.type].toLowerCase()}. ` +
+        return `${DiffLevel[this.level]} ${EditType[this.type].toLowerCase()}. ` +
             `Left: ${this.left ? this.left.toString() : ''}. ` +
             `Right: ${this.right ? this.right.toString() : ''}`;
     }
 }
 
-export class Diff {
+@JSIN.enabled
+export class Similarity extends DiffItem { }
+
+export class DocumentDiff {
     constructor(
         readonly left: Document,
         readonly right: Document,
-        readonly changes: Change,
-        readonly pairedLines: [number, number][],
+        readonly edits: Edit[],
+        readonly similarities: Similarity[],
     ) { }
 }
