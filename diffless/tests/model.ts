@@ -34,5 +34,25 @@ describe('model', () => {
             const range = new Range(new Position(1, 1), new Position(3, 1));
             expect(document.getRange(range)).toBe('ac\ndc\n');
         });
+
+        it('should have contiguous lines', () => {
+            let lastLineEnd;
+            for (const line of document.lines) {
+                if (lastLineEnd) {
+                    expect(line.range.start.equals(lastLineEnd));
+                }
+                lastLineEnd = line.range.end;
+            }
+        });
+
+        it('should have contiguous characters', () => {
+            let lastCharacterEnd;
+            for (const character of document.characters) {
+                if (lastCharacterEnd) {
+                    expect(character.range.start.equals(lastCharacterEnd));
+                }
+                lastCharacterEnd = character.range.end;
+            }
+        });
     });
 });
