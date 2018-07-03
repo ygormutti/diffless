@@ -1,6 +1,6 @@
 import { curry } from 'lodash';
-import { arrayDiff } from './array-diff';
-import { dynamicProgrammingLCS } from './lcs';
+import { arrayDiff } from './array/diff';
+import { dynamicProgrammingLCS } from './array/lcs';
 import { DiffLevel, Document, DocumentDiff, Excerpt } from './model';
 
 export const charactersDiff: (left: Document, right: Document) => DocumentDiff = curry(arrayDiff)({

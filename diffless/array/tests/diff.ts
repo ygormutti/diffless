@@ -1,7 +1,7 @@
-import { charactersDiff } from '../index';
-import { Document } from '../model';
-import { stripMargin } from '../util';
-import { announceHtml } from './test-util';
+import { charactersDiff } from '../../index';
+import { Document } from '../../model';
+import { announceHtml } from '../../tests/test-util';
+import { stripMargin } from '../../util';
 
 describe('array-diff', () => {
     describe('charactersDiff', () => {

@@ -1,4 +1,3 @@
-import { Equal, LCS, LCSResult } from './lcs';
 import {
     DiffLevel,
     Document,
@@ -9,7 +8,8 @@ import {
     Location,
     Position,
     Range,
-} from './model';
+} from '../model';
+import { Equal, LCS, LCSResult } from './lcs';
 
 export interface ArrayDiffOptions<TItem extends Excerpt> {
     level: DiffLevel;
