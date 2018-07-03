@@ -81,102 +81,16 @@ export class Range {
     toString() {
         return `[${(this.start.toString())}; ${this.end.toString()})`;
     }
-}
 
-/**
- * An object which represents a text excerpt
- */
-export interface Excerpt {
-    range: Range;
-    content: string;
-}
-
-/**
- * A text document
- */
-@JSIN.enabled
-export class Document {
-    readonly lines: string[];
-    readonly characters: Character[];
-
-    constructor(
-        readonly uri: DocumentUri,
-        readonly content: string,
-    ) {
-        this.lines = normalizeEOLs(content).split(EOL);
-        this.characters = buildCharacters(this.lines);
+    static forLine(line: number) {
+        return new Range(new Position(line, 1), new Position(line + 1, 1));
     }
 
-    getPosition(position: Position): string {
-        const line = this.lines[position.lineOffset];
-        return position.character > line.length ? EOL : line[position.characterOffset];
-    }
-
-    getRange(range: Range): string {
-        const { start, end } = range;
-        const lines = this.lines.filter((_, i) => start.lineOffset <= i && i <= end.lineOffset);
-
-        if (lines.length === 1) {
-            return lines[0].substring(start.characterOffset, end.characterOffset);
-        }
-
-        let rangeString = '';
-        for (let lineOffset = 0; lineOffset < lines.length; lineOffset++) {
-            const line = lines[lineOffset];
-            let startOffset = 0;
-            let endOffset = line.length + 1;
-            if (lineOffset === 0) {
-                // first line
-                startOffset = start.characterOffset;
-            } else if (lineOffset === lines.length - 1) {
-                // last line
-                endOffset = end.characterOffset;
-            }
-
-            rangeString += line.substring(startOffset, endOffset);
-            if (endOffset > line.length) {
-                rangeString += EOL;
-            }
-        }
-        return rangeString;
-    }
-}
-
-function buildCharacters(lines: string[]): Character[] {
-    const characters: Character[] = [];
-    for (const [lineOffset, line] of lines.entries()) {
-        const lineNumber = lineOffset + 1;
-        for (const [characterOffset, character] of Array.from(line).entries()) {
-            characters.push(new Character(character, new Position(lineNumber, characterOffset + 1)));
-        }
-        characters.push(new Character(EOL, new Position(lineNumber, line.length + 1)));
-    }
-    return characters;
-}
-
-function normalizeEOLs(content: string): string {
-    return content.replace('\r\n', EOL).replace('\r', EOL);
-}
-
-export class Character implements Excerpt {
-    readonly range: Range;
-
-    constructor(
-        readonly content: string,
-        readonly position: Position,
-    ) {
+    static forCharacter(position: Position, content: string) {
         const end = content === EOL ?
             new Position(position.line + 1, 1) :
             new Position(position.line, position.character + 1);
-        this.range = new Range(position, end);
-    }
-
-    equals(that: Character) {
-        return this.content === that.content;
-    }
-
-    static equal(a: Character, b: Character) {
-        return a.equals(b);
+        return new Range(position, end);
     }
 }
 
@@ -190,6 +104,130 @@ export class Location {
     toString() {
         return `${this.range.toString()} @ ${this.uri}`;
     }
+
+    static forLine(documentUri: DocumentUri, line: number) {
+        return new Location(documentUri, Range.forLine(line));
+    }
+
+    static forCharacter(documentUri: DocumentUri, position: Position, content: string) {
+        return new Location(documentUri, Range.forCharacter(position, content));
+    }
+}
+
+/**
+ * An object which represents an excerpt from a text document
+ */
+@JSIN.enabled
+export class Excerpt {
+    constructor(
+        readonly content: string,
+        readonly location: Location,
+    ) { }
+
+    get range() {
+        return this.location.range;
+    }
+
+    static sameContent(a: Excerpt, b: Excerpt) {
+        return a.content === b.content;
+    }
+}
+
+/**
+ * A line excerpt from a text document
+ */
+@JSIN.enabled
+export class Line extends Excerpt {
+    constructor(
+        content: string,
+        documentUri: DocumentUri,
+        readonly line: number,
+    ) {
+        super(content, Location.forLine(documentUri, line));
+    }
+}
+
+/**
+ * A single character excerpt from a text document
+ */
+@JSIN.enabled
+export class Character extends Excerpt {
+    constructor(
+        content: string,
+        documentUri: DocumentUri,
+        readonly position: Position,
+    ) {
+        super(content, Location.forCharacter(documentUri, position, content));
+    }
+}
+
+/**
+ * A text document
+ */
+@JSIN.enabled
+export class Document {
+    readonly lines: Line[];
+    readonly characters: Character[];
+
+    constructor(
+        readonly uri: DocumentUri,
+        readonly content: string,
+    ) {
+        const linesContents = normalizeEOLs(content).split(EOL);
+        this.lines = buildLines(linesContents, uri);
+        this.characters = buildCharacters(this.lines, uri);
+    }
+
+    getPosition(position: Position): string {
+        const line = this.lines[position.lineOffset].content;
+        return position.character > line.length ? EOL : line[position.characterOffset];
+    }
+
+    getRange(range: Range): string {
+        const { start, end } = range;
+        const lines = this.lines.filter((_, i) => start.lineOffset <= i && i <= end.lineOffset);
+
+        if (lines.length === 1) {
+            return lines[0].content.substring(start.characterOffset, end.characterOffset);
+        }
+
+        let rangeString = '';
+        for (let lineOffset = 0; lineOffset < lines.length; lineOffset++) {
+            const line = lines[lineOffset].content;
+            let startOffset = 0;
+            let endOffset = line.length;
+            if (lineOffset === 0) {
+                // first line
+                startOffset = start.characterOffset;
+            } else if (lineOffset === lines.length - 1) {
+                // last line
+                endOffset = end.characterOffset;
+            }
+
+            rangeString += line.substring(startOffset, Math.min(line.length, endOffset));
+        }
+        return rangeString;
+    }
+}
+
+function buildLines(linesContents: string[], documentUri: DocumentUri): Line[] {
+    return linesContents.map((v, i) => new Line(v + EOL, documentUri, i + 1));
+}
+
+function buildCharacters(lines: Line[], documentUri: DocumentUri): Character[] {
+    const characters: Character[] = [];
+    for (const [lineOffset, line] of lines.entries()) {
+        const lineNumber = lineOffset + 1;
+        for (const [characterOffset, character] of Array.from(line.content).entries()) {
+            const position = new Position(lineNumber, characterOffset + 1);
+            characters.push(new Character(character, documentUri, position));
+        }
+    }
+    return characters;
+}
+
+function normalizeEOLs(content: string): string {
+    return content.replace('\r\n', EOL).replace('\r', EOL);
 }
 
 export enum EditType {
@@ -239,6 +277,7 @@ export class Edit extends DiffItem {
 @JSIN.enabled
 export class Similarity extends DiffItem { }
 
+@JSIN.enabled
 export class DocumentDiff {
     constructor(
         readonly left: Document,

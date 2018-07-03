@@ -7,7 +7,7 @@ describe('model', () => {
         const document = new Document(uri, multilineString);
 
         it('should build array of characters correctly', () => {
-            expect(document.characters).toMatchSnapshot();
+            expect(document).toMatchSnapshot();
         });
 
         it('shoud get empty ranges correctly', () => {
