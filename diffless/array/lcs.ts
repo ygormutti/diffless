@@ -1,5 +1,7 @@
+import { Equal } from '../model';
+
 /**
- * Longest Common Subsequence model and implementation
+ * Longest Common Substring model and implementation
  */
 
 /**
@@ -8,12 +10,7 @@
 export type LCS = <TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]) => LCSResult<TItem>;
 
 /**
- * Function type that checks if two objects are equal according to some criteria
- */
-export type Equal<T> = (left: T, right: T) => boolean;
-
-/**
- * The Longest Common Subsequence of two arrays an its offset in both arrays
+ * The Longest Common Substring of two arrays an its offset in both arrays
  */
 export class LCSResult<TItem> {
     constructor(
@@ -29,8 +26,8 @@ export class LCSResult<TItem> {
  * Based on:
  * https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Longest_common_substring#JavaScript
  *
- * @param left left sequence
- * @param right right sequence
+ * @param left left array
+ * @param right right array
  */
 export function dynamicProgrammingLCS<TItem>(
     equal: Equal<TItem>,

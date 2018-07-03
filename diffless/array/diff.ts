@@ -4,12 +4,13 @@ import {
     DocumentDiff,
     Edit,
     EditType,
+    Equal,
     Excerpt,
     Location,
     Position,
     Range,
 } from '../model';
-import { Equal, LCS, LCSResult } from './lcs';
+import { LCS, LCSResult } from './lcs';
 
 export interface ArrayDiffOptions<TItem extends Excerpt> {
     level: DiffLevel;

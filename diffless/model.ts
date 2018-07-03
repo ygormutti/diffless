@@ -12,6 +12,11 @@ import { JSIN } from './jsin';
 export type DocumentUri = string;
 
 /**
+ * Function type that checks if two objects are equal according to some criteria
+ */
+export type Equal<T> = (left: T, right: T) => boolean;
+
+/**
  * The end of line sequence adopted for internal use
  */
 export const EOL = '\n';
