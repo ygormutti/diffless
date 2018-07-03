@@ -4,7 +4,7 @@ import {
     DocumentDiff,
     Edit,
     EditType,
-    Equal,
+    Equals,
     Excerpt,
     Location,
     Position,
@@ -14,7 +14,7 @@ import { LCS, LCSResult } from './lcs';
 
 export interface ArrayDiffOptions<TItem extends Excerpt> {
     level: DiffLevel;
-    equal: Equal<TItem>;
+    equal: Equals<TItem>;
     itemMapper: ItemMapper<TItem>;
     lcsThreshold: number;
     lcs: LCS;
@@ -70,7 +70,7 @@ function wrapItem<TItem extends Excerpt>(item: TItem): ItemWrapper<TItem> {
     return new ItemWrapper(item);
 }
 
-function wrapEqual<TItem extends Excerpt>(equal: Equal<TItem>): Equal<ItemWrapper<TItem>> {
+function wrapEqual<TItem extends Excerpt>(equal: Equals<TItem>): Equals<ItemWrapper<TItem>> {
     return (l: ItemWrapper<TItem>, r: ItemWrapper<TItem>): boolean => {
         return !r.paired && !l.paired && equal(l.item, r.item);
     };

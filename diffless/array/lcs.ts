@@ -1,4 +1,4 @@
-import { Equal } from '../model';
+import { Equals } from '../model';
 
 /**
  * Longest Common Substring model and implementation
@@ -7,7 +7,7 @@ import { Equal } from '../model';
 /**
  * Function type that finds the LCS between two arrays
  */
-export type LCS = <TItem>(equal: Equal<TItem>, left: TItem[], right: TItem[]) => LCSResult<TItem>;
+export type LCS = <TItem>(equal: Equals<TItem>, left: TItem[], right: TItem[]) => LCSResult<TItem>;
 
 /**
  * The Longest Common Substring of two arrays an its offset in both arrays
@@ -30,7 +30,7 @@ export class LCSResult<TItem> {
  * @param right right array
  */
 export function dynamicProgrammingLCS<TItem>(
-    equal: Equal<TItem>,
+    equal: Equals<TItem>,
     left: TItem[],
     right: TItem[],
 ): LCSResult<TItem> {

@@ -1,16 +1,8 @@
+import { Equals, Weigh } from '../model';
+
 /**
  * Heaviest Common Subsequence model and implementation
  */
-
-/**
- * Function type that checks if two items are equal according to some criteria
- */
-export type Equals<TItem> = (left: TItem, right: TItem) => boolean;
-
-/**
- * Function type that returns the item weigh
- */
-export type Weigh<TItem> = (item: TItem) => number;
 
 /**
  * Function type that finds the HCS between two arrays

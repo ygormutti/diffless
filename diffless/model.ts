@@ -14,7 +14,12 @@ export type DocumentUri = string;
 /**
  * Function type that checks if two objects are equal according to some criteria
  */
-export type Equal<T> = (left: T, right: T) => boolean;
+export type Equals<T> = (a: T, b: T) => boolean;
+
+/**
+ * Function type that returns the object weigh
+ */
+export type Weigh<T> = (obj: T) => number;
 
 /**
  * The end of line sequence adopted for internal use
