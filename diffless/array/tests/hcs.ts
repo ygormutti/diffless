@@ -3,23 +3,25 @@ import { dynamicProgrammingHCS } from '../hcs';
 describe('dynamicProgrammingHCS', () => {
     it('should work as LCS with uniform weight', () => {
         const left = 'XMJYAUZ';
-        const right = 'MZJAWXU';
+        const right = 'mzjawxu';
 
-        const equal = (l: string, r: string) => l === r;
+        const equal = (l: string, r: string) => l.toLowerCase() === r.toLowerCase();
         const weight = () => 1;
-        const hcs = dynamicProgrammingHCS(equal, weight, left.split(''), right.split(''));
+        const result = dynamicProgrammingHCS(equal, weight, left.split(''), right.split(''));
 
-        expect(hcs.join('')).toBe('MJAU');
+        expect(result).toMatchSnapshot();
+        expect(result.leftHCS.join('')).toBe('MJAU');
     });
 
     it('should work with variable weight', () => {
         const left = 'XMJYAUZ';
-        const right = 'MZJAWXU';
+        const right = 'mzjawxu';
 
-        const equal = (l: string, r: string) => l === r;
+        const equal = (l: string, r: string) => l.toLowerCase() === r.toLowerCase();
         const weight = (i: string) => i === 'Z' ? 10 : 1;
-        const hcs = dynamicProgrammingHCS(equal, weight, left.split(''), right.split(''));
+        const result = dynamicProgrammingHCS(equal, weight, left.split(''), right.split(''));
 
-        expect(hcs.join('')).toBe('MZ');
+        expect(result).toMatchSnapshot();
+        expect(result.leftHCS.join('')).toBe('MZ');
     });
 });

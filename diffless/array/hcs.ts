@@ -12,12 +12,22 @@ export type HCS = <TItem>(
     weigh: Weigh<TItem>,
     left: TItem[],
     right: TItem[],
-) => TItem[];
+) => HCSResult<TItem>;
+
+/**
+ * The Heaviest Common Subsequence of two arrays with items from the respective arrays
+ */
+export class HCSResult<TItem> {
+    constructor(
+        readonly leftHCS: TItem[],
+        readonly rightHCS: TItem[],
+    ) { }
+}
 
 class HCSCell<TItem> {
     constructor(
         readonly weight: number = 0,
-        readonly hcs: TItem[] = [],
+        readonly hcs: [TItem, TItem][] = [],
     ) { }
 }
 
@@ -29,9 +39,9 @@ export function dynamicProgrammingHCS<TItem>(
     weigh: Weigh<TItem>,
     left: TItem[],
     right: TItem[],
-): TItem[] {
+): HCSResult<TItem> {
     if (!left || !left.length || !right || !right.length) {
-        return [];
+        return new HCSResult([], []);
     }
 
     const width = left.length + 1;
@@ -45,10 +55,12 @@ export function dynamicProgrammingHCS<TItem>(
         rowArray[0] = new HCSCell();
 
         for (let col = 1; col < width; col++) {
-            const item = left[col - 1];
-            if (equals(item, right[row - 1])) {
+            const leftItem = left[col - 1];
+            const rightItem = right[row - 1];
+            if (equals(leftItem, rightItem)) {
                 const prevCell = prevRowArray[col - 1];
-                rowArray[col] = new HCSCell(prevCell.weight + weigh(item), [...prevCell.hcs, item]);
+                const newWeight = prevCell.weight + weigh(leftItem);
+                rowArray[col] = new HCSCell(newWeight, [...prevCell.hcs, [leftItem, rightItem]]);
             } else {
                 const previousCellCandidates = [rowArray[col - 1], prevRowArray[col]];
                 previousCellCandidates.sort((a, b) => {
@@ -62,5 +74,9 @@ export function dynamicProgrammingHCS<TItem>(
         }
         prevRowArray = rowArray;
     }
-    return prevRowArray[prevRowArray.length - 1].hcs;
+
+    const lastCell = prevRowArray[prevRowArray.length - 1];
+    const leftHCS = lastCell.hcs.map(p => p[0]);
+    const rightHCS = lastCell.hcs.map(p => p[1]);
+    return new HCSResult(leftHCS, rightHCS);
 }

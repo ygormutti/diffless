@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dynamicProgrammingHCS should work as LCS with uniform weight 1`] = `
+HCSResult {
+  "leftHCS": Array [
+    "M",
+    "J",
+    "A",
+    "U",
+  ],
+  "rightHCS": Array [
+    "m",
+    "j",
+    "a",
+    "u",
+  ],
+}
+`;
+
+exports[`dynamicProgrammingHCS should work with variable weight 1`] = `
+HCSResult {
+  "leftHCS": Array [
+    "M",
+    "Z",
+  ],
+  "rightHCS": Array [
+    "m",
+    "z",
+  ],
+}
+`;
