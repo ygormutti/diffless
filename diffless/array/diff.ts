@@ -7,158 +7,158 @@ import {
     Equals,
     Excerpt,
     Location,
-    Position,
     Range,
+    Similarity,
+    Weigh,
 } from '../model';
-import { LCS, LCSResult } from './lcs';
+import { dynamicProgrammingHCS, HCS, HCSResult } from './hcs';
 
-export interface ArrayDiffOptions<TItem extends Excerpt> {
-    level: DiffLevel;
-    equal: Equals<TItem>;
-    itemMapper: ItemMapper<TItem>;
-    lcsThreshold: number;
-    lcs: LCS;
+export class ArrayDiffOptions<TExcerpt extends Excerpt> {
+    constructor(
+        readonly level: DiffLevel,
+        readonly excerptMapper: ExcerptMapper<TExcerpt>,
+        readonly similarityThreshold: number,
+        readonly equals: Equals<TExcerpt> = Excerpt.sameContent,
+        readonly weigh: Weigh<TExcerpt> = Excerpt.contentLength,
+        readonly hcs: HCS = dynamicProgrammingHCS,
+    ) { }
 }
 
-export type ItemMapper<TItem extends Excerpt> = (document: Document) => TItem[];
+export type ExcerptMapper<TExcerpt extends Excerpt> = (document: Document) => TExcerpt[];
 
-class ItemWrapper<TItem extends Excerpt> {
+export function arrayDiff<TExcerpt extends Excerpt>(
+    options: ArrayDiffOptions<TExcerpt>,
+    left: Document,
+    right: Document,
+) {
+    const { level, equals, weigh, excerptMapper, similarityThreshold, hcs } = options;
+    const leftWrapped = excerptMapper(left).map(wrapExcerpt);
+    const rightWrapped = excerptMapper(right).map(wrapExcerpt);
+    const equalsWrapped = wrapEquals(equals);
+    const weighWrapped = wrapWeigh(weigh);
+
+    const hcsResult = hcs(equalsWrapped, weighWrapped, leftWrapped, rightWrapped);
+    const similarities = processHCSResult(
+        hcsResult,
+        similarityThreshold,
+        weigh,
+        (l, r) => new Similarity(level, l, r),
+    );
+
+    let edits: Edit[] = [];
+
+    const moves = findMoves(options, equalsWrapped, leftWrapped, rightWrapped);
+    edits = edits.concat(moves);
+
+    const deletions = leftWrapped.filter(unpaired).map(
+        i => new Edit(level, EditType.Delete, i.excerpt.location),
+    );
+    edits = edits.concat(deletions);
+
+    const additions = rightWrapped.filter(unpaired).map(
+        i => new Edit(level, EditType.Add, undefined, i.excerpt.location),
+    );
+    edits = edits.concat(additions);
+
+    return new DocumentDiff(left, right, edits, similarities);
+}
+
+class ExcerptWrapper<TExcerpt extends Excerpt> {
     constructor(
-        readonly item: TItem,
+        readonly excerpt: TExcerpt,
         public paired: boolean = false,
     ) { }
 }
 
-export function arrayDiff<TItem extends Excerpt>(
-    options: ArrayDiffOptions<TItem>,
-    left: Document,
-    right: Document,
-): DocumentDiff {
-    const { level, equal, itemMapper, lcsThreshold, lcs } = options;
-    const leftWrapped = itemMapper(left).map(wrapItem);
-    const rightWrapped = itemMapper(right).map(wrapItem);
-    const equalWrapped = wrapEqual(equal);
-    const lcsResults: LCSResult<ItemWrapper<TItem>>[] = [];
+function wrapExcerpt<TExcerpt extends Excerpt>(excerpt: TExcerpt): ExcerptWrapper<TExcerpt> {
+    return new ExcerptWrapper(excerpt);
+}
 
-    let result = lcs(equalWrapped, leftWrapped, rightWrapped);
-    while (result.lcs.length > lcsThreshold) {
-        pairWrappers(leftWrapped, result.leftOffset, result.lcs.length);
-        pairWrappers(rightWrapped, result.rightOffset, result.lcs.length);
-        lcsResults.push(result);
-        result = lcs(equalWrapped, leftWrapped, rightWrapped);
+function wrapEquals<TExcerpt extends Excerpt>(equals: Equals<TExcerpt>) {
+    return (a: ExcerptWrapper<TExcerpt>, b: ExcerptWrapper<TExcerpt>) => equals(a.excerpt, b.excerpt);
+}
+
+function wrapWeigh<TExcerpt extends Excerpt>(weigh: Weigh<TExcerpt>) {
+    return (obj: ExcerptWrapper<TExcerpt>) => weigh(obj.excerpt);
+}
+
+function processHCSResult<TExcerpt extends Excerpt, TDiffItem>(
+    hcsResult: HCSResult<ExcerptWrapper<TExcerpt>>,
+    similarityThreshold: number,
+    weigh: Weigh<TExcerpt>,
+    buildDiffItem: (left: Location, right: Location) => TDiffItem,
+): TDiffItem[] {
+    if (hcsResult.length === 0) return [];
+    const diffItems = [];
+    const { leftHCS, rightHCS } = hcsResult;
+
+    let leftStart = leftHCS[0].excerpt.start;
+    let leftEnd = leftStart;
+    let rightStart = rightHCS[0].excerpt.start;
+    let rightEnd = rightStart;
+    let similarityWeight = 0;
+    for (let i = 0; i < hcsResult.length; i++) {
+        const leftWrapper = leftHCS[i];
+        const { excerpt: left } = leftWrapper;
+        const rightWrapper = rightHCS[i];
+        const { excerpt: right } = rightWrapper;
+
+        if (left.start.equals(leftEnd) && right.start.equals(rightEnd)) {
+            leftEnd = left.end;
+            rightEnd = right.end;
+            rightWrapper.paired = true;
+            leftWrapper.paired = true;
+            similarityWeight += weigh(left);
+        } else {
+            if (similarityWeight > similarityThreshold) {
+                const leftLocation = new Location(left.location.uri, new Range(leftStart, leftEnd));
+                const rightLocation = new Location(right.location.uri, new Range(rightStart, rightEnd));
+                diffItems.push(buildDiffItem(leftLocation, rightLocation));
+            }
+
+            similarityWeight = weigh(left);
+            leftStart = left.start;
+            leftEnd = left.end;
+            rightStart = right.start;
+            rightEnd = right.end;
+        }
     }
 
-    let edits: Edit[] = [];
-
-    const deletions = findUnpairedRanges(leftWrapped).map(
-        r => new Edit(level, EditType.Delete, new Location(left.uri, r), undefined),
-    );
-    edits = edits.concat(deletions);
-
-    const additions = findUnpairedRanges(rightWrapped).map(
-        r => new Edit(level, EditType.Add, undefined, new Location(right.uri, r)),
-    );
-    edits = edits.concat(additions);
-
-    const moves = findMoves(lcsResults, leftWrapped, rightWrapped, left, right, level);
-    edits = edits.concat(moves);
-
-    return new DocumentDiff(left, right, edits, []);
+    return diffItems;
 }
 
-function wrapItem<TItem extends Excerpt>(item: TItem): ItemWrapper<TItem> {
-    return new ItemWrapper(item);
-}
-
-function wrapEqual<TItem extends Excerpt>(equal: Equals<TItem>): Equals<ItemWrapper<TItem>> {
-    return (l: ItemWrapper<TItem>, r: ItemWrapper<TItem>): boolean => {
-        return !r.paired && !l.paired && equal(l.item, r.item);
+function findMoves<TExcerpt extends Excerpt>(
+    options: ArrayDiffOptions<TExcerpt>,
+    equalsWrapped: Equals<ExcerptWrapper<TExcerpt>>,
+    leftWrappers: ExcerptWrapper<TExcerpt>[],
+    rightWrappers: ExcerptWrapper<TExcerpt>[],
+) {
+    const { hcs, similarityThreshold, weigh, level } = options;
+    const lcsUnpaired = () => {
+        leftWrappers = leftWrappers.filter(unpaired);
+        rightWrappers = rightWrappers.filter(unpaired);
+        return hcs(equalsWrapped, one, leftWrappers, rightWrappers);
     };
+
+    let moves: Edit[] = [];
+    let lcsResult = lcsUnpaired();
+    while (lcsResult.length > similarityThreshold) {
+        moves = moves.concat(processHCSResult(
+            lcsResult,
+            similarityThreshold,
+            weigh,
+            (l, r) => new Edit(level, EditType.Move, l, r),
+        ));
+
+        lcsResult = lcsUnpaired();
+    }
+    return moves;
 }
 
-function pairWrappers(array: ItemWrapper<Excerpt>[], offset: number, length: number) {
-    for (let i = offset; i < (offset + length); i++) {
-        const item = array[i];
-        item.paired = true;
-    }
+function unpaired<TExcerpt extends Excerpt>(wrapper: ExcerptWrapper<TExcerpt>) {
+    return !wrapper.paired;
 }
 
-function findUnpairedRanges(array: ItemWrapper<Excerpt>[]): Range[] {
-    const ranges = [];
-
-    let start: Position | undefined;
-    let end: Position | undefined;
-    for (const wrapper of array) {
-        const { paired, item: { range } } = wrapper;
-        end = range.start;
-        if (start === undefined) {
-            if (paired) {
-                continue;
-            } else {
-                start = range.start;
-            }
-        } else {
-            if (paired) {
-                ranges.push(new Range(start, end));
-                start = undefined;
-            }
-        }
-    }
-
-    if (start !== undefined && end !== undefined && !start.equals(end)) {
-        ranges.push(new Range(start, end));
-    }
-
-    return ranges;
-}
-
-function findMoves(
-    lcsResults: LCSResult<ItemWrapper<Excerpt>>[],
-    leftWrapped: ItemWrapper<Excerpt>[],
-    rightWrapped: ItemWrapper<Excerpt>[],
-    left: Document,
-    right: Document,
-    level: DiffLevel,
-): Edit[] {
-    const edits: Edit[] = [];
-
-    const rightSortedResults = lcsResults.slice().sort((a, b) => a.rightOffset - b.rightOffset);
-    const leftSortedResults = lcsResults.slice().sort((a, b) => a.leftOffset - b.leftOffset);
-    for (let l = 0, r = 0; l < lcsResults.length && r < lcsResults.length;) {
-        const leftResult = leftSortedResults[l];
-        const rightResult = rightSortedResults[r];
-
-        if (leftResult === rightResult) {
-            l++;
-            r++;
-        } else {
-            const rightLongerThanLeft = rightResult.lcs.length >= leftResult.lcs.length;
-            // heuristic to favor cheaper edit result, then moves in right side
-            const result = rightLongerThanLeft ? leftResult : rightResult;
-            const { lcs: { length }, leftOffset, rightOffset } = result;
-
-            const leftRange = buildMoveRange(leftWrapped, leftOffset, length);
-            const leftLocation = new Location(left.uri, leftRange);
-
-            const rightRange = buildMoveRange(rightWrapped, rightOffset, length);
-            const rightLocation = new Location(right.uri, rightRange);
-
-            const edit = new Edit(level, EditType.Move, leftLocation, rightLocation);
-            edits.push(edit);
-
-            if (result === leftResult) {
-                l++;
-            } else {
-                r++;
-            }
-        }
-    }
-
-    return edits;
-}
-
-function buildMoveRange(items: ItemWrapper<Excerpt>[], offset: number, length: number): Range {
-    const start = items[offset].item.range.start;
-    const end = items[offset + length - 1].item.range.end;
-    return new Range(start, end);
+function one() {
+    return 1;
 }
