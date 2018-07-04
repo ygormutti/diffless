@@ -89,14 +89,29 @@ function processHCSResult<TExcerpt extends Excerpt, TDiffItem>(
     buildDiffItem: (left: Location, right: Location) => TDiffItem,
 ): TDiffItem[] {
     if (hcsResult.length === 0) return [];
-    const diffItems = [];
+    const diffItems: TDiffItem[] = [];
     const { leftHCS, rightHCS } = hcsResult;
+    const leftURI = leftHCS[0].excerpt.location.uri;
+    const rightURI = rightHCS[0].excerpt.location.uri;
 
     let leftStart = leftHCS[0].excerpt.start;
     let leftEnd = leftStart;
     let rightStart = rightHCS[0].excerpt.start;
     let rightEnd = rightStart;
     let similarityWeight = 0;
+    let toPair: ExcerptWrapper<TExcerpt>[] = [];
+
+    function checkForDiffItem() {
+        if (similarityWeight > similarityThreshold) {
+            const leftLocation = new Location(leftURI, new Range(leftStart, leftEnd));
+            const rightLocation = new Location(rightURI, new Range(rightStart, rightEnd));
+            toPair.forEach(wrapper => {
+                wrapper.paired = true;
+            });
+            diffItems.push(buildDiffItem(leftLocation, rightLocation));
+        }
+    }
+
     for (let i = 0; i < hcsResult.length; i++) {
         const leftWrapper = leftHCS[i];
         const { excerpt: left } = leftWrapper;
@@ -106,23 +121,20 @@ function processHCSResult<TExcerpt extends Excerpt, TDiffItem>(
         if (left.start.equals(leftEnd) && right.start.equals(rightEnd)) {
             leftEnd = left.end;
             rightEnd = right.end;
-            rightWrapper.paired = true;
-            leftWrapper.paired = true;
             similarityWeight += weigh(left);
+            toPair.push(rightWrapper);
+            toPair.push(leftWrapper);
         } else {
-            if (similarityWeight > similarityThreshold) {
-                const leftLocation = new Location(left.location.uri, new Range(leftStart, leftEnd));
-                const rightLocation = new Location(right.location.uri, new Range(rightStart, rightEnd));
-                diffItems.push(buildDiffItem(leftLocation, rightLocation));
-            }
-
+            checkForDiffItem();
             similarityWeight = weigh(left);
+            toPair = [leftWrapper, rightWrapper];
             leftStart = left.start;
             leftEnd = left.end;
             rightStart = right.start;
             rightEnd = right.end;
         }
     }
+    checkForDiffItem();
 
     return diffItems;
 }
@@ -142,7 +154,10 @@ function findMoves<TExcerpt extends Excerpt>(
 
     let moves: Edit[] = [];
     let lcsResult = lcsUnpaired();
-    while (lcsResult.length > similarityThreshold) {
+    let previousWeight = Infinity;
+    while (lcsResult.weight < previousWeight) {
+        previousWeight = lcsResult.weight;
+
         moves = moves.concat(processHCSResult(
             lcsResult,
             similarityThreshold,
