@@ -283,6 +283,7 @@ export class Edit extends DiffItem {
     get code() {
         return `${DiffLevel[this.level]} ${EditType[this.type].toLowerCase()}, ` +
             (this.left ? `L: ${this.left!.code}` : '') +
+            (this.left && this.right ? ', ' : '') +
             (this.right ? `R: ${this.right!.code}` : '');
     }
 }
@@ -299,3 +300,5 @@ export class DocumentDiff {
         readonly similarities: Similarity[],
     ) { }
 }
+
+export type DiffTool = (left: Document, right: Document) => DocumentDiff;
