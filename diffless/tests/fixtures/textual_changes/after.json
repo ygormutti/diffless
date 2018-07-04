@@ -1,0 +1,20 @@
+{
+  "errors": [
+    {
+      "resource": "Issue",
+      "fields": [
+          "field_with_a_really_long_name_even_longer_than_the_others_combined",
+          "title",
+          "description"
+        ],
+      "code": "missing_fields"
+    },
+    {
+      "resource": "Issue",
+      "field": "milestone",
+      "code": "invalid",
+      "value": 1
+    }
+  ],
+  "message": "Validation Failed"
+}

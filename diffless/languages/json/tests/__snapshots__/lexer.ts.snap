@@ -1,0 +1,857 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lexer tokenize should match snapshot 1`] = `
+Array [
+  Token {
+    "content": "{",
+    "location": Location {
+      "range": [1:1; 1:2),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 0,
+  },
+  ValuedToken {
+    "content": "\\"errors\\"",
+    "location": Location {
+      "range": [2:5; 2:13),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "errors",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [2:13; 2:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  Token {
+    "content": "[",
+    "location": Location {
+      "range": [2:15; 2:16),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 4,
+  },
+  Token {
+    "content": "{",
+    "location": Location {
+      "range": [3:9; 3:10),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 0,
+  },
+  ValuedToken {
+    "content": "\\"resource\\"",
+    "location": Location {
+      "range": [4:13; 4:23),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "resource",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [4:23; 4:24),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"Issue\\"",
+    "location": Location {
+      "range": [4:25; 4:32),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "Issue",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [4:32; 4:33),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"fields\\"",
+    "location": Location {
+      "range": [5:13; 5:21),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "fields",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [5:21; 5:22),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  Token {
+    "content": "[",
+    "location": Location {
+      "range": [5:23; 5:24),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 4,
+  },
+  ValuedToken {
+    "content": "\\"title\\"",
+    "location": Location {
+      "range": [6:17; 6:24),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "title",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [6:24; 6:25),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"author\\"",
+    "location": Location {
+      "range": [7:17; 7:25),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "author",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [7:25; 7:26),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"description\\"",
+    "location": Location {
+      "range": [8:17; 8:30),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "description",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [8:30; 8:31),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"field_with_a_really_long_name_even_longer_than_the_others_combined\\"",
+    "location": Location {
+      "range": [9:17; 9:85),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "field_with_a_really_long_name_even_longer_than_the_others_combined",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "]",
+    "location": Location {
+      "range": [10:13; 10:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 5,
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [10:14; 10:15),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"code\\"",
+    "location": Location {
+      "range": [11:13; 11:19),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "code",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [11:19; 11:20),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"missing_fields\\"",
+    "location": Location {
+      "range": [11:21; 11:37),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "missing_fields",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "}",
+    "location": Location {
+      "range": [12:9; 12:10),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 1,
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [12:10; 12:11),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  Token {
+    "content": "{",
+    "location": Location {
+      "range": [13:9; 13:10),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 0,
+  },
+  ValuedToken {
+    "content": "\\"resource\\"",
+    "location": Location {
+      "range": [14:13; 14:23),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "resource",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [14:23; 14:24),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"Issue\\"",
+    "location": Location {
+      "range": [14:25; 14:32),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "Issue",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [14:32; 14:33),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"field\\"",
+    "location": Location {
+      "range": [15:13; 15:20),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "field",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [15:20; 15:21),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"milestone\\"",
+    "location": Location {
+      "range": [15:22; 15:33),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "milestone",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [15:33; 15:34),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"code\\"",
+    "location": Location {
+      "range": [16:13; 16:19),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "code",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [16:19; 16:20),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"invalid\\"",
+    "location": Location {
+      "range": [16:21; 16:30),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "invalid",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [16:30; 16:31),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"value\\"",
+    "location": Location {
+      "range": [17:13; 17:20),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "value",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [17:20; 17:21),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "1.0",
+    "location": Location {
+      "range": [17:22; 17:25),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 7,
+    "value": 1,
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "}",
+    "location": Location {
+      "range": [18:9; 18:10),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 1,
+  },
+  Token {
+    "content": "]",
+    "location": Location {
+      "range": [19:5; 19:6),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 5,
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [19:6; 19:7),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"message\\"",
+    "location": Location {
+      "range": [20:5; 20:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "message",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [20:14; 20:15),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"Validation Failed\\"",
+    "location": Location {
+      "range": [21:9; 21:28),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 6,
+    "value": "Validation Failed",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "}",
+    "location": Location {
+      "range": [22:1; 22:2),
+      "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
+    },
+    "type": 1,
+  },
+]
+`;
+
+exports[`lexer tokenize should match snapshot 2`] = `
+Array [
+  Token {
+    "content": "{",
+    "location": Location {
+      "range": [1:1; 1:2),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 0,
+  },
+  ValuedToken {
+    "content": "\\"errors\\"",
+    "location": Location {
+      "range": [2:3; 2:11),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "errors",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [2:11; 2:12),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  Token {
+    "content": "[",
+    "location": Location {
+      "range": [2:13; 2:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 4,
+  },
+  Token {
+    "content": "{",
+    "location": Location {
+      "range": [3:5; 3:6),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 0,
+  },
+  ValuedToken {
+    "content": "\\"resource\\"",
+    "location": Location {
+      "range": [4:7; 4:17),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "resource",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [4:17; 4:18),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"Issue\\"",
+    "location": Location {
+      "range": [4:19; 4:26),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "Issue",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [4:26; 4:27),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"fields\\"",
+    "location": Location {
+      "range": [5:7; 5:15),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "fields",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [5:15; 5:16),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  Token {
+    "content": "[",
+    "location": Location {
+      "range": [5:17; 5:18),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 4,
+  },
+  ValuedToken {
+    "content": "\\"field_with_a_really_long_name_even_longer_than_the_others_combined\\"",
+    "location": Location {
+      "range": [6:11; 6:79),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "field_with_a_really_long_name_even_longer_than_the_others_combined",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [6:79; 6:80),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"title\\"",
+    "location": Location {
+      "range": [7:11; 7:18),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "title",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [7:18; 7:19),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"description\\"",
+    "location": Location {
+      "range": [8:11; 8:24),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "description",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "]",
+    "location": Location {
+      "range": [9:9; 9:10),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 5,
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [9:10; 9:11),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"code\\"",
+    "location": Location {
+      "range": [10:7; 10:13),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "code",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [10:13; 10:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"missing_fields\\"",
+    "location": Location {
+      "range": [10:15; 10:31),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "missing_fields",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "}",
+    "location": Location {
+      "range": [11:5; 11:6),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 1,
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [11:6; 11:7),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  Token {
+    "content": "{",
+    "location": Location {
+      "range": [12:5; 12:6),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 0,
+  },
+  ValuedToken {
+    "content": "\\"resource\\"",
+    "location": Location {
+      "range": [13:7; 13:17),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "resource",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [13:17; 13:18),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"Issue\\"",
+    "location": Location {
+      "range": [13:19; 13:26),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "Issue",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [13:26; 13:27),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"field\\"",
+    "location": Location {
+      "range": [14:7; 14:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "field",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [14:14; 14:15),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"milestone\\"",
+    "location": Location {
+      "range": [14:16; 14:27),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "milestone",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [14:27; 14:28),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"code\\"",
+    "location": Location {
+      "range": [15:7; 15:13),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "code",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [15:13; 15:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"invalid\\"",
+    "location": Location {
+      "range": [15:15; 15:24),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "invalid",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [15:24; 15:25),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"value\\"",
+    "location": Location {
+      "range": [16:7; 16:14),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "value",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [16:14; 16:15),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "1",
+    "location": Location {
+      "range": [16:16; 16:17),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 7,
+    "value": 1,
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "}",
+    "location": Location {
+      "range": [17:5; 17:6),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 1,
+  },
+  Token {
+    "content": "]",
+    "location": Location {
+      "range": [18:3; 18:4),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 5,
+  },
+  Token {
+    "content": ",",
+    "location": Location {
+      "range": [18:4; 18:5),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 3,
+  },
+  ValuedToken {
+    "content": "\\"message\\"",
+    "location": Location {
+      "range": [19:3; 19:12),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "message",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": ":",
+    "location": Location {
+      "range": [19:12; 19:13),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 2,
+  },
+  ValuedToken {
+    "content": "\\"Validation Failed\\"",
+    "location": Location {
+      "range": [19:14; 19:33),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 6,
+    "value": "Validation Failed",
+    "valueEquals": [Function],
+  },
+  Token {
+    "content": "}",
+    "location": Location {
+      "range": [20:1; 20:2),
+      "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
+    },
+    "type": 1,
+  },
+]
+`;
