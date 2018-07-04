@@ -1,0 +1,251 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JSON support jsonDiff should match snapshot 1`] = `
+Array [
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [13:3; 13:5),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [1:1; 2:1),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [12:5; 13:1),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": Location {
+      "range": [5:1; 5:7),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [6:1; 6:7),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [7:1; 7:7),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [8:1; 8:5),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [9:1; 9:5),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [2:35; 3:3),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [1:1; 2:5),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [12:1; 12:7),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [13:7; 13:10),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [14:3; 14:6),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [11:1; 11:7),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [4:1; 4:5),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [10:1; 10:7),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [2:5; 2:35),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Textual",
+    "right": Location {
+      "range": [14:3; 14:33),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Move",
+  },
+  Object {
+    "left": undefined,
+    "level": "Lexical",
+    "right": Location {
+      "range": [13:4; 13:5),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": Location {
+      "range": [2:35; 2:36),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Lexical",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [2:5; 2:15),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Lexical",
+    "right": Location {
+      "range": [14:3; 14:13),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Move",
+  },
+  Object {
+    "left": Location {
+      "range": [2:16; 2:35),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Lexical",
+    "right": Location {
+      "range": [14:14; 14:33),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Move",
+  },
+]
+`;
+
+exports[`JSON support jsonLexicalDiff should match snapshot 1`] = `
+Array [
+  Object {
+    "left": undefined,
+    "level": "Lexical",
+    "right": Location {
+      "range": [13:4; 13:5),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Add",
+  },
+  Object {
+    "left": Location {
+      "range": [2:35; 2:36),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Lexical",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": Location {
+      "range": [2:5; 2:15),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Lexical",
+    "right": Location {
+      "range": [14:3; 14:13),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Move",
+  },
+  Object {
+    "left": Location {
+      "range": [2:16; 2:35),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
+    },
+    "level": "Lexical",
+    "right": Location {
+      "range": [14:14; 14:33),
+      "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
+    },
+    "type": "Move",
+  },
+]
+`;
