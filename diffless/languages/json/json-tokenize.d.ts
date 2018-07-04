@@ -1,11 +1,4 @@
-export as namespace tokenizer;
-
-export = tokenize;
-
-declare function tokenize(json: string, tokens?: tokenize.Token[], position?: tokenize.Position): tokenize.Token[];
-
-declare namespace tokenize {
-
+declare namespace JsonTokenize {
     enum TokenType {
         Whitespace = 'whitespace',
         String = 'string',
@@ -19,11 +12,20 @@ declare namespace tokenize {
         column: number;
     }
 
+    interface Range {
+        start: Position;
+        end: Position;
+    }
+
     interface Token {
         type: TokenType;
-        position: Position;
+        position: Position | Range;
         raw: string;
         value: string | boolean | null | number;
     }
+}
 
+declare module 'json-tokenize' {
+    const tokenize: (json: string) => JsonTokenize.Token[];
+    export = tokenize;
 }
