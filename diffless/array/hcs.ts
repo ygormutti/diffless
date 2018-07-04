@@ -37,7 +37,7 @@ class HCSCell<TItem> {
 }
 
 /**
- * Solves HCS by using dynamic programming and linear space optimization
+ * Solves HCS with quadratic time and linear space complexity
  */
 export function dynamicProgrammingHCS<TItem>(
     equals: Equals<TItem>,
