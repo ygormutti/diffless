@@ -1,5 +1,5 @@
 declare namespace JsonTokenize {
-    enum TokenType {
+    const enum TokenType {
         Whitespace = 'whitespace',
         String = 'string',
         Literal = 'literal',

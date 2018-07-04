@@ -24,7 +24,7 @@ export function tokenize(document: Document): Token[] {
 export function adapt(uri: DocumentURI, token: JsonTokenize.Token): Token | undefined {
     const { type, value } = token;
     switch (type) {
-        case JsonTokenize.TokenType.Literal:
+        case 'literal':
             switch (value) {
                 case null:
                     return toToken(uri, token, TokenType.Null);
@@ -34,10 +34,10 @@ export function adapt(uri: DocumentURI, token: JsonTokenize.Token): Token | unde
             }
             break;
 
-        case JsonTokenize.TokenType.Number:
+        case 'number':
             return toValuedToken(uri, token, TokenType.Number);
 
-        case JsonTokenize.TokenType.Punctuation:
+        case 'punctuation':
             switch (value) {
                 case '{':
                     return toToken(uri, token, TokenType.LeftBrace);
@@ -53,10 +53,10 @@ export function adapt(uri: DocumentURI, token: JsonTokenize.Token): Token | unde
                     return toToken(uri, token, TokenType.Comma);
             }
 
-        case JsonTokenize.TokenType.String:
+        case 'string':
             return toValuedToken(uri, token, TokenType.String);
 
-        case JsonTokenize.TokenType.Whitespace:
+        case 'whitespace':
             return undefined;
     }
 }
@@ -85,7 +85,7 @@ function toRange(raw: string, locator: JsonTokenize.Range | JsonTokenize.Positio
     } else {
         const range = locator as JsonTokenize.Range;
         start = new Position(range.start.lineno, range.start.column);
-        end = new Position(range.end.lineno, range.end.column);
+        end = new Position(range.end.lineno, range.end.column + 1);
     }
     return new Range(start, end);
 }
