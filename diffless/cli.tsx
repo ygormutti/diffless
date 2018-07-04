@@ -20,7 +20,7 @@ export function annotateWithDiff(leftPath: string, rightPath: string) {
     return buildAnnotatedHTML(left, right, documentDiff.edits);
 }
 
-function readTextFile(path: string, encoding: string = 'utf8') {
+export function readTextFile(path: string, encoding: string = 'utf8') {
     return readFileSync(path, { encoding });
 }
 
