@@ -48,17 +48,19 @@ export default class SideBySideFileDiff extends Component<Props> {
         for (const character of characters) {
             const { position, content } = character;
             const editsHere = editIndex.get(position);
-            if (editsHere.length === 0 && content !== EOL) continue;
+            const hasEditsHere = editsHere.length > 0;
+            const isEOL = content === EOL;
+            if (!hasEditsHere && !isEOL) continue;
 
             const range = new Range(cursor, position);
             currentLineChildren.push(this.withEdits(document, range, pendingEdits));
 
-            if (editsHere.length > 0) {
+            if (hasEditsHere) {
                 updatePendingEdits(editsHere, pendingEdits);
                 cursor = position;
             }
 
-            if (content === EOL) {
+            if (isEOL) {
                 lines = lines.concat(buildLine(position.line, currentLineChildren));
                 currentLineChildren = [];
                 cursor = new Position(cursor.line + 1, 1);
