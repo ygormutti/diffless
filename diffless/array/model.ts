@@ -1,7 +1,9 @@
+import { JSIN } from '../jsin';
 import { Equals, Excerpt, Location } from '../model';
 
 export type Tokenizer = (document: Document) => Token[];
 
+@JSIN.enabled
 export class Token extends Excerpt {
     constructor(
         location: Location,
@@ -20,6 +22,7 @@ export class Token extends Excerpt {
     }
 }
 
+@JSIN.enabled
 export class ValuedToken<TTokenValue> extends Token {
     constructor(
         location: Location,
