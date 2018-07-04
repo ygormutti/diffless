@@ -138,6 +138,18 @@ export class Excerpt {
         return this.location.range;
     }
 
+    get start() {
+        return this.location.range.start;
+    }
+
+    get end() {
+        return this.location.range.end;
+    }
+
+    static contentLength(excerpt: Excerpt) {
+        return excerpt.content.length;
+    }
+
     static sameContent(a: Excerpt, b: Excerpt) {
         return a.content === b.content;
     }
