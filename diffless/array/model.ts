@@ -10,6 +10,14 @@ export class Token extends Excerpt {
     ) {
         super(content, location);
     }
+
+    equals(other: Token): boolean {
+        return !(other instanceof ValuedToken) && this.type === other.type;
+    }
+
+    static equals(a: Token, b: Token) {
+        return a.equals(b);
+    }
 }
 
 export class ValuedToken<TTokenValue> extends Token {
@@ -18,8 +26,14 @@ export class ValuedToken<TTokenValue> extends Token {
         content: string,
         type: number,
         readonly value: TTokenValue,
-        readonly equals: Equals<TTokenValue>,
+        readonly valueEquals: Equals<TTokenValue>,
     ) {
         super(location, content, type);
+    }
+
+    equals(other: Token): boolean {
+        return other instanceof ValuedToken
+            && this.type === other.type
+            && this.valueEquals(this.value, other.value);
     }
 }
