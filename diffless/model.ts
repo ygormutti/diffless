@@ -9,7 +9,7 @@ import { JSIN } from './jsin';
 /**
  * The URI of a document
  */
-export type DocumentUri = string;
+export type DocumentURI = string;
 
 /**
  * Function type that checks if two objects are equal according to some criteria
@@ -58,12 +58,12 @@ export class Position {
         return this.character - 1;
     }
 
-    equals(other: Position) {
-        return this.line === other.line && this.character === other.character;
+    get code() {
+        return `${this.line}:${this.character}`;
     }
 
-    toString() {
-        return `${this.line}:${this.character}`;
+    equals(other: Position) {
+        return this.line === other.line && this.character === other.character;
     }
 }
 
@@ -88,8 +88,8 @@ export class Range {
         readonly end: Position,
     ) { }
 
-    toString() {
-        return `[${(this.start.toString())}; ${this.end.toString()})`;
+    get code() {
+        return `[${(this.start.code)}; ${this.end.code})`;
     }
 
     static forLine(line: number) {
@@ -107,20 +107,20 @@ export class Range {
 @JSIN.enabled
 export class Location {
     constructor(
-        readonly uri: DocumentUri,
+        readonly uri: DocumentURI,
         readonly range: Range,
     ) { }
 
-    toString() {
-        return `${this.range.toString()} @ ${this.uri}`;
+    get code() {
+        return `${this.range.code} @ ${this.uri}`;
     }
 
-    static forLine(documentUri: DocumentUri, line: number) {
-        return new Location(documentUri, Range.forLine(line));
+    static forLine(documentURI: DocumentURI, line: number) {
+        return new Location(documentURI, Range.forLine(line));
     }
 
-    static forCharacter(documentUri: DocumentUri, position: Position, content: string) {
-        return new Location(documentUri, Range.forCharacter(position, content));
+    static forCharacter(documentURI: DocumentURI, position: Position, content: string) {
+        return new Location(documentURI, Range.forCharacter(position, content));
     }
 }
 
@@ -133,10 +133,6 @@ export class Excerpt {
         readonly content: string,
         readonly location: Location,
     ) { }
-
-    get range() {
-        return this.location.range;
-    }
 
     get start() {
         return this.location.range.start;
@@ -162,10 +158,10 @@ export class Excerpt {
 export class Line extends Excerpt {
     constructor(
         content: string,
-        documentUri: DocumentUri,
+        documentURI: DocumentURI,
         readonly line: number,
     ) {
-        super(content, Location.forLine(documentUri, line));
+        super(content, Location.forLine(documentURI, line));
     }
 }
 
@@ -176,10 +172,10 @@ export class Line extends Excerpt {
 export class Character extends Excerpt {
     constructor(
         content: string,
-        documentUri: DocumentUri,
+        documentURI: DocumentURI,
         readonly position: Position,
     ) {
-        super(content, Location.forCharacter(documentUri, position, content));
+        super(content, Location.forCharacter(documentURI, position, content));
     }
 }
 
@@ -192,17 +188,12 @@ export class Document {
     readonly characters: Character[];
 
     constructor(
-        readonly uri: DocumentUri,
+        readonly uri: DocumentURI,
         readonly content: string,
     ) {
         const linesContents = normalizeEOLs(content).split(EOL);
         this.lines = buildLines(linesContents, uri);
         this.characters = buildCharacters(this.lines, uri);
-    }
-
-    getPosition(position: Position): string {
-        const line = this.lines[position.lineOffset].content;
-        return position.character > line.length ? EOL : line[position.characterOffset];
     }
 
     getRange(range: Range): string {
@@ -232,17 +223,17 @@ export class Document {
     }
 }
 
-function buildLines(linesContents: string[], documentUri: DocumentUri): Line[] {
-    return linesContents.map((v, i) => new Line(v + EOL, documentUri, i + 1));
+function buildLines(linesContents: string[], documentURI: DocumentURI): Line[] {
+    return linesContents.map((v, i) => new Line(v + EOL, documentURI, i + 1));
 }
 
-function buildCharacters(lines: Line[], documentUri: DocumentUri): Character[] {
+function buildCharacters(lines: Line[], documentURI: DocumentURI): Character[] {
     const characters: Character[] = [];
     for (const [lineOffset, line] of lines.entries()) {
         const lineNumber = lineOffset + 1;
         for (const [characterOffset, character] of Array.from(line.content).entries()) {
             const position = new Position(lineNumber, characterOffset + 1);
-            characters.push(new Character(character, documentUri, position));
+            characters.push(new Character(character, documentURI, position));
         }
     }
     return characters;
@@ -289,10 +280,10 @@ export class Edit extends DiffItem {
         super(level, left, right);
     }
 
-    toString() {
-        return `${DiffLevel[this.level]} ${EditType[this.type].toLowerCase()}. ` +
-            `Left: ${this.left ? this.left.toString() : ''}. ` +
-            `Right: ${this.right ? this.right.toString() : ''}`;
+    get code() {
+        return `${DiffLevel[this.level]} ${EditType[this.type].toLowerCase()}, ` +
+            (this.left ? `L: ${this.left!.code}` : '') +
+            (this.right ? `R: ${this.right!.code}` : '');
     }
 }
 

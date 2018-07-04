@@ -61,7 +61,7 @@ export default class FileDiff extends Component<Props, State> {
                 />
 
                 <div>
-                    {highlightedEdit ? highlightedEdit.toString() : ''}
+                    {highlightedEdit ? highlightedEdit.code : ''}
                 </div>
             </div>
         );

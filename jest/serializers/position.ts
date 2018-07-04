@@ -5,5 +5,5 @@ export function test(val: any): val is Position {
 }
 
 export function print(position: Position): string {
-    return position.toString();
+    return position.code;
 }

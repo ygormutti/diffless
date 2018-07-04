@@ -5,5 +5,5 @@ export function test(val: any): val is Range {
 }
 
 export function print(range: Range): string {
-    return range.toString();
+    return range.code;
 }
