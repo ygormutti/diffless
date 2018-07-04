@@ -19,9 +19,14 @@ export type HCS = <TItem>(
  */
 export class HCSResult<TItem> {
     constructor(
+        readonly weight: number,
         readonly leftHCS: TItem[],
         readonly rightHCS: TItem[],
     ) { }
+
+    get length() {
+        return this.leftHCS.length;
+    }
 }
 
 class HCSCell<TItem> {
@@ -41,7 +46,7 @@ export function dynamicProgrammingHCS<TItem>(
     right: TItem[],
 ): HCSResult<TItem> {
     if (!left || !left.length || !right || !right.length) {
-        return new HCSResult([], []);
+        return new HCSResult(0, [], []);
     }
 
     const width = left.length + 1;
@@ -76,7 +81,8 @@ export function dynamicProgrammingHCS<TItem>(
     }
 
     const lastCell = prevRowArray[prevRowArray.length - 1];
-    const leftHCS = lastCell.hcs.map(p => p[0]);
-    const rightHCS = lastCell.hcs.map(p => p[1]);
-    return new HCSResult(leftHCS, rightHCS);
+    const { hcs, weight } = lastCell;
+    const leftHCS = hcs.map(p => p[0]);
+    const rightHCS = hcs.map(p => p[1]);
+    return new HCSResult(weight, leftHCS, rightHCS);
 }
