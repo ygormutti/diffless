@@ -39,9 +39,9 @@ describe('model', () => {
             let lastLineEnd;
             for (const line of document.lines) {
                 if (lastLineEnd) {
-                    expect(line.range.start.equals(lastLineEnd));
+                    expect(line.start.equals(lastLineEnd));
                 }
-                lastLineEnd = line.range.end;
+                lastLineEnd = line.end;
             }
         });
 
@@ -49,9 +49,9 @@ describe('model', () => {
             let lastCharacterEnd;
             for (const character of document.characters) {
                 if (lastCharacterEnd) {
-                    expect(character.range.start.equals(lastCharacterEnd));
+                    expect(character.start.equals(lastCharacterEnd));
                 }
-                lastCharacterEnd = character.range.end;
+                lastCharacterEnd = character.end;
             }
         });
     });
