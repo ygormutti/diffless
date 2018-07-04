@@ -69,11 +69,12 @@ interface JsonEdit {
 }
 
 function toEdit(objFromJson: JsonEdit): Edit {
-    return {
-        ...objFromJson,
-        level: DiffLevel[objFromJson.level],
-        type: EditType[objFromJson.type],
-    };
+    return new Edit(
+        DiffLevel[objFromJson.level],
+        EditType[objFromJson.type],
+        objFromJson.left,
+        objFromJson.right,
+    );
 }
 
 export function saveAnnotatedHtml(
