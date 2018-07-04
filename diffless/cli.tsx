@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { h } from 'preact';
 import { render } from 'preact-render-to-string';
 
-import { charactersDiff } from '.';
+import { characterDiff } from '.';
 import FileDiff from './html/components/file-diff';
 import { JSIN } from './jsin';
 import { DiffLevel, Document, Edit, EditType, Location } from './model';
@@ -12,7 +12,7 @@ export function annotateWithDiff(leftPath: string, rightPath: string) {
     const left = new Document('file://' + leftPath, readTextFile(leftPath));
     const right = new Document('file://' + rightPath, readTextFile(rightPath));
 
-    const documentDiff = charactersDiff(
+    const documentDiff = characterDiff(
         left,
         right,
     );

@@ -1,12 +1,11 @@
 import { curry } from 'lodash';
-import { arrayDiff } from './array/diff';
-import { dynamicProgrammingLCS } from './array/lcs';
-import { DiffLevel, Document, DocumentDiff, Excerpt } from './model';
+import { arrayDiff, ArrayDiffOptions } from './array/diff';
+import { DiffLevel, Document, DocumentDiff } from './model';
 
-export const charactersDiff: (left: Document, right: Document) => DocumentDiff = curry(arrayDiff)({
-    equal: Excerpt.sameContent,
-    itemMapper: (d: Document) => d.characters,
-    lcs: dynamicProgrammingLCS,
-    lcsThreshold: 1,
-    level: DiffLevel.Textual,
-});
+const lineOptions = new ArrayDiffOptions(DiffLevel.Textual, d => d.lines, 0);
+export const lineDiff: (left: Document, right: Document) => DocumentDiff =
+    curry(arrayDiff)(lineOptions);
+
+const characterOptions = new ArrayDiffOptions(DiffLevel.Textual, d => d.characters, 1);
+export const characterDiff: (left: Document, right: Document) => DocumentDiff =
+    curry(arrayDiff)(characterOptions);
