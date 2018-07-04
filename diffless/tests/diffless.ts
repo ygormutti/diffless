@@ -1,10 +1,10 @@
-import { characterDiff, lineDiff } from '../../index';
-import { DiffLevel, Document } from '../../model';
-import { announceHtml } from '../../tests/test-util';
-import { stripMargin } from '../../util';
-import { ArrayDiffTool } from '../diff';
+import { ArrayDiffTool } from '../array/diff';
+import { characterDiff, lineDiff } from '../index';
+import { DiffLevel, Document } from '../model';
+import { announceHtml } from '../tests/test-util';
+import { stripMargin } from '../util';
 
-describe('array-diff', () => {
+describe('array/diff', () => {
     describe('charactersDiff', () => {
         it('should detect additions and deletions correctly', () => {
             const left = new Document('string:left', stripMargin

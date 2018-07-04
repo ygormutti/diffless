@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array-diff charactersDiff should detect additions and deletions correctly 1`] = `
+exports[`array/diff charactersDiff should detect additions and deletions correctly 1`] = `
 Array [
   Object {
     "left": undefined,
@@ -50,7 +50,7 @@ Array [
 ]
 `;
 
-exports[`array-diff charactersDiff should detect additions and deletions correctly 2`] = `
+exports[`array/diff charactersDiff should detect additions and deletions correctly 2`] = `
 Array [
   Similarity {
     "left": Location {
@@ -77,7 +77,7 @@ Array [
 ]
 `;
 
-exports[`array-diff charactersDiff should detect moves correctly 1 1`] = `
+exports[`array/diff charactersDiff should detect moves correctly 1 1`] = `
 Array [
   Object {
     "left": undefined,
@@ -130,7 +130,7 @@ Array [
 ]
 `;
 
-exports[`array-diff charactersDiff should detect moves correctly 2 1`] = `
+exports[`array/diff charactersDiff should detect moves correctly 2 1`] = `
 Array [
   Object {
     "left": undefined,
@@ -165,7 +165,7 @@ Array [
 ]
 `;
 
-exports[`array-diff charactersDiff should detect moves correctly 3 1`] = `
+exports[`array/diff charactersDiff should detect moves correctly 3 1`] = `
 Array [
   Object {
     "left": undefined,
@@ -200,7 +200,7 @@ Array [
 ]
 `;
 
-exports[`array-diff lineDiff should be possible to use no weight 1`] = `
+exports[`array/diff lineDiff should be possible to use no weight 1`] = `
 Array [
   Object {
     "left": Location {
@@ -217,7 +217,7 @@ Array [
 ]
 `;
 
-exports[`array-diff lineDiff should consider line weight 1`] = `
+exports[`array/diff lineDiff should consider line weight 1`] = `
 Array [
   Object {
     "left": Location {
