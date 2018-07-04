@@ -1,12 +1,11 @@
-import { charactersDiff } from '../../index';
-import { Document } from '../../model';
+import { characterDiff, lineDiff } from '../../index';
+import { DiffLevel, Document } from '../../model';
 import { announceHtml } from '../../tests/test-util';
 import { stripMargin } from '../../util';
+import { ArrayDiffTool } from '../diff';
 
 describe('array-diff', () => {
     describe('charactersDiff', () => {
-        const diff = charactersDiff;
-
         it('should detect additions and deletions correctly', () => {
             const left = new Document('string:left', stripMargin
                 `abc
@@ -19,9 +18,10 @@ describe('array-diff', () => {
                 |fgh`,
             );
 
-            const edits = diff(left, right);
-            expect(edits.edits).toMatchSnapshot();
-            announceHtml(left, right, edits.edits, 'basic');
+            const diff = characterDiff(left, right);
+            expect(diff.edits).toMatchSnapshot();
+            expect(diff.similarities).toMatchSnapshot();
+            announceHtml(left, right, diff.edits, 'basic');
         });
 
         it('should detect moves correctly 1', () => {
@@ -34,9 +34,9 @@ describe('array-diff', () => {
                 |abc`,
             );
 
-            const edits = diff(left, right);
-            expect(edits.edits).toMatchSnapshot();
-            announceHtml(left, right, edits.edits, 'moves1');
+            const diff = characterDiff(left, right);
+            expect(diff.edits).toMatchSnapshot();
+            announceHtml(left, right, diff.edits, 'moves1');
         });
 
         it('should detect moves correctly 2', () => {
@@ -51,10 +51,9 @@ describe('array-diff', () => {
                 |ghi`,
             );
 
-            const edits = diff(left, right);
-            expect(edits.edits).toMatchSnapshot();
-            announceHtml(left, right, edits.edits, 'moves2');
-
+            const diff = characterDiff(left, right);
+            expect(diff.edits).toMatchSnapshot();
+            announceHtml(left, right, diff.edits, 'moves2');
         });
 
         it('should detect moves correctly 3', () => {
@@ -69,9 +68,40 @@ describe('array-diff', () => {
                 |def`,
             );
 
-            const edits = diff(left, right);
-            expect(edits.edits).toMatchSnapshot();
-            announceHtml(left, right, edits.edits, 'moves3');
+            const diff = characterDiff(left, right);
+            expect(diff.edits).toMatchSnapshot();
+            announceHtml(left, right, diff.edits, 'moves3');
+        });
+    });
+
+    describe('lineDiff', () => {
+        const left = new Document('string:left', stripMargin
+            `abc
+            |def
+            |ghijklmn`,
+        );
+        const right = new Document('string:right', stripMargin
+            `abc
+            |ghijklmn
+            |def`,
+        );
+
+        it('should consider line weight', () => {
+            const diff = lineDiff(left, right);
+            expect(diff.edits).toMatchSnapshot();
+            announceHtml(left, right, diff.edits, 'move_lines_weighed');
+        });
+
+        it('should be possible to use no weight', () => {
+            const tool = new ArrayDiffTool({
+                excerptMapper: d => d.lines,
+                level: DiffLevel.Textual,
+                similarityThreshold: 0,
+                weigh: _ => 1,
+            });
+            const diff = tool.run(left, right);
+            expect(diff.edits).toMatchSnapshot();
+            announceHtml(left, right, diff.edits, 'move_lines_not_weighed');
         });
     });
 });
