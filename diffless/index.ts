@@ -1,11 +1,16 @@
-import { curry } from 'lodash';
-import { arrayDiff, ArrayDiffOptions } from './array/diff';
-import { DiffLevel, Document, DocumentDiff } from './model';
+import { ArrayDiffTool } from './array/diff';
+import { DiffLevel } from './model';
 
-const lineOptions = new ArrayDiffOptions(DiffLevel.Textual, d => d.lines, 0);
-export const lineDiff: (left: Document, right: Document) => DocumentDiff =
-    curry(arrayDiff)(lineOptions);
+const lineDiffTool = new ArrayDiffTool({
+    excerptMapper: document => document.lines,
+    level: DiffLevel.Textual,
+    similarityThreshold: 0,
+});
+export const lineDiff = lineDiffTool.run;
 
-const characterOptions = new ArrayDiffOptions(DiffLevel.Textual, d => d.characters, 1);
-export const characterDiff: (left: Document, right: Document) => DocumentDiff =
-    curry(arrayDiff)(characterOptions);
+const characterDiffTool = new ArrayDiffTool({
+    excerptMapper: document => document.characters,
+    level: DiffLevel.Textual,
+    similarityThreshold: 1,
+});
+export const characterDiff = characterDiffTool.run;
