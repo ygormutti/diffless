@@ -64,9 +64,9 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
     ) {
         const { excerptMapper, level } = this.options;
         const leftWrappers = excerptMapper(left).map(this.wrapExcerpt);
-        const rightWrapped = excerptMapper(right).map(this.wrapExcerpt);
+        const rightWrappers = excerptMapper(right).map(this.wrapExcerpt);
 
-        const hcsResult = this.hcs(this.equals, this.weigh, leftWrappers, rightWrapped);
+        const hcsResult = this.hcs(this.equals, this.weigh, leftWrappers, rightWrappers);
         const similarities = this.processHCSResult(
             hcsResult,
             (l, r) => new Similarity(level, l, r),
@@ -74,16 +74,18 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
 
         let edits: Edit[] = [];
 
-        const moves = this.findMoves(leftWrappers, rightWrapped);
+        const moves = this.findMoves(leftWrappers, rightWrappers);
         edits = edits.concat(moves);
 
-        const deletions = leftWrappers.filter(unpaired).map(
-            i => new Edit(level, EditType.Delete, i.excerpt.location),
+        const deletions = this.processUnpairedExcerpts(
+            leftWrappers,
+            l => new Edit(level, EditType.Delete, l),
         );
         edits = edits.concat(deletions);
 
-        const additions = rightWrapped.filter(unpaired).map(
-            i => new Edit(level, EditType.Add, undefined, i.excerpt.location),
+        const additions = this.processUnpairedExcerpts(
+            rightWrappers,
+            l => new Edit(level, EditType.Add, undefined, l),
         );
         edits = edits.concat(additions);
 
@@ -169,6 +171,40 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         }
 
         return moves;
+    }
+
+    private processUnpairedExcerpts<TDiffItem>(
+        wrappers: Wrapper<TExcerpt>[],
+        buildDiffItem: (location: Location) => TDiffItem,
+    ) {
+        wrappers = wrappers.filter(unpaired);
+        if (wrappers.length === 0) return [];
+
+        const edits: TDiffItem[] = [];
+        const firstExcerpt = wrappers[0].excerpt;
+        const uri = firstExcerpt.location.uri;
+        let start = firstExcerpt.start;
+        let end = start;
+
+        const pushDiffItem = () => {
+            const location = new Location(uri, new Range(start, end));
+            edits.push(buildDiffItem(location));
+        };
+
+        for (const wrapper of wrappers) {
+            const { excerpt } = wrapper;
+
+            if (excerpt.start.equals(end)) {
+                end = excerpt.end;
+            } else {
+                pushDiffItem();
+                start = excerpt.start;
+                end = excerpt.end;
+            }
+        }
+        pushDiffItem();
+
+        return edits;
     }
 }
 
