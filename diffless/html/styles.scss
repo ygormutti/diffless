@@ -39,6 +39,10 @@ body {
     &-controls {
         margin: 8px;
     }
+
+    &-status {
+        clear: both;
+    }
 }
 
 .SideBySideFileDiff {

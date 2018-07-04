@@ -60,7 +60,7 @@ export default class FileDiff extends Component<Props, State> {
                     setHighlightedEdit={this.setHighlightedEdit}
                 />
 
-                <div>
+                <div className="FileDiff-status">
                     {highlightedEdit ? highlightedEdit.code : ''}
                 </div>
             </div>
