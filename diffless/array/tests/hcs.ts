@@ -11,6 +11,7 @@ describe('dynamicProgrammingHCS', () => {
 
         expect(result).toMatchSnapshot();
         expect(result.leftHCS.join('')).toBe('MJAU');
+        expect(result.rightHCS.join('')).toBe('mjau');
     });
 
     it('should work with variable weight', () => {
