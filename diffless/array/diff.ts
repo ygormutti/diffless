@@ -1,6 +1,5 @@
 import { bind } from 'decko';
 import {
-    DiffLevel,
     Document,
     DocumentDiff,
     Edit,
@@ -13,17 +12,7 @@ import {
     Weigh,
 } from '../model';
 import { dynamicProgrammingHCS, HCS, HCSResult } from './hcs';
-
-export interface ArrayDiffOptions<TExcerpt extends Excerpt> {
-    level: DiffLevel;
-    excerptMapper: ExcerptMapper<TExcerpt>;
-    similarityThreshold: number;
-    equals?: Equals<TExcerpt>;
-    weigh?: Weigh<TExcerpt>;
-    hcs?: HCS;
-}
-
-export type ExcerptMapper<TExcerpt extends Excerpt> = (document: Document) => TExcerpt[];
+import { ArrayDiffOptions } from './model';
 
 class Wrapper<TExcerpt extends Excerpt> {
     constructor(
@@ -39,10 +28,11 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
 
     constructor(
         readonly options: ArrayDiffOptions<TExcerpt>,
+        hcs?: HCS,
     ) {
         this.equals = this.wrapEquals(options.equals || Excerpt.sameContent);
         this.weigh = this.wrapWeigh(options.weigh || Excerpt.contentLength);
-        this.hcs = options.hcs || dynamicProgrammingHCS;
+        this.hcs = hcs || dynamicProgrammingHCS;
     }
 
     private wrapExcerpt(excerpt: TExcerpt): Wrapper<TExcerpt> {

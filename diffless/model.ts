@@ -258,6 +258,7 @@ export enum DiffLevel {
     Lexical,
     Syntactic,
     Semantic,
+    DataFlow,
 }
 
 @JSIN.enabled

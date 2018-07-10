@@ -1,7 +1,17 @@
 import { JSIN } from '../jsin';
-import { Equals, Excerpt, Location } from '../model';
+import { DiffLevel, Document, Equals, Excerpt, Location, Weigh } from '../model';
 
 export type Tokenizer = (document: Document) => Token[];
+
+export interface ArrayDiffOptions<TExcerpt extends Excerpt> {
+    level: DiffLevel;
+    excerptMapper: ExcerptMapper<TExcerpt>;
+    similarityThreshold: number;
+    equals?: Equals<TExcerpt>;
+    weigh?: Weigh<TExcerpt>;
+}
+
+export type ExcerptMapper<TExcerpt extends Excerpt> = (document: Document) => TExcerpt[];
 
 @JSIN.enabled
 export class Token extends Excerpt {
