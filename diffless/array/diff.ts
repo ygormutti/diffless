@@ -47,11 +47,13 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         return (obj: Wrapper<TExcerpt>) => weigh(obj.excerpt);
     }
 
+    run(left: Document, right: Document): DocumentDiff;
+    run(left: string, right: string): DocumentDiff;
     @bind
-    run(
-        left: Document,
-        right: Document,
-    ) {
+    run(left: Document | string, right: Document | string): DocumentDiff {
+        if (typeof left === 'string') { left = new Document('string:left', left); }
+        if (typeof right === 'string') { right = new Document('string:right', right); }
+
         const { excerptMapper, level } = this.options;
         const leftWrappers = excerptMapper(left).map(this.wrapExcerpt);
         const rightWrappers = excerptMapper(right).map(this.wrapExcerpt);
