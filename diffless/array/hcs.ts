@@ -8,7 +8,7 @@ import { Equals, Weigh } from '../model';
  * Function type that finds the HCS between two arrays
  */
 export type HCS = <TItem>(
-    equal: Equals<TItem>,
+    equals: Equals<TItem>,
     weigh: Weigh<TItem>,
     left: TItem[],
     right: TItem[],
