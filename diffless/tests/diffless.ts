@@ -104,31 +104,29 @@ describe('array/diff', () => {
             announceHtml(left, right, diff.edits, 'move_lines_not_weighed');
         });
 
-        it('should match snapshot', () => {
-            const otherLeft = new Document('string:right', stripMargin
-                `"m"
-                |"z"
-                |"j"
-                |"a"
-                |"w"
-                |"x"
-                |"u"`,
-            );
+        it('should be able to compare strings directly', () => {
+            const otherLeft = stripMargin
+            `"m"
+            |"z"
+            |"j"
+            |"a"
+            |"w"
+            |"x"
+            |"u"`;
 
-            const otherRight = new Document('string:left', stripMargin
-                `"a"
-                |"j"
-                |"m"
-                |"u"
-                |"w"
-                |"x"
-                |"z"`,
-            );
+            const otherRight = stripMargin
+            `"a"
+            |"j"
+            |"m"
+            |"u"
+            |"w"
+            |"x"
+            |"z"`;
 
             const diff = lineDiff(otherLeft, otherRight);
 
             expect(diff.edits).toMatchSnapshot();
-            announceHtml(otherLeft, otherRight, diff.edits, 'paulo');
+            announceHtml(diff.left, diff.right, diff.edits, 'strings');
         });
     });
 });
