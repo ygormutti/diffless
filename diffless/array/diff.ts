@@ -5,7 +5,7 @@ import {
     Edit,
     EditType,
     Equals,
-    Excerpt,
+    Grain,
     Location,
     Range,
     Similarity,
@@ -14,37 +14,37 @@ import {
 import { dynamicProgrammingHCS, HCS, HCSResult } from './hcs';
 import { ArrayDiffOptions } from './model';
 
-class Wrapper<TExcerpt extends Excerpt> {
+class Wrapper<TGrain extends Grain> {
     constructor(
-        readonly excerpt: TExcerpt,
+        readonly grain: TGrain,
         public paired: boolean = false,
     ) { }
 }
 
-export class ArrayDiffTool<TExcerpt extends Excerpt> {
-    private equals: Equals<Wrapper<TExcerpt>>;
-    private weigh: Weigh<Wrapper<TExcerpt>>;
+export class ArrayDiffTool<TGrain extends Grain> {
+    private equals: Equals<Wrapper<TGrain>>;
+    private weigh: Weigh<Wrapper<TGrain>>;
     private hcs: HCS;
 
     constructor(
-        readonly options: ArrayDiffOptions<TExcerpt>,
+        readonly options: ArrayDiffOptions<TGrain>,
         hcs?: HCS,
     ) {
-        this.equals = this.wrapEquals(options.equals || Excerpt.sameContent);
-        this.weigh = this.wrapWeigh(options.weigh || Excerpt.contentLength);
+        this.equals = this.wrapEquals(options.equals || Grain.sameContent);
+        this.weigh = this.wrapWeigh(options.weigh || Grain.contentLength);
         this.hcs = hcs || dynamicProgrammingHCS;
     }
 
-    private wrapExcerpt(excerpt: TExcerpt): Wrapper<TExcerpt> {
-        return new Wrapper(excerpt);
+    private wrapGrain(grain: TGrain): Wrapper<TGrain> {
+        return new Wrapper(grain);
     }
 
-    private wrapEquals(equals: Equals<TExcerpt>) {
-        return (a: Wrapper<TExcerpt>, b: Wrapper<TExcerpt>) => equals(a.excerpt, b.excerpt);
+    private wrapEquals(equals: Equals<TGrain>) {
+        return (a: Wrapper<TGrain>, b: Wrapper<TGrain>) => equals(a.grain, b.grain);
     }
 
-    private wrapWeigh(weigh: Weigh<TExcerpt>) {
-        return (obj: Wrapper<TExcerpt>) => weigh(obj.excerpt);
+    private wrapWeigh(weigh: Weigh<TGrain>) {
+        return (obj: Wrapper<TGrain>) => weigh(obj.grain);
     }
 
     run(left: Document, right: Document): DocumentDiff;
@@ -54,9 +54,9 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         if (typeof left === 'string') { left = new Document('string:left', left); }
         if (typeof right === 'string') { right = new Document('string:right', right); }
 
-        const { excerptMapper, level } = this.options;
-        const leftWrappers = excerptMapper(left).map(this.wrapExcerpt);
-        const rightWrappers = excerptMapper(right).map(this.wrapExcerpt);
+        const { toGrainArray, level } = this.options;
+        const leftWrappers = toGrainArray(left).map(this.wrapGrain);
+        const rightWrappers = toGrainArray(right).map(this.wrapGrain);
 
         const hcsResult = this.hcs(this.equals, this.weigh, leftWrappers, rightWrappers);
         const similarities = this.processHCSResult(
@@ -69,13 +69,13 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         const moves = this.findMoves(leftWrappers, rightWrappers);
         edits = edits.concat(moves);
 
-        const deletions = this.processUnpairedExcerpts(
+        const deletions = this.processUnpairedGrains(
             leftWrappers,
             l => new Edit(level, EditType.Delete, l),
         );
         edits = edits.concat(deletions);
 
-        const additions = this.processUnpairedExcerpts(
+        const additions = this.processUnpairedGrains(
             rightWrappers,
             l => new Edit(level, EditType.Add, undefined, l),
         );
@@ -85,7 +85,7 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
     }
 
     private processHCSResult<TDiffItem>(
-        hcsResult: HCSResult<Wrapper<TExcerpt>>,
+        hcsResult: HCSResult<Wrapper<TGrain>>,
         buildDiffItem: (left: Location, right: Location) => TDiffItem,
     ): TDiffItem[] {
         if (hcsResult.length === 0) return [];
@@ -93,15 +93,15 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         const { similarityThreshold } = this.options;
         const diffItems: TDiffItem[] = [];
         const { leftHCS, rightHCS } = hcsResult;
-        const leftURI = leftHCS[0].excerpt.location.uri;
-        const rightURI = rightHCS[0].excerpt.location.uri;
+        const leftURI = leftHCS[0].grain.location.uri;
+        const rightURI = rightHCS[0].grain.location.uri;
 
-        let leftStart = leftHCS[0].excerpt.start;
+        let leftStart = leftHCS[0].grain.start;
         let leftEnd = leftStart;
-        let rightStart = rightHCS[0].excerpt.start;
+        let rightStart = rightHCS[0].grain.start;
         let rightEnd = rightStart;
         let similarityWeight = 0;
-        let toPair: Wrapper<TExcerpt>[] = [];
+        let toPair: Wrapper<TGrain>[] = [];
 
         function checkForDiffItem() {
             if (similarityWeight > similarityThreshold) {
@@ -116,9 +116,9 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
 
         for (let i = 0; i < hcsResult.length; i++) {
             const leftWrapper = leftHCS[i];
-            const { excerpt: left } = leftWrapper;
+            const { grain: left } = leftWrapper;
             const rightWrapper = rightHCS[i];
-            const { excerpt: right } = rightWrapper;
+            const { grain: right } = rightWrapper;
 
             if (left.start.equals(leftEnd) && right.start.equals(rightEnd)) {
                 leftEnd = left.end;
@@ -141,7 +141,7 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         return diffItems;
     }
 
-    private findMoves(leftWrappers: Wrapper<TExcerpt>[], rightWrappers: Wrapper<TExcerpt>[]) {
+    private findMoves(leftWrappers: Wrapper<TGrain>[], rightWrappers: Wrapper<TGrain>[]) {
         const { level } = this.options;
         const lcsUnpaired = () => {
             leftWrappers = leftWrappers.filter(unpaired);
@@ -165,17 +165,17 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         return moves;
     }
 
-    private processUnpairedExcerpts<TDiffItem>(
-        wrappers: Wrapper<TExcerpt>[],
+    private processUnpairedGrains<TDiffItem>(
+        wrappers: Wrapper<TGrain>[],
         buildDiffItem: (location: Location) => TDiffItem,
     ) {
         wrappers = wrappers.filter(unpaired);
         if (wrappers.length === 0) return [];
 
         const edits: TDiffItem[] = [];
-        const firstExcerpt = wrappers[0].excerpt;
-        const uri = firstExcerpt.location.uri;
-        let start = firstExcerpt.start;
+        const firstGrain = wrappers[0].grain;
+        const uri = firstGrain.location.uri;
+        let start = firstGrain.start;
         let end = start;
 
         const pushDiffItem = () => {
@@ -184,14 +184,14 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
         };
 
         for (const wrapper of wrappers) {
-            const { excerpt } = wrapper;
+            const { grain } = wrapper;
 
-            if (excerpt.start.equals(end)) {
-                end = excerpt.end;
+            if (grain.start.equals(end)) {
+                end = grain.end;
             } else {
                 pushDiffItem();
-                start = excerpt.start;
-                end = excerpt.end;
+                start = grain.start;
+                end = grain.end;
             }
         }
         pushDiffItem();
@@ -200,7 +200,7 @@ export class ArrayDiffTool<TExcerpt extends Excerpt> {
     }
 }
 
-function unpaired<TExcerpt extends Excerpt>(wrapper: Wrapper<TExcerpt>) {
+function unpaired<TGrain extends Grain>(wrapper: Wrapper<TGrain>) {
     return !wrapper.paired;
 }
 

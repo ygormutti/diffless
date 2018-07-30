@@ -94,9 +94,9 @@ describe('array/diff', () => {
 
         it('should be possible to use no weight', () => {
             const tool = new ArrayDiffTool({
-                excerptMapper: d => d.lines,
                 level: DiffLevel.Textual,
                 similarityThreshold: 0,
+                toGrainArray: d => d.lines,
                 weigh: _ => 1,
             });
             const diff = tool.run(left, right);

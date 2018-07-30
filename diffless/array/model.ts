@@ -1,20 +1,20 @@
 import { JSIN } from '../jsin';
-import { DiffLevel, Document, Equals, Excerpt, Location, Weigh } from '../model';
+import { DiffLevel, Document, Equals, Grain, Location, Weigh } from '../model';
 
 export type Tokenizer = (document: Document) => Token[];
 
-export interface ArrayDiffOptions<TExcerpt extends Excerpt> {
+export interface ArrayDiffOptions<TGrain extends Grain> {
     level: DiffLevel;
-    excerptMapper: ExcerptMapper<TExcerpt>;
+    toGrainArray: GrainArrayMapper<TGrain>;
     similarityThreshold: number;
-    equals?: Equals<TExcerpt>;
-    weigh?: Weigh<TExcerpt>;
+    equals?: Equals<TGrain>;
+    weigh?: Weigh<TGrain>;
 }
 
-export type ExcerptMapper<TExcerpt extends Excerpt> = (document: Document) => TExcerpt[];
+export type GrainArrayMapper<TGrain extends Grain> = (document: Document) => TGrain[];
 
 @JSIN.enabled
-export class Token extends Excerpt {
+export class Token extends Grain {
     constructor(
         location: Location,
         content: string,

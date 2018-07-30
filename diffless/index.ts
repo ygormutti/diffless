@@ -3,16 +3,16 @@ import { ArrayDiffTool } from './array/diff';
 import { DiffLevel, DiffTool, Document, DocumentDiff } from './model';
 
 const lineDiffTool = new ArrayDiffTool({
-    excerptMapper: document => document.lines,
     level: DiffLevel.Textual,
     similarityThreshold: 0,
+    toGrainArray: document => document.lines,
 });
 export const lineDiff = lineDiffTool.run;
 
 const characterDiffTool = new ArrayDiffTool({
-    excerptMapper: document => document.characters,
     level: DiffLevel.Textual,
     similarityThreshold: 1,
+    toGrainArray: document => document.characters,
 });
 export const characterDiff = characterDiffTool.run;
 

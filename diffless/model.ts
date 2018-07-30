@@ -125,10 +125,10 @@ export class Location {
 }
 
 /**
- * An object which represents an excerpt from a text document
+ * The unit of comparison of an atomic diff tool
  */
 @JSIN.enabled
-export class Excerpt {
+export class Grain {
     constructor(
         readonly content: string,
         readonly location: Location,
@@ -142,20 +142,20 @@ export class Excerpt {
         return this.location.range.end;
     }
 
-    static contentLength(excerpt: Excerpt) {
-        return excerpt.content.length;
+    static contentLength(grain: Grain) {
+        return grain.content.length;
     }
 
-    static sameContent(a: Excerpt, b: Excerpt) {
+    static sameContent(a: Grain, b: Grain) {
         return a.content === b.content;
     }
 }
 
 /**
- * A line excerpt from a text document
+ * A line from a text document
  */
 @JSIN.enabled
-export class Line extends Excerpt {
+export class Line extends Grain {
     constructor(
         content: string,
         documentURI: DocumentURI,
@@ -166,10 +166,10 @@ export class Line extends Excerpt {
 }
 
 /**
- * A single character excerpt from a text document
+ * A single character from a text document
  */
 @JSIN.enabled
-export class Character extends Excerpt {
+export class Character extends Grain {
     constructor(
         content: string,
         documentURI: DocumentURI,
