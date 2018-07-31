@@ -17,13 +17,15 @@ import { ArrayDiffOptions } from './model';
 class Wrapper<TGrain extends Grain> {
     constructor(
         readonly grain: TGrain,
+        readonly index: number,
+        readonly weight: number,
         public paired: boolean = false,
     ) { }
 }
 
 export class ArrayDiffTool<TGrain extends Grain> {
     private equals: Equals<Wrapper<TGrain>>;
-    private weigh: Weigh<Wrapper<TGrain>>;
+    private weigh: Weigh<TGrain>;
     private hcs: HCS;
 
     constructor(
@@ -31,20 +33,17 @@ export class ArrayDiffTool<TGrain extends Grain> {
         hcs?: HCS,
     ) {
         this.equals = this.wrapEquals(options.equals || Grain.sameContent);
-        this.weigh = this.wrapWeigh(options.weigh || Grain.contentLength);
+        this.weigh = options.weigh || Grain.contentLength;
         this.hcs = hcs || dynamicProgrammingHCS;
     }
 
-    private wrapGrain(grain: TGrain): Wrapper<TGrain> {
-        return new Wrapper(grain);
+    @bind
+    private wrapGrain(grain: TGrain, index: number): Wrapper<TGrain> {
+        return new Wrapper(grain, index, this.weigh(grain));
     }
 
     private wrapEquals(equals: Equals<TGrain>) {
         return (a: Wrapper<TGrain>, b: Wrapper<TGrain>) => equals(a.grain, b.grain);
-    }
-
-    private wrapWeigh(weigh: Weigh<TGrain>) {
-        return (obj: Wrapper<TGrain>) => weigh(obj.grain);
     }
 
     run(left: Document, right: Document): DocumentDiff;
@@ -58,7 +57,7 @@ export class ArrayDiffTool<TGrain extends Grain> {
         const leftWrappers = toGrainArray(left).map(this.wrapGrain);
         const rightWrappers = toGrainArray(right).map(this.wrapGrain);
 
-        const hcsResult = this.hcs(this.equals, this.weigh, leftWrappers, rightWrappers);
+        const hcsResult = this.hcs(this.equals, getWeight, leftWrappers, rightWrappers);
         const similarities = this.processHCSResult(
             hcsResult,
             (l, r) => new Similarity(level, l, r),
@@ -123,12 +122,12 @@ export class ArrayDiffTool<TGrain extends Grain> {
             if (left.start.equals(leftEnd) && right.start.equals(rightEnd)) {
                 leftEnd = left.end;
                 rightEnd = right.end;
-                similarityWeight += this.weigh(leftWrapper);
+                similarityWeight += leftWrapper.weight;
                 toPair.push(rightWrapper);
                 toPair.push(leftWrapper);
             } else {
                 checkForDiffItem();
-                similarityWeight = this.weigh(leftWrapper);
+                similarityWeight = leftWrapper.weight;
                 toPair = [leftWrapper, rightWrapper];
                 leftStart = left.start;
                 leftEnd = left.end;
@@ -198,6 +197,10 @@ export class ArrayDiffTool<TGrain extends Grain> {
 
         return edits;
     }
+}
+
+function getWeight<TGrain extends Grain>(wrappedGrain: Wrapper<TGrain>): number {
+    return wrappedGrain.weight;
 }
 
 function unpaired<TGrain extends Grain>(wrapper: Wrapper<TGrain>) {
