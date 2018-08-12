@@ -95,44 +95,42 @@ export class ArrayDiffTool<TGrain extends Grain> {
         const leftURI = leftHCS[0].grain.location.uri;
         const rightURI = rightHCS[0].grain.location.uri;
 
-        let leftStart = leftHCS[0].grain.start;
-        let leftEnd = leftStart;
-        let rightStart = rightHCS[0].grain.start;
-        let rightEnd = rightStart;
-        let similarityWeight = 0;
+        let leftStartWrapper = leftHCS[0];
+        let leftEndWrapper = leftStartWrapper;
+        let rightStartWrapper = rightHCS[0];
+        let rightEndWrapper = rightStartWrapper;
+        let similarityCount = 0;
         let toPair: Wrapper<TGrain>[] = [];
 
         function checkForDiffItem() {
-            if (similarityWeight > similarityThreshold) {
-                const leftLocation = new Location(leftURI, new Range(leftStart, leftEnd));
-                const rightLocation = new Location(rightURI, new Range(rightStart, rightEnd));
-                toPair.forEach(wrapper => {
-                    wrapper.paired = true;
-                });
+            if (similarityCount > similarityThreshold) {
+                const leftRange = new Range(leftStartWrapper.grain.start, leftEndWrapper.grain.end);
+                const leftLocation = new Location(leftURI, leftRange);
+                const rightRange = new Range(rightStartWrapper.grain.start, rightEndWrapper.grain.end);
+                const rightLocation = new Location(rightURI, rightRange);
+                toPair.forEach(wrapper => wrapper.paired = true);
                 diffItems.push(buildDiffItem(leftLocation, rightLocation));
             }
         }
 
         for (let i = 0; i < hcsResult.length; i++) {
-            const leftWrapper = leftHCS[i];
-            const { grain: left } = leftWrapper;
-            const rightWrapper = rightHCS[i];
-            const { grain: right } = rightWrapper;
+            const left = leftHCS[i];
+            const right = rightHCS[i];
 
-            if (left.start.equals(leftEnd) && right.start.equals(rightEnd)) {
-                leftEnd = left.end;
-                rightEnd = right.end;
-                similarityWeight += leftWrapper.weight;
-                toPair.push(rightWrapper);
-                toPair.push(leftWrapper);
+            if (left.index === leftEndWrapper.index + 1 && right.index === rightEndWrapper.index + 1) {
+                leftEndWrapper = left;
+                rightEndWrapper = right;
+                similarityCount++;
+                toPair.push(right);
+                toPair.push(left);
             } else {
                 checkForDiffItem();
-                similarityWeight = leftWrapper.weight;
-                toPair = [leftWrapper, rightWrapper];
-                leftStart = left.start;
-                leftEnd = left.end;
-                rightStart = right.start;
-                rightEnd = right.end;
+                similarityCount = 1;
+                toPair = [left, right];
+                leftStartWrapper = left;
+                leftEndWrapper = left;
+                rightStartWrapper = right;
+                rightEndWrapper = right;
             }
         }
         checkForDiffItem();
@@ -151,14 +149,15 @@ export class ArrayDiffTool<TGrain extends Grain> {
         let moves: Edit[] = [];
 
         let lcsResult = lcsUnpaired();
-        let previousWeight = Infinity;
-        while (lcsResult.weight < previousWeight) {
-            moves = moves.concat(this.processHCSResult(
+        const lcsLength = lcsResult.length;
+        while (lcsLength > this.options.similarityThreshold) {
+            const newMoves = this.processHCSResult(
                 lcsResult,
                 (l, r) => new Edit(level, EditType.Move, l, r),
-            ));
+            );
+            if (newMoves.length === 0) break;
+            moves = moves.concat(newMoves);
             lcsResult = lcsUnpaired();
-            previousWeight = lcsResult.weight;
         }
 
         return moves;
