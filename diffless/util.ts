@@ -50,13 +50,7 @@ export function buildEditIndexes(changes: Edit[]): [EditIndex, EditIndex] {
 }
 
 export function sortEdits(changes: Edit[]): void {
-    changes.sort((a: Edit, b: Edit) => {
-        let value = a.level - b.level;
-        if (!value) {
-            value = a.type - b.type;
-        }
-        return value;
-    });
+    changes.sort((a: Edit, b: Edit) => a.compareTo(b));
 }
 
 export function intEnumKeys(E: any): string[] {
