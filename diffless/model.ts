@@ -27,12 +27,19 @@ export type Weigh<T> = (obj: T) => number;
 export const EOL = '\n';
 
 /**
+ * A type which instances have a natural total order
+ */
+export interface Comparable<T> {
+    compareTo(other: T): number;
+}
+
+/**
  * Position in a text document expressed as one-based line and one-based character offset.
  *
  * A position is between two characters like an ‘insert’ cursor in a editor.
  */
 @JSIN.enabled
-export class Position {
+export class Position implements Comparable<Position> {
     constructor(
         /**
          * Line position in a document (one-based).
@@ -63,7 +70,13 @@ export class Position {
     }
 
     equals(other: Position) {
-        return this.line === other.line && this.character === other.character;
+        return this.compareTo(other) === 0;
+    }
+
+    compareTo(other: Position): number {
+        let value = this.line - other.line;
+        if (!value) { value = this.character - other.character; }
+        return value;
     }
 }
 
@@ -75,7 +88,7 @@ export class Position {
  * then use an end position denoting the start of the next line.
  */
 @JSIN.enabled
-export class Range {
+export class Range implements Comparable<Range> {
     constructor(
         /**
          * The range's start position.
@@ -90,6 +103,12 @@ export class Range {
 
     get code() {
         return `[${(this.start.code)}; ${this.end.code})`;
+    }
+
+    compareTo(other: Range): number {
+        let value = this.start.compareTo(other.start);
+        if (!value) { value = this.end.compareTo(other.end); }
+        return value;
     }
 
     static forLine(line: number) {
@@ -271,7 +290,7 @@ export class DiffItem {
 }
 
 @JSIN.enabled
-export class Edit extends DiffItem {
+export class Edit extends DiffItem implements Comparable<Edit> {
     constructor(
         level: DiffLevel,
         readonly type: EditType,
@@ -286,6 +305,14 @@ export class Edit extends DiffItem {
             (this.left ? `L: ${this.left!.code}` : '') +
             (this.left && this.right ? ', ' : '') +
             (this.right ? `R: ${this.right!.code}` : '');
+    }
+
+    compareTo(other: Edit): number {
+        let value = other.level - this.level;
+        if (!value) { value = other.type - this.type; }
+        if (!value && this.right && other.right) { value = this.right.range.compareTo(other.right.range); }
+        if (!value && this.left && other.left) { value = this.left.range.compareTo(other.left.range); }
+        return value;
     }
 }
 
