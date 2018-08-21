@@ -46,10 +46,10 @@ export class ArrayDiffTool<TGrain extends Grain> {
         return (a: Wrapper<TGrain>, b: Wrapper<TGrain>) => equals(a.grain, b.grain);
     }
 
-    run(left: Document, right: Document): DocumentDiff;
-    run(left: string, right: string): DocumentDiff;
+    compare(left: Document, right: Document): DocumentDiff;
+    compare(left: string, right: string): DocumentDiff;
     @bind
-    run(left: Document | string, right: Document | string): DocumentDiff {
+    compare(left: Document | string, right: Document | string): DocumentDiff {
         if (typeof left === 'string') { left = new Document('string:left', left); }
         if (typeof right === 'string') { right = new Document('string:right', right); }
 

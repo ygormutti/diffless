@@ -99,7 +99,7 @@ describe('array/diff', () => {
                 toGrainArray: d => d.lines,
                 weigh: _ => 1,
             });
-            const diff = tool.run(left, right);
+            const diff = tool.compare(left, right);
             expect(diff.edits).toMatchSnapshot();
             announceHtml(left, right, diff.edits, 'move_lines_not_weighed');
         });

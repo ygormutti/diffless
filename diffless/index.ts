@@ -7,14 +7,14 @@ const lineDiffTool = new ArrayDiffTool({
     similarityThreshold: 0,
     toGrainArray: document => document.lines,
 });
-export const lineDiff = lineDiffTool.run;
+export const lineDiff = lineDiffTool.compare;
 
 const characterDiffTool = new ArrayDiffTool({
     level: DiffLevel.Textual,
     similarityThreshold: 1,
     toGrainArray: document => document.characters,
 });
-export const characterDiff = characterDiffTool.run;
+export const characterDiff = characterDiffTool.compare;
 
 export function compose(...diffs: DiffTool[]): DiffTool {
     return (left: Document, right: Document) => {
