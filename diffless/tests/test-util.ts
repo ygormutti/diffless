@@ -1,10 +1,15 @@
 import { resolve } from 'path';
 
-import { saveAnnotatedHtml } from '../cli';
+import { readTextFile, saveAnnotatedHtml } from '../cli';
 import { Document, Edit } from '../model';
 
 export function fixture(path: string) {
     return `diffless/tests/fixtures/${path}`;
+}
+
+export function fixtureDocument(path: string): Document {
+    path = fixture(path);
+    return new Document('file://' + path, readTextFile(path));
 }
 
 let seed = 0;

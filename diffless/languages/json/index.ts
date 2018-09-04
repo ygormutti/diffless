@@ -11,6 +11,6 @@ const jsonLexicalDiffTool = new ArrayDiffTool({
     toGrainArray: tokenize,
 });
 
-export const jsonLexicalDiff = jsonLexicalDiffTool.run;
+export const jsonLexicalDiff = jsonLexicalDiffTool.compare;
 
 export const jsonDiff = compose(characterDiff, jsonLexicalDiff);
