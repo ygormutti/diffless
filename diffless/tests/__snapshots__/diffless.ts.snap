@@ -265,6 +265,41 @@ Array [
 ]
 `;
 
+exports[`array/diff lineDiff should be able to compare strings directly 2`] = `
+Array [
+  Object {
+    "left": Location {
+      "range": [4:1; 7:1),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": Location {
+      "range": [4:1; 7:1),
+      "uri": "string:right",
+    },
+    "type": "Move",
+  },
+  Object {
+    "left": Location {
+      "range": [7:1; 10:1),
+      "uri": "string:left",
+    },
+    "level": "Textual",
+    "right": undefined,
+    "type": "Delete",
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [1:1; 4:1),
+      "uri": "string:right",
+    },
+    "type": "Add",
+  },
+]
+`;
+
 exports[`array/diff lineDiff should be possible to use no weight 1`] = `
 Array [
   Object {
@@ -295,6 +330,20 @@ Array [
       "uri": "string:right",
     },
     "type": "Move",
+  },
+]
+`;
+
+exports[`array/diff lineDiff should produce good quality diff 1`] = `
+Array [
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "right": Location {
+      "range": [3:1; 7:1),
+      "uri": "file://diffless/tests/fixtures/patience/after.c",
+    },
+    "type": "Add",
   },
 ]
 `;

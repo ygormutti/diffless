@@ -1,7 +1,7 @@
 import { ArrayDiffTool } from '../array/diff';
 import { characterDiff, lineDiff } from '../index';
 import { DiffLevel, Document } from '../model';
-import { announceHtml } from '../tests/test-util';
+import { announceHtml, fixtureDocument } from '../tests/test-util';
 import { stripMargin } from '../util';
 
 describe('array/diff', () => {
@@ -75,24 +75,35 @@ describe('array/diff', () => {
     });
 
     describe('lineDiff', () => {
-        const left = new Document('string:left', stripMargin
-            `abc
-            |def
-            |ghijklmn`,
-        );
-        const right = new Document('string:right', stripMargin
-            `abc
-            |ghijklmn
-            |def`,
-        );
-
         it('should consider line weight', () => {
+            const left = new Document('string:left', stripMargin
+                `abc
+                |def
+                |ghijklmn`,
+            );
+            const right = new Document('string:right', stripMargin
+                `abc
+                |ghijklmn
+                |def`,
+            );
+
             const diff = lineDiff(left, right);
             expect(diff.edits).toMatchSnapshot();
             announceHtml(left, right, diff.edits, 'move_lines_weighed');
         });
 
         it('should be possible to use no weight', () => {
+            const left = new Document('string:left', stripMargin
+                `abc
+                |def
+                |ghijklmn`,
+            );
+            const right = new Document('string:right', stripMargin
+                `abc
+                |ghijklmn
+                |def`,
+            );
+
             const tool = new ArrayDiffTool({
                 level: DiffLevel.Textual,
                 similarityThreshold: 0,
@@ -106,27 +117,70 @@ describe('array/diff', () => {
 
         it('should be able to compare strings directly', () => {
             const otherLeft = stripMargin
-            `"m"
-            |"z"
-            |"j"
-            |"a"
-            |"w"
-            |"x"
-            |"u"`;
+                `"m"
+                |"z"
+                |"j"
+                |"a"
+                |"w"
+                |"x"
+                |"u"`;
 
             const otherRight = stripMargin
-            `"a"
-            |"j"
-            |"m"
-            |"u"
-            |"w"
-            |"x"
-            |"z"`;
+                `"a"
+                |"j"
+                |"m"
+                |"u"
+                |"w"
+                |"x"
+                |"z"`;
 
             const diff = lineDiff(otherLeft, otherRight);
 
             expect(diff.edits).toMatchSnapshot();
             announceHtml(diff.left, diff.right, diff.edits, 'strings');
+        });
+
+        it('should be able to compare strings directly', () => {
+            // from: https://news.ycombinator.com/item?id=13987217
+            const otherLeft = stripMargin
+                `a
+                |b
+                |c
+                |1
+                |2
+                |3
+                |x
+                |y
+                |z
+                |`;
+
+            const otherRight = stripMargin
+                `x
+                |y
+                |z
+                |1
+                |2
+                |3
+                |a
+                |b
+                |c
+                |`;
+
+            const diff = lineDiff(otherLeft, otherRight);
+
+            expect(diff.edits).toMatchSnapshot(); // FIXME result is wrong
+            announceHtml(diff.left, diff.right, diff.edits, 'move-fail');
+        });
+
+        it('should produce good quality diff', () => {
+            // from: https://bramcohen.livejournal.com/73318.html
+            const left = fixtureDocument('patience/before.c');
+            const right = fixtureDocument('patience/after.c');
+
+            const diff = lineDiff(left, right);
+
+            expect(diff.edits).toMatchSnapshot(); // FIXME result is poor
+            announceHtml(diff.left, diff.right, diff.edits, 'patience');
         });
     });
 });

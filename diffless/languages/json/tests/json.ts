@@ -1,13 +1,9 @@
-import { readTextFile } from '../../../cli';
-import { Document } from '../../../model';
-import { announceHtml, fixture } from '../../../tests/test-util';
+import { announceHtml, fixtureDocument } from '../../../tests/test-util';
 import { jsonDiff, jsonLexicalDiff } from '../index';
 
 describe('JSON support', () => {
-    const mapReorderleftPath = fixture('single_map_reorder/before.json');
-    const mapReorderRightPath = fixture('single_map_reorder/after.json');
-    const mapReorderleft = new Document('file://' + mapReorderleftPath, readTextFile(mapReorderleftPath));
-    const mapReorderRight = new Document('file://' + mapReorderRightPath, readTextFile(mapReorderRightPath));
+    const mapReorderleft = fixtureDocument('single_map_reorder/before.json');
+    const mapReorderRight = fixtureDocument('single_map_reorder/after.json');
 
     describe('jsonLexicalDiff', () => {
         it('should match snapshot', () => {
@@ -27,10 +23,8 @@ describe('JSON support', () => {
         });
 
         it('should match snapshot', () => {
-            const leftPath = fixture('textual_changes/before.json');
-            const rightPath = fixture('textual_changes/after.json');
-            const left = new Document('file://' + leftPath, readTextFile(leftPath));
-            const right = new Document('file://' + rightPath, readTextFile(rightPath));
+            const left = fixtureDocument('textual_changes/before.json');
+            const right = fixtureDocument('textual_changes/after.json');
 
             const diff = jsonDiff(left, right);
 
