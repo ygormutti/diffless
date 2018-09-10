@@ -262,10 +262,10 @@ function normalizeEOLs(content: string): string {
     return content.replace('\r\n', EOL).replace('\r', EOL);
 }
 
-export enum EditType {
+export enum EditOperation {
     Add,
     Delete,
-    Change,
+    Replace,
     Move,
     Copy,
     Rename,
@@ -293,7 +293,7 @@ export class DiffItem {
 export class Edit extends DiffItem implements Comparable<Edit> {
     constructor(
         level: DiffLevel,
-        readonly type: EditType,
+        readonly operation: EditOperation,
         left?: Location,
         right?: Location,
     ) {
@@ -301,7 +301,7 @@ export class Edit extends DiffItem implements Comparable<Edit> {
     }
 
     get code() {
-        return `${DiffLevel[this.level]} ${EditType[this.type].toLowerCase()}, ` +
+        return `${DiffLevel[this.level]} ${EditOperation[this.operation].toLowerCase()}, ` +
             (this.left ? `L: ${this.left!.code}` : '') +
             (this.left && this.right ? ', ' : '') +
             (this.right ? `R: ${this.right!.code}` : '');
@@ -309,7 +309,7 @@ export class Edit extends DiffItem implements Comparable<Edit> {
 
     compareTo(other: Edit): number {
         let value = other.level - this.level;
-        if (!value) { value = other.type - this.type; }
+        if (!value) { value = other.operation - this.operation; }
         if (!value && this.right && other.right) { value = this.right.range.compareTo(other.right.range); }
         if (!value && this.left && other.left) { value = this.left.range.compareTo(other.left.range); }
         return value;

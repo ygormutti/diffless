@@ -27,7 +27,7 @@
             }
         },
         "level": "Textual",
-        "type": "Move"
+        "operation": "Move"
     },
     {
         "left": {
@@ -44,7 +44,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -61,7 +61,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -78,7 +78,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -95,7 +95,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -112,7 +112,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -129,7 +129,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -146,7 +146,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -163,7 +163,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -180,7 +180,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -197,7 +197,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -214,7 +214,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -231,7 +231,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "left": {
@@ -248,7 +248,7 @@
             }
         },
         "level": "Textual",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "right": {
@@ -265,7 +265,7 @@
             }
         },
         "level": "Textual",
-        "type": "Add"
+        "operation": "Add"
     },
     {
         "left": {
@@ -295,7 +295,7 @@
             }
         },
         "level": "Lexical",
-        "type": "Move"
+        "operation": "Move"
     },
     {
         "left": {
@@ -312,7 +312,7 @@
             }
         },
         "level": "Lexical",
-        "type": "Delete"
+        "operation": "Delete"
     },
     {
         "right": {
@@ -329,6 +329,6 @@
             }
         },
         "level": "Lexical",
-        "type": "Add"
+        "operation": "Add"
     }
 ]

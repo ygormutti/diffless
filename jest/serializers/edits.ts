@@ -1,4 +1,4 @@
-import { DiffLevel, Edit, EditType } from '../../diffless/model';
+import { DiffLevel, Edit, EditOperation } from '../../diffless/model';
 import { sortEdits } from '../../diffless/util';
 
 export function test(val: any): val is Edit[] {
@@ -10,7 +10,7 @@ export function print(edits: Edit[], serialize: (obj: any) => string): string {
     const objects = edits.map(c => ({
         ...c,
         level: DiffLevel[c.level],
-        type: EditType[c.type],
+        operation: EditOperation[c.operation],
     }));
     return serialize(objects);
 }

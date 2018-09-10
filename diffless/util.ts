@@ -27,7 +27,7 @@ export class EditIndex {
 
         // sort by level
         changes.sort((a, b) => {
-            return ((a.level * 100) - (b.level * 100)) + (a.type - b.type);
+            return ((a.level * 100) - (b.level * 100)) + (a.operation - b.operation);
         });
     }
 

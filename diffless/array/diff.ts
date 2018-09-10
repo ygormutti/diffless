@@ -3,7 +3,7 @@ import {
     Document,
     DocumentDiff,
     Edit,
-    EditType,
+    EditOperation,
     Equals,
     Grain,
     Location,
@@ -70,13 +70,13 @@ export class ArrayDiffTool<TGrain extends Grain> {
 
         const deletions = this.processUnpairedGrains(
             leftWrappers,
-            l => new Edit(level, EditType.Delete, l),
+            l => new Edit(level, EditOperation.Delete, l),
         );
         edits = edits.concat(deletions);
 
         const additions = this.processUnpairedGrains(
             rightWrappers,
-            l => new Edit(level, EditType.Add, undefined, l),
+            l => new Edit(level, EditOperation.Add, undefined, l),
         );
         edits = edits.concat(additions);
 
@@ -155,7 +155,7 @@ export class ArrayDiffTool<TGrain extends Grain> {
         while (lcsResult.weight < previousWeight) {
             moves = moves.concat(this.processHCSResult(
                 lcsResult,
-                (l, r) => new Edit(level, EditType.Move, l, r),
+                (l, r) => new Edit(level, EditOperation.Move, l, r),
             ));
             lcsResult = lcsUnpaired();
             previousWeight = lcsResult.weight;

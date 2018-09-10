@@ -8,11 +8,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Lexical",
+    "operation": "Move",
     "right": Location {
       "range": [14:3; 14:13),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -20,11 +20,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Lexical",
+    "operation": "Move",
     "right": Location {
       "range": [14:14; 14:33),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -32,17 +32,17 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Lexical",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Lexical",
+    "operation": "Add",
     "right": Location {
       "range": [13:4; 13:5),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": Location {
@@ -50,11 +50,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [14:3; 14:33),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -62,8 +62,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -71,8 +71,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -80,8 +80,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -89,8 +89,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -98,8 +98,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -107,8 +107,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -116,8 +116,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -125,8 +125,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -134,8 +134,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -143,8 +143,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -152,8 +152,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -161,8 +161,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -170,35 +170,35 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [1:1; 2:1),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [12:5; 13:1),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [13:3; 13:5),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -211,11 +211,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Lexical",
+    "operation": "Move",
     "right": Location {
       "range": [7:11; 7:18),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -223,11 +223,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Lexical",
+    "operation": "Move",
     "right": Location {
       "range": [7:18; 7:19),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -235,11 +235,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Lexical",
+    "operation": "Move",
     "right": Location {
       "range": [8:11; 8:24),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -247,8 +247,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Lexical",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -256,8 +256,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Lexical",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -265,17 +265,17 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Lexical",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Lexical",
+    "operation": "Add",
     "right": Location {
       "range": [6:79; 6:80),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": Location {
@@ -283,11 +283,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [7:1; 7:9),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -295,11 +295,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [7:11; 7:17),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -307,11 +307,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [7:17; 8:1),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -319,11 +319,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [8:11; 8:24),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -331,11 +331,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [9:1; 9:3),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -343,11 +343,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [9:9; 9:11),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -355,8 +355,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -364,8 +364,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -373,8 +373,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -382,8 +382,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -391,8 +391,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -400,8 +400,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -409,8 +409,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -418,8 +418,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -427,8 +427,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -436,8 +436,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -445,8 +445,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -454,8 +454,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -463,8 +463,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -472,8 +472,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -481,8 +481,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -490,8 +490,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -499,8 +499,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -508,8 +508,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -517,8 +517,8 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -526,53 +526,53 @@ Array [
       "uri": "file://diffless/tests/fixtures/textual_changes/before.json",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [5:18; 6:1),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [6:79; 7:1),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [8:24; 9:1),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [9:11; 10:1),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [16:17; 17:1),
       "uri": "file://diffless/tests/fixtures/textual_changes/after.json",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -585,11 +585,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Lexical",
+    "operation": "Move",
     "right": Location {
       "range": [14:3; 14:13),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -597,11 +597,11 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Lexical",
+    "operation": "Move",
     "right": Location {
       "range": [14:14; 14:33),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -609,17 +609,17 @@ Array [
       "uri": "file://diffless/tests/fixtures/single_map_reorder/before.json",
     },
     "level": "Lexical",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Lexical",
+    "operation": "Add",
     "right": Location {
       "range": [13:4; 13:5),
       "uri": "file://diffless/tests/fixtures/single_map_reorder/after.json",
     },
-    "type": "Add",
   },
 ]
 `;

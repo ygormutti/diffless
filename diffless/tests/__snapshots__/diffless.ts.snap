@@ -8,8 +8,8 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -17,8 +17,8 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -26,26 +26,26 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [2:2; 3:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [3:3; 4:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -85,11 +85,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [1:1; 1:4),
       "uri": "string:right",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -97,8 +97,8 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -106,26 +106,26 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [1:4; 2:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [2:4; 3:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -138,11 +138,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [1:1; 1:4),
       "uri": "string:right",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -150,17 +150,17 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [1:4; 2:2),
       "uri": "string:right",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -173,11 +173,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [1:4; 2:4),
       "uri": "string:right",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -185,17 +185,17 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [3:4; 4:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -208,11 +208,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [2:1; 3:1),
       "uri": "string:right",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -220,11 +220,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [4:1; 5:1),
       "uri": "string:right",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -232,8 +232,8 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": Location {
@@ -241,26 +241,26 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [1:1; 2:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [7:1; 8:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -273,11 +273,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [4:1; 7:1),
       "uri": "string:right",
     },
-    "type": "Move",
   },
   Object {
     "left": Location {
@@ -285,17 +285,17 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [1:1; 4:1),
       "uri": "string:right",
     },
-    "type": "Add",
   },
 ]
 `;
@@ -308,11 +308,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [2:1; 3:1),
       "uri": "string:right",
     },
-    "type": "Move",
   },
 ]
 `;
@@ -325,11 +325,11 @@ Array [
       "uri": "string:left",
     },
     "level": "Textual",
+    "operation": "Move",
     "right": Location {
       "range": [3:1; 4:1),
       "uri": "string:right",
     },
-    "type": "Move",
   },
 ]
 `;
@@ -339,11 +339,11 @@ Array [
   Object {
     "left": undefined,
     "level": "Textual",
+    "operation": "Add",
     "right": Location {
       "range": [3:1; 7:1),
       "uri": "file://diffless/tests/fixtures/patience/after.c",
     },
-    "type": "Add",
   },
 ]
 `;
