@@ -14,7 +14,7 @@ export interface Props {
     right: Document;
     edits: Edit[];
     enabledDiffLevels: boolean[];
-    enabledEditTypes: boolean[];
+    enabledEditOperations: boolean[];
     highlightedEdit?: Edit;
     setHighlightedEdit: (edit?: Edit) => void;
 }
@@ -77,11 +77,11 @@ export default class SideBySideFileDiff extends Component<Props> {
             const sortedEdits = Array.from(pendingEdits);
             sortEdits(sortedEdits);
 
-            const { enabledDiffLevels, enabledEditTypes, highlightedEdit } = this.props;
+            const { enabledDiffLevels, enabledEditOperations, highlightedEdit } = this.props;
             wrapped = reduce(sortedEdits, (prev, curr) => (
                 <EditView
                     edit={curr}
-                    enabled={enabledDiffLevels[curr.level] && enabledEditTypes[curr.type]}
+                    enabled={enabledDiffLevels[curr.level] && enabledEditOperations[curr.operation]}
                     highlighted={highlightedEdit === curr}
                     toggleEditHighlight={this.toggleEditHighlight}
                 >

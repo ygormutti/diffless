@@ -3,49 +3,34 @@
 exports[`array/diff charactersDiff should detect additions and deletions correctly 1`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [1:1; 1:2),
-      "uri": "string:left",
-    },
+    "left": [1:1; 1:2) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
-    "left": Location {
-      "range": [2:2; 3:2),
-      "uri": "string:left",
-    },
+    "left": [2:2; 3:2) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
-    "left": Location {
-      "range": [3:4; 4:1),
-      "uri": "string:left",
-    },
+    "left": [3:4; 4:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [2:2; 3:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [2:2; 3:1) @ string:right,
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [3:3; 4:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [3:3; 4:1) @ string:right,
   },
 ]
 `;
@@ -53,26 +38,14 @@ Array [
 exports[`array/diff charactersDiff should detect additions and deletions correctly 2`] = `
 Array [
   Similarity {
-    "left": Location {
-      "range": [1:2; 2:2),
-      "uri": "string:left",
-    },
+    "left": [1:2; 2:2) @ string:left,
     "level": 1,
-    "right": Location {
-      "range": [1:1; 2:2),
-      "uri": "string:right",
-    },
+    "right": [1:1; 2:2) @ string:right,
   },
   Similarity {
-    "left": Location {
-      "range": [3:2; 3:4),
-      "uri": "string:left",
-    },
+    "left": [3:2; 3:4) @ string:left,
     "level": 1,
-    "right": Location {
-      "range": [3:1; 3:3),
-      "uri": "string:right",
-    },
+    "right": [3:1; 3:3) @ string:right,
   },
 ]
 `;
@@ -80,52 +53,34 @@ Array [
 exports[`array/diff charactersDiff should detect moves correctly 1 1`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [2:1; 2:4),
-      "uri": "string:left",
-    },
+    "left": [2:1; 2:4) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [1:1; 1:4),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [1:1; 1:4) @ string:right,
   },
   Object {
-    "left": Location {
-      "range": [1:4; 2:1),
-      "uri": "string:left",
-    },
+    "left": [1:4; 2:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
-    "left": Location {
-      "range": [2:4; 3:1),
-      "uri": "string:left",
-    },
+    "left": [2:4; 3:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [1:4; 2:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [1:4; 2:1) @ string:right,
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [2:4; 3:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [2:4; 3:1) @ string:right,
   },
 ]
 `;
@@ -133,34 +88,22 @@ Array [
 exports[`array/diff charactersDiff should detect moves correctly 2 1`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [2:1; 2:4),
-      "uri": "string:left",
-    },
+    "left": [2:1; 2:4) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [1:1; 1:4),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [1:1; 1:4) @ string:right,
   },
   Object {
-    "left": Location {
-      "range": [1:4; 2:1),
-      "uri": "string:left",
-    },
+    "left": [1:4; 2:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [1:4; 2:2),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [1:4; 2:2) @ string:right,
   },
 ]
 `;
@@ -168,34 +111,22 @@ Array [
 exports[`array/diff charactersDiff should detect moves correctly 3 1`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [2:4; 3:4),
-      "uri": "string:left",
-    },
+    "left": [2:4; 3:4) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [1:4; 2:4),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [1:4; 2:4) @ string:right,
   },
   Object {
-    "left": Location {
-      "range": [3:4; 4:1),
-      "uri": "string:left",
-    },
+    "left": [3:4; 4:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [3:4; 4:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [3:4; 4:1) @ string:right,
   },
 ]
 `;
@@ -203,64 +134,40 @@ Array [
 exports[`array/diff lineDiff should be able to compare strings directly 1`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [3:1; 4:1),
-      "uri": "string:left",
-    },
+    "left": [3:1; 4:1) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [2:1; 3:1),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [2:1; 3:1) @ string:right,
   },
   Object {
-    "left": Location {
-      "range": [7:1; 8:1),
-      "uri": "string:left",
-    },
+    "left": [7:1; 8:1) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [4:1; 5:1),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [4:1; 5:1) @ string:right,
   },
   Object {
-    "left": Location {
-      "range": [2:1; 3:1),
-      "uri": "string:left",
-    },
+    "left": [2:1; 3:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
-    "left": Location {
-      "range": [4:1; 5:1),
-      "uri": "string:left",
-    },
+    "left": [4:1; 5:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [1:1; 2:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [1:1; 2:1) @ string:right,
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [7:1; 8:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [7:1; 8:1) @ string:right,
   },
 ]
 `;
@@ -268,34 +175,22 @@ Array [
 exports[`array/diff lineDiff should be able to compare strings directly 2`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [4:1; 7:1),
-      "uri": "string:left",
-    },
+    "left": [4:1; 7:1) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [4:1; 7:1),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [4:1; 7:1) @ string:right,
   },
   Object {
-    "left": Location {
-      "range": [7:1; 10:1),
-      "uri": "string:left",
-    },
+    "left": [7:1; 10:1) @ string:left,
     "level": "Textual",
+    "operation": "Delete",
     "right": undefined,
-    "type": "Delete",
   },
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [1:1; 4:1),
-      "uri": "string:right",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [1:1; 4:1) @ string:right,
   },
 ]
 `;
@@ -303,16 +198,10 @@ Array [
 exports[`array/diff lineDiff should be possible to use no weight 1`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [3:1; 4:1),
-      "uri": "string:left",
-    },
+    "left": [3:1; 4:1) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [2:1; 3:1),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [2:1; 3:1) @ string:right,
   },
 ]
 `;
@@ -320,16 +209,10 @@ Array [
 exports[`array/diff lineDiff should consider line weight 1`] = `
 Array [
   Object {
-    "left": Location {
-      "range": [2:1; 3:1),
-      "uri": "string:left",
-    },
+    "left": [2:1; 3:1) @ string:left,
     "level": "Textual",
-    "right": Location {
-      "range": [3:1; 4:1),
-      "uri": "string:right",
-    },
-    "type": "Move",
+    "operation": "Move",
+    "right": [3:1; 4:1) @ string:right,
   },
 ]
 `;
@@ -339,11 +222,8 @@ Array [
   Object {
     "left": undefined,
     "level": "Textual",
-    "right": Location {
-      "range": [3:1; 7:1),
-      "uri": "file://diffless/tests/fixtures/patience/after.c",
-    },
-    "type": "Add",
+    "operation": "Add",
+    "right": [3:1; 7:1) @ file://diffless/tests/fixtures/patience/after.c,
   },
 ]
 `;

@@ -5,7 +5,7 @@ import { render } from 'preact-render-to-string';
 import { characterDiff } from '.';
 import FileDiff from './html/components/file-diff';
 import { JSIN } from './jsin';
-import { DiffLevel, Document, Edit, EditType, Location } from './model';
+import { DiffLevel, Document, Edit, EditOperation, Location } from './model';
 import { stripMargin } from './util';
 
 export function annotateWithDiff(leftPath: string, rightPath: string) {
@@ -65,13 +65,13 @@ interface JsonEdit {
     right?: Location;
     left?: Location;
     level: keyof typeof DiffLevel;
-    type: keyof typeof EditType;
+    operation: keyof typeof EditOperation;
 }
 
 function toEdit(objFromJson: JsonEdit): Edit {
     return new Edit(
         DiffLevel[objFromJson.level],
-        EditType[objFromJson.type],
+        EditOperation[objFromJson.operation],
         objFromJson.left,
         objFromJson.right,
     );

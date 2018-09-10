@@ -1,7 +1,7 @@
 import { bind, debounce } from 'decko';
 import { Component, h } from 'preact';
 
-import { DiffLevel, Document, Edit, EditType } from '../../../model';
+import { DiffLevel, Document, Edit, EditOperation } from '../../../model';
 import { intEnumKeys } from '../../../util';
 
 import EnumMultiSelect from '../enum-multi-select';
@@ -15,7 +15,7 @@ export interface Props {
 
 export interface State {
     enabledDiffLevels: boolean[];
-    enabledEditTypes: boolean[];
+    enabledEditOperations: boolean[];
     highlightedEdit?: Edit;
 }
 
@@ -25,13 +25,13 @@ export default class FileDiff extends Component<Props, State> {
 
         this.state = {
             enabledDiffLevels: Array(intEnumKeys(DiffLevel).length).fill(true),
-            enabledEditTypes: Array(intEnumKeys(EditType).length).fill(true),
+            enabledEditOperations: Array(intEnumKeys(EditOperation).length).fill(true),
         };
     }
 
     render() {
         const { left, right, edits } = this.props;
-        const { enabledDiffLevels, enabledEditTypes, highlightedEdit } = this.state;
+        const { enabledDiffLevels, enabledEditOperations, highlightedEdit } = this.state;
 
         return (
             <div className="FileDiff">
@@ -43,9 +43,9 @@ export default class FileDiff extends Component<Props, State> {
                         onToggle={this.toggleLevel}
                     />
                     <EnumMultiSelect
-                        label="Edit types"
-                        Enum={EditType}
-                        enabledValues={enabledEditTypes}
+                        label="Edit operations"
+                        Enum={EditOperation}
+                        enabledValues={enabledEditOperations}
                         onToggle={this.toggleType}
                     />
                 </div>
@@ -55,7 +55,7 @@ export default class FileDiff extends Component<Props, State> {
                     right={right}
                     edits={edits}
                     enabledDiffLevels={enabledDiffLevels}
-                    enabledEditTypes={enabledEditTypes}
+                    enabledEditOperations={enabledEditOperations}
                     highlightedEdit={highlightedEdit}
                     setHighlightedEdit={this.setHighlightedEdit}
                 />
@@ -75,10 +75,10 @@ export default class FileDiff extends Component<Props, State> {
     }
 
     @bind
-    toggleType(editType: EditType) {
-        const { enabledEditTypes } = this.state;
-        enabledEditTypes[editType] = !enabledEditTypes[editType];
-        this.setState({ enabledEditTypes });
+    toggleType(editOperation: EditOperation) {
+        const { enabledEditOperations } = this.state;
+        enabledEditOperations[editOperation] = !enabledEditOperations[editOperation];
+        this.setState({ enabledEditOperations });
     }
 
     @bind
