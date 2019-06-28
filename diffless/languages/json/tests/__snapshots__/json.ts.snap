@@ -364,6 +364,131 @@ Array [
 ]
 `;
 
+exports[`JSON support jsonDiff should match snapshot 3`] = `
+Array [
+  Object {
+    "left": [2:16; 2:34) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Lexical",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": undefined,
+    "level": "Lexical",
+    "operation": "Add",
+    "right": [2:14; 2:33) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": [4:1; 4:4) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Move",
+    "right": [12:2; 12:5) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": [7:4; 7:7) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Move",
+    "right": [13:1; 13:4) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": [11:1; 11:3) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Move",
+    "right": [14:1; 14:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": [2:1; 2:3) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [3:1; 3:3) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [4:4; 4:5) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [5:1; 5:7) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [6:1; 6:7) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [7:1; 7:4) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [8:1; 8:2) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [8:16; 9:5) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": [10:1; 10:3) @ file://diffless/tests/fixtures/mostly_formatting/before.json,
+    "level": "Textual",
+    "operation": "Delete",
+    "right": undefined,
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "operation": "Add",
+    "right": [2:25; 2:26) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "operation": "Add",
+    "right": [8:1; 8:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "operation": "Add",
+    "right": [8:17; 9:1) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "operation": "Add",
+    "right": [11:15; 12:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "operation": "Add",
+    "right": [12:16; 13:1) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+  Object {
+    "left": undefined,
+    "level": "Textual",
+    "operation": "Add",
+    "right": [13:14; 14:1) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+  },
+]
+`;
+
 exports[`JSON support jsonLexicalDiff should match snapshot 1`] = `
 Array [
   Object {

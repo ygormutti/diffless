@@ -31,5 +31,15 @@ describe('JSON support', () => {
             expect(diff.edits).toMatchSnapshot();
             announceHtml(left, right, diff.edits, 'textual_vs_json_1');
         });
+
+        it('should match snapshot', () => {
+            const left = fixtureDocument('mostly_formatting/before.json');
+            const right = fixtureDocument('mostly_formatting/after.json');
+
+            const diff = jsonDiff(left, right);
+
+            expect(diff.edits).toMatchSnapshot();
+            announceHtml(left, right, diff.edits, 'mostly_formatting');
+        });
     });
 });

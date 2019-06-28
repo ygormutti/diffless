@@ -3,7 +3,7 @@ void func1() {
 }
 
 void functhreehalves() {
-x += 1.5
+    x += 1.5
 }
 
 void func2() {
