@@ -1,0 +1,16 @@
+{
+  "message": "Validation Failed",
+  "errors": [
+    {
+      "resource": "Issue",
+      "field": "milestone",
+      "code": "invalid_number",
+      "value": 1.0
+    }
+  ],
+  "version": {
+    "major": 1,
+    "minor":2
+  }
+}
+
