@@ -107,7 +107,7 @@ describe('array/diff', () => {
             const tool = new ArrayDiffTool({
                 level: DiffLevel.Textual,
                 similarityThreshold: 0,
-                toGrainArray: d => d.lines,
+                toAtomArray: d => d.lines,
                 weigh: _ => 1,
             });
             const diff = tool.compare(left, right);

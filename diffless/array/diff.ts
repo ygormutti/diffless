@@ -1,11 +1,11 @@
 import { bind } from 'decko';
 import {
+    Atom,
     Document,
     DocumentDiff,
     Edit,
     EditOperation,
     Equals,
-    Grain,
     Location,
     Range,
     Similarity,
@@ -14,36 +14,36 @@ import {
 import { dynamicProgrammingHCS, HCS, HCSResult } from './hcs';
 import { ArrayDiffOptions } from './model';
 
-class Wrapper<TGrain extends Grain> {
+class Wrapper<TAtom extends Atom> {
     constructor(
-        readonly grain: TGrain,
+        readonly atom: TAtom,
         readonly index: number,
         readonly weight: number,
         public paired: boolean = false,
     ) { }
 }
 
-export class ArrayDiffTool<TGrain extends Grain> {
-    private equals: Equals<Wrapper<TGrain>>;
-    private weigh: Weigh<TGrain>;
+export class ArrayDiffTool<TAtom extends Atom> {
+    private equals: Equals<Wrapper<TAtom>>;
+    private weigh: Weigh<TAtom>;
     private hcs: HCS;
 
     constructor(
-        readonly options: ArrayDiffOptions<TGrain>,
+        readonly options: ArrayDiffOptions<TAtom>,
         hcs?: HCS,
     ) {
-        this.equals = this.wrapEquals(options.equals || Grain.sameContent);
-        this.weigh = options.weigh || Grain.contentLength;
+        this.equals = this.wrapEquals(options.equals || Atom.sameContent);
+        this.weigh = options.weigh || Atom.contentLength;
         this.hcs = hcs || dynamicProgrammingHCS;
     }
 
     @bind
-    private wrapGrain(grain: TGrain, index: number): Wrapper<TGrain> {
-        return new Wrapper(grain, index, this.weigh(grain));
+    private wrapAtom(atom: TAtom, index: number): Wrapper<TAtom> {
+        return new Wrapper(atom, index, this.weigh(atom));
     }
 
-    private wrapEquals(equals: Equals<TGrain>) {
-        return (a: Wrapper<TGrain>, b: Wrapper<TGrain>) => equals(a.grain, b.grain);
+    private wrapEquals(equals: Equals<TAtom>) {
+        return (a: Wrapper<TAtom>, b: Wrapper<TAtom>) => equals(a.atom, b.atom);
     }
 
     compare(left: Document, right: Document): DocumentDiff;
@@ -53,9 +53,9 @@ export class ArrayDiffTool<TGrain extends Grain> {
         if (typeof left === 'string') { left = new Document('string:left', left); }
         if (typeof right === 'string') { right = new Document('string:right', right); }
 
-        const { toGrainArray, level } = this.options;
-        const leftWrappers = toGrainArray(left).map(this.wrapGrain);
-        const rightWrappers = toGrainArray(right).map(this.wrapGrain);
+        const { toAtomArray, level } = this.options;
+        const leftWrappers = toAtomArray(left).map(this.wrapAtom);
+        const rightWrappers = toAtomArray(right).map(this.wrapAtom);
 
         const hcsResult = this.hcs(this.equals, getWeight, leftWrappers, rightWrappers);
         const similarities = this.processHCSResult(
@@ -68,13 +68,13 @@ export class ArrayDiffTool<TGrain extends Grain> {
         const moves = this.findMoves(leftWrappers, rightWrappers);
         edits = edits.concat(moves);
 
-        const deletions = this.processUnpairedGrains(
+        const deletions = this.processUnpairedAtoms(
             leftWrappers,
             l => new Edit(level, EditOperation.Delete, l),
         );
         edits = edits.concat(deletions);
 
-        const additions = this.processUnpairedGrains(
+        const additions = this.processUnpairedAtoms(
             rightWrappers,
             l => new Edit(level, EditOperation.Add, undefined, l),
         );
@@ -84,7 +84,7 @@ export class ArrayDiffTool<TGrain extends Grain> {
     }
 
     private processHCSResult<TDiffItem>(
-        hcsResult: HCSResult<Wrapper<TGrain>>,
+        hcsResult: HCSResult<Wrapper<TAtom>>,
         buildDiffItem: (left: Location, right: Location) => TDiffItem,
     ): TDiffItem[] {
         if (hcsResult.length === 0) return [];
@@ -92,15 +92,15 @@ export class ArrayDiffTool<TGrain extends Grain> {
         const { similarityThreshold } = this.options;
         const diffItems: TDiffItem[] = [];
         const { leftHCS, rightHCS } = hcsResult;
-        const leftURI = leftHCS[0].grain.location.uri;
-        const rightURI = rightHCS[0].grain.location.uri;
+        const leftURI = leftHCS[0].atom.location.uri;
+        const rightURI = rightHCS[0].atom.location.uri;
 
-        let leftStart = leftHCS[0].grain.start;
+        let leftStart = leftHCS[0].atom.start;
         let leftEnd = leftStart;
-        let rightStart = rightHCS[0].grain.start;
+        let rightStart = rightHCS[0].atom.start;
         let rightEnd = rightStart;
         let similarityWeight = 0;
-        let toPair: Wrapper<TGrain>[] = [];
+        let toPair: Wrapper<TAtom>[] = [];
 
         function checkForDiffItem() {
             if (similarityWeight > similarityThreshold) {
@@ -115,9 +115,9 @@ export class ArrayDiffTool<TGrain extends Grain> {
 
         for (let i = 0; i < hcsResult.length; i++) {
             const leftWrapper = leftHCS[i];
-            const { grain: left } = leftWrapper;
+            const { atom: left } = leftWrapper;
             const rightWrapper = rightHCS[i];
-            const { grain: right } = rightWrapper;
+            const { atom: right } = rightWrapper;
 
             if (left.start.equals(leftEnd) && right.start.equals(rightEnd)) {
                 leftEnd = left.end;
@@ -140,7 +140,7 @@ export class ArrayDiffTool<TGrain extends Grain> {
         return diffItems;
     }
 
-    private findMoves(leftWrappers: Wrapper<TGrain>[], rightWrappers: Wrapper<TGrain>[]) {
+    private findMoves(leftWrappers: Wrapper<TAtom>[], rightWrappers: Wrapper<TAtom>[]) {
         const { level } = this.options;
         const lcsUnpaired = () => {
             leftWrappers = leftWrappers.filter(unpaired);
@@ -164,17 +164,17 @@ export class ArrayDiffTool<TGrain extends Grain> {
         return moves;
     }
 
-    private processUnpairedGrains<TDiffItem>(
-        wrappers: Wrapper<TGrain>[],
+    private processUnpairedAtoms<TDiffItem>(
+        wrappers: Wrapper<TAtom>[],
         buildDiffItem: (location: Location) => TDiffItem,
     ) {
         wrappers = wrappers.filter(unpaired);
         if (wrappers.length === 0) return [];
 
         const edits: TDiffItem[] = [];
-        const firstGrain = wrappers[0].grain;
-        const uri = firstGrain.location.uri;
-        let start = firstGrain.start;
+        const firstAtom = wrappers[0].atom;
+        const uri = firstAtom.location.uri;
+        let start = firstAtom.start;
         let end = start;
 
         const pushDiffItem = () => {
@@ -183,14 +183,14 @@ export class ArrayDiffTool<TGrain extends Grain> {
         };
 
         for (const wrapper of wrappers) {
-            const { grain } = wrapper;
+            const { atom } = wrapper;
 
-            if (grain.start.equals(end)) {
-                end = grain.end;
+            if (atom.start.equals(end)) {
+                end = atom.end;
             } else {
                 pushDiffItem();
-                start = grain.start;
-                end = grain.end;
+                start = atom.start;
+                end = atom.end;
             }
         }
         pushDiffItem();
@@ -199,11 +199,11 @@ export class ArrayDiffTool<TGrain extends Grain> {
     }
 }
 
-function getWeight<TGrain extends Grain>(wrappedGrain: Wrapper<TGrain>): number {
-    return wrappedGrain.weight;
+function getWeight<TAtom extends Atom>(wrappedAtom: Wrapper<TAtom>): number {
+    return wrappedAtom.weight;
 }
 
-function unpaired<TGrain extends Grain>(wrapper: Wrapper<TGrain>) {
+function unpaired<TAtom extends Atom>(wrapper: Wrapper<TAtom>) {
     return !wrapper.paired;
 }
 

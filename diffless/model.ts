@@ -147,7 +147,7 @@ export class Location {
  * The unit of comparison of an atomic diff tool
  */
 @JSIN.enabled
-export class Grain {
+export class Atom {
     constructor(
         readonly content: string,
         readonly location: Location,
@@ -161,11 +161,11 @@ export class Grain {
         return this.location.range.end;
     }
 
-    static contentLength(grain: Grain) {
-        return grain.content.length;
+    static contentLength(atom: Atom) {
+        return atom.content.length;
     }
 
-    static sameContent(a: Grain, b: Grain) {
+    static sameContent(a: Atom, b: Atom) {
         return a.content === b.content;
     }
 }
@@ -174,7 +174,7 @@ export class Grain {
  * A line from a text document
  */
 @JSIN.enabled
-export class Line extends Grain {
+export class Line extends Atom {
     constructor(
         content: string,
         documentURI: DocumentURI,
@@ -188,7 +188,7 @@ export class Line extends Grain {
  * A single character from a text document
  */
 @JSIN.enabled
-export class Character extends Grain {
+export class Character extends Atom {
     constructor(
         content: string,
         documentURI: DocumentURI,

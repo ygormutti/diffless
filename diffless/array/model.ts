@@ -1,20 +1,20 @@
 import { JSIN } from '../jsin';
-import { DiffLevel, Document, Equals, Grain, Location, Weigh } from '../model';
+import { Atom, DiffLevel, Document, Equals, Location, Weigh } from '../model';
 
 export type Tokenizer = (document: Document) => Token[];
 
-export interface ArrayDiffOptions<TGrain extends Grain> {
+export interface ArrayDiffOptions<TAtom extends Atom> {
     level: DiffLevel;
-    toGrainArray: GrainArrayMapper<TGrain>;
+    toAtomArray: AtomArrayMapper<TAtom>;
     similarityThreshold: number;
-    equals?: Equals<TGrain>;
-    weigh?: Weigh<TGrain>;
+    equals?: Equals<TAtom>;
+    weigh?: Weigh<TAtom>;
 }
 
-export type GrainArrayMapper<TGrain extends Grain> = (document: Document) => TGrain[];
+export type AtomArrayMapper<TAtom extends Atom> = (document: Document) => TAtom[];
 
 @JSIN.enabled
-export class Token extends Grain {
+export class Token extends Atom {
     constructor(
         location: Location,
         content: string,

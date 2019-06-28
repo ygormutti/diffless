@@ -5,14 +5,14 @@ import { DiffLevel, DiffTool, Document, DocumentDiff } from './model';
 const lineDiffTool = new ArrayDiffTool({
     level: DiffLevel.Textual,
     similarityThreshold: 0,
-    toGrainArray: document => document.lines,
+    toAtomArray: document => document.lines,
 });
 export const lineDiff = lineDiffTool.compare;
 
 const characterDiffTool = new ArrayDiffTool({
     level: DiffLevel.Textual,
     similarityThreshold: 1,
-    toGrainArray: document => document.characters,
+    toAtomArray: document => document.characters,
 });
 export const characterDiff = characterDiffTool.compare;
 

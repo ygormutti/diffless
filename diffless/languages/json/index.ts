@@ -8,7 +8,7 @@ const jsonLexicalDiffTool = new ArrayDiffTool({
     equals: Token.equals,
     level: DiffLevel.Lexical,
     similarityThreshold: 0,
-    toGrainArray: tokenize,
+    toAtomArray: tokenize,
 });
 
 export const jsonLexicalDiff = jsonLexicalDiffTool.compare;
