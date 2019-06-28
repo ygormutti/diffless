@@ -26,9 +26,7 @@ export class EditIndex {
         changes.push(change);
 
         // sort by level
-        changes.sort((a, b) => {
-            return ((a.level * 100) - (b.level * 100)) + (a.operation - b.operation);
-        });
+        changes.sort((a, b) => a.compareTo(b));
     }
 
     get(position: Position): Edit[] {
