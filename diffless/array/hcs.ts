@@ -59,9 +59,9 @@ export function dynamicProgrammingHCS<TItem>(
         const rowArray: HCSCell<TItem>[] = new Array(width);
         rowArray[0] = new HCSCell();
 
+        const rightItem = right[row - 1];
         for (let col = 1; col < width; col++) {
             const leftItem = left[col - 1];
-            const rightItem = right[row - 1];
             if (equals(leftItem, rightItem)) {
                 const prevCell = prevRowArray[col - 1];
                 const newWeight = prevCell.weight + weigh(leftItem);
@@ -69,10 +69,9 @@ export function dynamicProgrammingHCS<TItem>(
             } else {
                 const previousCellCandidates = [rowArray[col - 1], prevRowArray[col]];
                 previousCellCandidates.sort((a, b) => {
-                    if (a.weight !== b.weight) {
-                        return b.weight - a.weight;
-                    }
-                    return a.hcs.length - b.hcs.length;
+                    let value = b.weight - a.weight;
+                    if (!value) value = b.hcs.length - a.hcs.length;
+                    return value;
                 });
                 rowArray[col] = previousCellCandidates[0];
             }
