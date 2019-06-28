@@ -99,7 +99,7 @@ export default class SideBySideFileDiff extends Component<Props> {
 }
 
 function updatePendingEdits(editsHere: Edit[], pendingEdits: Set<Edit>) {
-    const [endingEdits, startingEdits] = partition(editsHere, c => pendingEdits.has(c));
+    const [endingEdits, startingEdits] = partition(editsHere, e => pendingEdits.has(e));
     for (const edit of endingEdits) {
         pendingEdits.delete(edit);
     }

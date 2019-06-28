@@ -7,10 +7,10 @@ export function test(val: any): val is Edit[] {
 
 export function print(edits: Edit[], serialize: (obj: any) => string): string {
     sortEdits(edits);
-    const objects = edits.map(c => ({
-        ...c,
-        level: DiffLevel[c.level],
-        operation: EditOperation[c.operation],
+    const objects = edits.map(e => ({
+        ...e,
+        level: DiffLevel[e.level],
+        operation: EditOperation[e.operation],
     }));
     return serialize(objects);
 }

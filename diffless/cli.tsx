@@ -56,7 +56,7 @@ export function annotateWithEditsFile(leftPath: string, rightPath: string, edits
     const right = new Document('string:right', readTextFile(rightPath));
 
     const jsonEdits = JSIN.parse(readTextFile(editsPath)) as JsonEdit[];
-    const edits = jsonEdits.map(c => toEdit(c));
+    const edits = jsonEdits.map(e => toEdit(e));
 
     return buildAnnotatedHTML(left, right, edits);
 }
