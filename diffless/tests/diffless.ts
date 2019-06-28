@@ -182,5 +182,16 @@ describe('array/diff', () => {
             expect(diff.edits).toMatchSnapshot(); // FIXME result is poor
             announceHtml(diff.left, diff.right, diff.edits, 'patience');
         });
+
+        it('should produce good quality diff', () => {
+            // from: https://alfedenzo.livejournal.com/170301.html
+            const left = fixtureDocument('frobnitz/before.c');
+            const right = fixtureDocument('frobnitz/after.c');
+
+            const diff = lineDiff(left, right);
+
+            expect(diff.edits).toMatchSnapshot(); // FIXME result is poor
+            announceHtml(diff.left, diff.right, diff.edits, 'frobnitz');
+        });
     });
 });
