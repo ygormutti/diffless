@@ -40,7 +40,7 @@ export default class SideBySideFileDiff extends Component<Props> {
 
     buildSide(document: Document, editIndex: EditIndex) {
         const { characters } = document;
-        const pendingEdits = new Set();
+        const pendingEdits = new Set<Edit>();
 
         let lines: JSX.Element[] = [];
         let cursor = new Position(1, 1);

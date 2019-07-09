@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Ygor Mutti <ygormutti@gmail.com>",
   "license": "LGPL-3.0",
+  "bin": {
+    "diffless": "./diffless/bin/index.js"
+  },
   "scripts": {
     "test": "jest",
     "lint": "tslint --project .",
@@ -12,22 +15,27 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "commander": "^2.20.0",
     "decko": "^1.2.0",
     "json-tokenize": "^0.3.0",
     "lodash": "^4.17.5",
+    "mime": "^2.4.4",
     "preact": "^8.2.9",
-    "preact-render-to-string": "^3.7.0"
+    "preact-render-to-string": "^3.7.0",
+    "tempy": "^0.3.0"
   },
   "devDependencies": {
     "@types/classnames": "2.2.4",
+    "@types/commander": "2.12.2",
     "@types/jest": "22.2.3",
     "@types/lodash": "4.14.107",
+    "@types/mime": "2.0.1",
     "@types/node": "9.6.5",
     "jest": "22.4.3",
     "node-sass": "^4.9.0",
     "parcel-bundler": "1.8.1",
     "ts-jest": "22.4.4",
     "tslint": "5.9.1",
-    "typescript": "2.9.1"
+    "typescript": "3.5.2"
   }
 }

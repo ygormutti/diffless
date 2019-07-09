@@ -1,3 +1,5 @@
+export const testURL = 'http://localhost';
+
 export const transform = {
     '^.+\\.tsx?$': 'ts-jest',
 };

@@ -1,6 +1,8 @@
 import { reduce } from 'lodash';
 import { ArrayDiffTool } from './array/diff';
-import { DiffLevel, DiffTool, Document, DocumentDiff } from './model';
+import {
+    DEFAULT_CONTENT_TYPE, DiffLevel, DiffTool, DiffToolFactory, Document, DocumentDiff,
+} from './model';
 
 const lineDiffTool = new ArrayDiffTool({
     level: DiffLevel.Textual,
@@ -25,4 +27,19 @@ export function compose(...diffs: DiffTool[]): DiffTool {
             return new DocumentDiff(left, right, edits, similarities);
         }, new DocumentDiff(left, right, [], []));
     };
+}
+
+const DIFF_TOOL_FACTORIES: { [contentType: string]: DiffToolFactory } = {};
+
+export function registerDiffTool(contentType: string, diffToolFactory: DiffToolFactory): void {
+    DIFF_TOOL_FACTORIES[contentType] = diffToolFactory;
+}
+
+registerDiffTool(DEFAULT_CONTENT_TYPE, _ => compose(lineDiff, characterDiff));
+
+export function getDiffTool(contentType: string, options: any): DiffTool {
+    if (contentType in DIFF_TOOL_FACTORIES) {
+        return DIFF_TOOL_FACTORIES[contentType](options);
+    }
+    return getDiffTool(DEFAULT_CONTENT_TYPE, options);
 }

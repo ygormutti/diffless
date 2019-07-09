@@ -199,6 +199,11 @@ export class Character extends Atom {
 }
 
 /**
+ * The default content type for text documents
+ */
+export const DEFAULT_CONTENT_TYPE = 'text/plain';
+
+/**
  * A text document
  */
 @JSIN.enabled
@@ -209,6 +214,7 @@ export class Document {
     constructor(
         readonly uri: DocumentURI,
         readonly content: string,
+        readonly contentType: string = DEFAULT_CONTENT_TYPE,
     ) {
         const linesContents = normalizeEOLs(content).split(EOL);
         this.lines = buildLines(linesContents, uri);
@@ -330,3 +336,5 @@ export class DocumentDiff {
 }
 
 export type DiffTool = (left: Document, right: Document) => DocumentDiff;
+
+export type DiffToolFactory = (options: any) => DiffTool;

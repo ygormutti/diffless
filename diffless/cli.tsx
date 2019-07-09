@@ -1,34 +1,31 @@
 import { readFileSync, writeFileSync } from 'fs';
+
 import { h } from 'preact';
 import { render } from 'preact-render-to-string';
 
-import { characterDiff } from '.';
 import FileDiff from './html/components/file-diff';
 import { JSIN } from './jsin';
-import { DiffLevel, Document, Edit, EditOperation, Location } from './model';
+import { Document, DocumentDiff, Edit } from './model';
 import { stripMargin } from './util';
-
-export function annotateWithDiff(leftPath: string, rightPath: string) {
-    const left = new Document('file://' + leftPath, readTextFile(leftPath));
-    const right = new Document('file://' + rightPath, readTextFile(rightPath));
-
-    const documentDiff = characterDiff(
-        left,
-        right,
-    );
-
-    return buildAnnotatedHTML(left, right, documentDiff.edits);
-}
 
 export function readTextFile(path: string, encoding: string = 'utf8') {
     return readFileSync(path, { encoding });
 }
 
-export function buildAnnotatedHTML(
-    left: Document,
-    right: Document,
-    edits: Edit[],
-) {
+export function buildAnnotatedHTML(diff: DocumentDiff): string;
+export function buildAnnotatedHTML(left: Document, right: Document, edits: Edit[]): string;
+export function buildAnnotatedHTML(leftOrDiff: DocumentDiff | Document, right?: Document, edits?: Edit[]) {
+    let left: Document;
+    if (leftOrDiff instanceof DocumentDiff) {
+        left = leftOrDiff.left;
+        right = leftOrDiff.right;
+        edits = leftOrDiff.edits;
+    } else {
+        left = leftOrDiff;
+        right = right!;
+        edits = edits!;
+    }
+
     const diffHtml = render(<FileDiff left={left} right={right} edits={edits} />);
     const props = { edits, left, right };
 
@@ -51,32 +48,6 @@ export function buildAnnotatedHTML(
         |</html>`;
 }
 
-export function annotateWithEditsFile(leftPath: string, rightPath: string, editsPath: string) {
-    const left = new Document('string:left', readTextFile(leftPath));
-    const right = new Document('string:right', readTextFile(rightPath));
-
-    const jsonEdits = JSIN.parse(readTextFile(editsPath)) as JsonEdit[];
-    const edits = jsonEdits.map(e => toEdit(e));
-
-    return buildAnnotatedHTML(left, right, edits);
-}
-
-interface JsonEdit {
-    right?: Location;
-    left?: Location;
-    level: keyof typeof DiffLevel;
-    operation: keyof typeof EditOperation;
-}
-
-function toEdit(objFromJson: JsonEdit): Edit {
-    return new Edit(
-        DiffLevel[objFromJson.level],
-        EditOperation[objFromJson.operation],
-        objFromJson.left,
-        objFromJson.right,
-    );
-}
-
 export function saveAnnotatedHtml(
     left: Document,
     right: Document,
@@ -86,6 +57,6 @@ export function saveAnnotatedHtml(
     writeTextFile(outputPath, buildAnnotatedHTML(left, right, edits));
 }
 
-function writeTextFile(path: string, content: string, encoding: string = 'utf8') {
+export function writeTextFile(path: string, content: string, encoding: string = 'utf8') {
     return writeFileSync(path, content, { encoding });
 }
