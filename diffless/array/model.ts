@@ -18,13 +18,17 @@ export class Token extends Atom {
     constructor(
         location: Location,
         content: string,
-        readonly type: number,
+        readonly type: string,
     ) {
         super(content, location);
     }
 
     equals(other: Token): boolean {
         return !(other instanceof ValuedToken) && this.type === other.type;
+    }
+
+    get code() {
+        return `<${this.type}, ${JSON.stringify(this.content)}> @ ${this.location.code}`;
     }
 
     static equals(a: Token, b: Token) {
@@ -37,11 +41,15 @@ export class ValuedToken<TTokenValue> extends Token {
     constructor(
         location: Location,
         content: string,
-        type: number,
+        type: string,
         readonly value: TTokenValue,
         readonly valueEquals: Equals<TTokenValue>,
     ) {
         super(location, content, type);
+    }
+
+    get code() {
+        return `<${this.type}, ${JSON.stringify(this.content)}, ${this.value}> @ ${this.location.code}`;
     }
 
     equals(other: Token): boolean {
