@@ -1,0 +1,538 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`languages/textmate JSON lexer return should match snapshot 1`] = `
+Array [
+  Token {
+    "content": "{",
+    "location": [1:0; 1:1) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.dictionary.begin.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [1:1; 1:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "  ",
+    "location": [2:0; 2:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [2:2; 2:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "message",
+    "location": [2:3; 2:10) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [2:10; 2:11) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [2:11; 2:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [2:12; 2:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [2:13; 2:14) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.begin.json.comments",
+  },
+  Token {
+    "content": "Validation Failed",
+    "location": [2:14; 2:31) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "string.quoted.double.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [2:31; 2:32) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.end.json.comments",
+  },
+  Token {
+    "content": ",",
+    "location": [2:32; 2:33) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.pair.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [2:33; 2:35) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "  ",
+    "location": [3:0; 3:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [3:2; 3:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "errors",
+    "location": [3:3; 3:9) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [3:9; 3:10) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [3:10; 3:11) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [3:11; 3:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "[",
+    "location": [3:12; 3:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.array.begin.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [3:13; 3:15) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.array.json.comments",
+  },
+  Token {
+    "content": "    ",
+    "location": [4:0; 4:4) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.array.json.comments",
+  },
+  Token {
+    "content": "{",
+    "location": [4:4; 4:5) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.dictionary.begin.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [4:5; 4:7) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "      ",
+    "location": [5:0; 5:6) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [5:6; 5:7) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "resource",
+    "location": [5:7; 5:15) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [5:15; 5:16) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [5:16; 5:17) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [5:17; 5:18) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [5:18; 5:19) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.begin.json.comments",
+  },
+  Token {
+    "content": "Issue",
+    "location": [5:19; 5:24) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "string.quoted.double.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [5:24; 5:25) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.end.json.comments",
+  },
+  Token {
+    "content": ",",
+    "location": [5:25; 5:26) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.pair.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [5:26; 5:28) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "      ",
+    "location": [6:0; 6:6) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [6:6; 6:7) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "field",
+    "location": [6:7; 6:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [6:12; 6:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [6:13; 6:14) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [6:14; 6:15) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [6:15; 6:16) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.begin.json.comments",
+  },
+  Token {
+    "content": "milestone",
+    "location": [6:16; 6:25) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "string.quoted.double.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [6:25; 6:26) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.end.json.comments",
+  },
+  Token {
+    "content": ",",
+    "location": [6:26; 6:27) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.pair.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [6:27; 6:29) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "      ",
+    "location": [7:0; 7:6) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [7:6; 7:7) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "code",
+    "location": [7:7; 7:11) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [7:11; 7:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [7:12; 7:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [7:13; 7:14) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [7:14; 7:15) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.begin.json.comments",
+  },
+  Token {
+    "content": "invalid_number",
+    "location": [7:15; 7:29) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "string.quoted.double.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [7:29; 7:30) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.string.end.json.comments",
+  },
+  Token {
+    "content": ",",
+    "location": [7:30; 7:31) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.pair.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [7:31; 7:33) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "      ",
+    "location": [8:0; 8:6) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [8:6; 8:7) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "value",
+    "location": [8:7; 8:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [8:12; 8:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [8:13; 8:14) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [8:14; 8:15) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "1.0",
+    "location": [8:15; 8:18) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "constant.numeric.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [8:18; 8:20) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "    ",
+    "location": [9:0; 9:4) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "}",
+    "location": [9:4; 9:5) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.dictionary.end.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [9:5; 9:7) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.array.json.comments",
+  },
+  Token {
+    "content": "  ",
+    "location": [10:0; 10:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.array.json.comments",
+  },
+  Token {
+    "content": "]",
+    "location": [10:2; 10:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.array.end.json.comments",
+  },
+  Token {
+    "content": ",",
+    "location": [10:3; 10:4) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.pair.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [10:4; 10:6) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "  ",
+    "location": [11:0; 11:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [11:2; 11:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "version",
+    "location": [11:3; 11:10) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [11:10; 11:11) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [11:11; 11:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [11:12; 11:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "{",
+    "location": [11:13; 11:14) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.dictionary.begin.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [11:14; 11:16) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "    ",
+    "location": [12:0; 12:4) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [12:4; 12:5) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "major",
+    "location": [12:5; 12:10) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [12:10; 12:11) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [12:11; 12:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": " ",
+    "location": [12:12; 12:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "1",
+    "location": [12:13; 12:14) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "constant.numeric.json.comments",
+  },
+  Token {
+    "content": ",",
+    "location": [12:14; 12:15) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.pair.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [12:15; 12:17) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "    ",
+    "location": [13:0; 13:4) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [13:4; 13:5) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.begin.json.comments",
+  },
+  Token {
+    "content": "minor",
+    "location": [13:5; 13:10) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "support.type.property-name.json.comments",
+  },
+  Token {
+    "content": "\\"",
+    "location": [13:10; 13:11) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.support.type.property-name.end.json.comments",
+  },
+  Token {
+    "content": ":",
+    "location": [13:11; 13:12) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.separator.dictionary.key-value.json.comments",
+  },
+  Token {
+    "content": "2",
+    "location": [13:12; 13:13) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "constant.numeric.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [13:13; 13:15) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "  ",
+    "location": [14:0; 14:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "}",
+    "location": [14:2; 14:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.dictionary.end.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [14:3; 14:5) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "meta.structure.dictionary.value.json.comments",
+  },
+  Token {
+    "content": "}",
+    "location": [15:0; 15:1) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "punctuation.definition.dictionary.end.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [15:1; 15:3) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "source.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [16:0; 16:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "source.json.comments",
+  },
+  Token {
+    "content": "
+",
+    "location": [17:0; 17:2) @ file://diffless/tests/fixtures/mostly_formatting/after.json,
+    "type": "source.json.comments",
+  },
+]
+`;
