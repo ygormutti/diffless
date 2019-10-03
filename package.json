@@ -20,9 +20,11 @@
     "json-tokenize": "^0.3.0",
     "lodash": "^4.17.5",
     "mime": "^2.4.4",
+    "oniguruma": "^7.2.0",
     "preact": "^8.2.9",
     "preact-render-to-string": "^3.7.0",
-    "tempy": "^0.3.0"
+    "tempy": "^0.3.0",
+    "vscode-textmate": "^4.1.1"
   },
   "devDependencies": {
     "@types/classnames": "2.2.4",
@@ -31,6 +33,7 @@
     "@types/lodash": "4.14.107",
     "@types/mime": "2.0.1",
     "@types/node": "9.6.5",
+    "@types/oniguruma": "^7.0.1",
     "jest": "22.4.3",
     "node-sass": "^4.9.0",
     "parcel-bundler": "1.8.1",

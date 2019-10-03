@@ -50,6 +50,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.5.tgz#ee700810fdf49ac1c399fc5980b7559b3e5a381d"
   integrity sha512-NOLEgsT6UiDTjnWG5Hd2Mg25LRyz/oe8ql3wbjzgSFeRzRROhPmtlsvIrei4B46UjERF0td9SZ1ZXPLOdcrBHg==
 
+"@types/oniguruma@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@types/oniguruma/-/oniguruma-7.0.1.tgz#7aaf26127c97d239d24480d931e5b71dc0ddeded"
+  integrity sha512-1MxY/ooNO67EQv7Jlv9v/lG1Cll26Uqo4mY00dNPE6TZ62sTJ39WTlEOWbLwn7elRpmqT6hX3fUaBhFeFcQeuA==
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
@@ -3972,7 +3977,7 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-nan@^2.12.1, nan@^2.13.2:
+nan@^2.12.1, nan@^2.13.2, nan@^2.14.0:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
   integrity sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==
@@ -4316,6 +4321,13 @@ once@^1.3.0, once@^1.4.0:
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
   dependencies:
     wrappy "1"
+
+oniguruma@^7.0.0, oniguruma@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/oniguruma/-/oniguruma-7.2.0.tgz#c9a59c1ea7b9fe67e237a02e02139b638856f3af"
+  integrity sha512-bh+ZLdykY1sdIx8jBp2zpLbVFDBc3XmKH4Ceo2lijNaN1WhEqtnpqFlmtCbRuDB17nJ58RAUStVwfW8e8uEbnA==
+  dependencies:
+    nan "^2.14.0"
 
 opn@^5.1.0:
   version "5.5.0"
@@ -6314,6 +6326,13 @@ vm-browserify@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
+
+vscode-textmate@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/vscode-textmate/-/vscode-textmate-4.1.1.tgz#857e836fbc13a376ec624242437e1747d79610a9"
+  integrity sha512-xBjq9LH6fMhWDhIVkbKlB1JeCu6lT3FI/QKN24Xi4RKPBUm16IhHTqs6Q6SUGewkNsFZGkb1tJdZsuMnlmVpgw==
+  dependencies:
+    oniguruma "^7.0.0"
 
 w3c-hr-time@^1.0.1:
   version "1.0.1"
