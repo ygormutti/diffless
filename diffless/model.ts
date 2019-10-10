@@ -263,12 +263,12 @@ function normalizeEOLs(content: string): string {
 }
 
 export enum DiffLevel {
-    Binary,
+    // Binary,
     Textual,
     Lexical,
-    Syntactic,
-    Semantic,
-    DataFlow,
+    // Syntactic,
+    // Semantic,
+    // DataFlow,
 }
 
 @JSIN.enabled
@@ -283,10 +283,10 @@ export class DiffItem {
 export enum EditOperation {
     Add,
     Delete,
-    Replace,
+    // Replace,
     Move,
-    Copy,
-    Rename,
+    // Copy,
+    // Rename,
 }
 
 @JSIN.enabled
