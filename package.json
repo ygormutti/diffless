@@ -4,7 +4,7 @@
   "description": "Extensible diff tool with high signal-to-noise ratio",
   "main": "index.js",
   "author": "Ygor Mutti <ygormutti@gmail.com>",
-  "license": "LGPL-3.0",
+  "license": "MIT",
   "bin": {
     "diffless": "./diffless/bin/index.js"
   },
