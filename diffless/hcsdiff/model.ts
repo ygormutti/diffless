@@ -1,17 +1,15 @@
 import { JSIN } from '../jsin';
 import { Atom, DiffLevel, Document, Equals, Location, Weigh } from '../model';
 
-export type Tokenizer = (document: Document) => Token[];
+export type AtomArrayMapper<TAtom extends Atom> = (document: Document) => TAtom[];
 
-export interface ArrayDiffOptions<TAtom extends Atom> {
+export interface HCSDiffOptions<TAtom extends Atom> {
     level: DiffLevel;
     toAtomArray: AtomArrayMapper<TAtom>;
     similarityThreshold: number;
     equals?: Equals<TAtom>;
     weigh?: Weigh<TAtom>;
 }
-
-export type AtomArrayMapper<TAtom extends Atom> = (document: Document) => TAtom[];
 
 @JSIN.enabled
 export class Token extends Atom {

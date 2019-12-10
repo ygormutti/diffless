@@ -1,5 +1,5 @@
 import jsonTokenize = require('json-tokenize');
-import { Token, ValuedToken } from '../../array/model';
+import { Token, ValuedToken } from '../../hcsdiff/model';
 import { Document, DocumentURI, Location, Position, Range } from '../../model';
 
 enum TokenType {

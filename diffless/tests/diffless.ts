@@ -1,4 +1,4 @@
-import { ArrayDiffTool } from '../array/diff';
+import { HCSDiffTool } from '../hcsdiff/diff';
 import { characterDiff, lineDiff } from '../index';
 import { DiffLevel, Document } from '../model';
 import { announceHtml, fixtureDocument } from '../tests/test-util';
@@ -104,7 +104,7 @@ describe('array/diff', () => {
                 |def`,
             );
 
-            const tool = new ArrayDiffTool({
+            const tool = new HCSDiffTool({
                 level: DiffLevel.Textual,
                 similarityThreshold: 0,
                 toAtomArray: d => d.lines,

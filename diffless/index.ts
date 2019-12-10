@@ -1,25 +1,25 @@
 import { reduce } from 'lodash';
 import { extname } from 'path';
-import { ArrayDiffTool } from './array/diff';
+import { HCSDiffTool } from './hcsdiff/diff';
 import {
     DiffLevel, DiffTool, DiffToolFactory, Document, DocumentDiff,
 } from './model';
 
-const lineDiffTool = new ArrayDiffTool({
+const lineDiffTool = new HCSDiffTool({
     level: DiffLevel.Textual,
     similarityThreshold: 0,
     toAtomArray: document => document.lines,
 });
 export const lineDiff = lineDiffTool.compare;
 
-const characterDiffTool = new ArrayDiffTool({
+const characterDiffTool = new HCSDiffTool({
     level: DiffLevel.Textual,
     similarityThreshold: 1,
     toAtomArray: document => document.characters,
 });
 export const characterDiff = characterDiffTool.compare;
 
-export function compose(...diffs: DiffTool[]): DiffTool {
+export function combine(...diffs: DiffTool[]): DiffTool {
     return (left: Document, right: Document) => {
         return reduce(diffs, (acc: DocumentDiff, diffTool: DiffTool) => {
             const documentDiff = diffTool(left, right);
@@ -30,7 +30,7 @@ export function compose(...diffs: DiffTool[]): DiffTool {
     };
 }
 
-const TEXT_DIFF_TOOL_FACTORY = (_: unknown) => compose(lineDiff, characterDiff);
+const TEXT_DIFF_TOOL_FACTORY = (_: unknown) => combine(lineDiff, characterDiff);
 
 export class DiffToolRegistry {
     byExtension: Map<string, DiffToolFactory>;

@@ -11,9 +11,9 @@ import {
     Registry,
     Thenable,
 } from 'vscode-textmate';
-import { DiffToolRegistry, compose, characterDiff } from '../..';
-import { ArrayDiffTool } from '../../array/diff';
-import { Token, ValuedToken } from '../../array/model';
+import { characterDiff, combine, DiffToolRegistry } from '../..';
+import { HCSDiffTool } from '../../hcsdiff/diff';
+import { Token, ValuedToken } from '../../hcsdiff/model';
 import { DiffLevel, DiffToolFactory, Document, Location, Position, Range } from '../../model';
 
 interface TokenMetadata {
@@ -173,14 +173,14 @@ export function tokenize(scopeName: string, grammar: IGrammar, document: Documen
 async function buildDiffToolFactory(scopeName: string): Promise<DiffToolFactory> {
     const grammar = await vsctmRegistry.loadGrammar(scopeName);
 
-    const textmateLexicalDiffTool = new ArrayDiffTool({
+    const textmateLexicalDiffTool = new HCSDiffTool({
         equals: Token.equals,
         level: DiffLevel.Lexical,
         similarityThreshold: 0,
         toAtomArray: document => tokenize(scopeName, grammar, document),
     });
 
-    return (_: any) => compose(characterDiff, textmateLexicalDiffTool.compare);
+    return (_: any) => combine(characterDiff, textmateLexicalDiffTool.compare);
 }
 
 export async function registerDiffTools(diffToolRegistry: DiffToolRegistry) {

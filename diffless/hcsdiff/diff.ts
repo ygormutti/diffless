@@ -12,7 +12,7 @@ import {
     Weigh,
 } from '../model';
 import { dynamicProgrammingHCS, HCS, HCSResult } from './hcs';
-import { ArrayDiffOptions } from './model';
+import { HCSDiffOptions } from './model';
 
 class Wrapper<TAtom extends Atom> {
     constructor(
@@ -23,13 +23,13 @@ class Wrapper<TAtom extends Atom> {
     ) { }
 }
 
-export class ArrayDiffTool<TAtom extends Atom> {
+export class HCSDiffTool<TAtom extends Atom> {
     private equals: Equals<Wrapper<TAtom>>;
     private weigh: Weigh<TAtom>;
     private hcs: HCS;
 
     constructor(
-        readonly options: ArrayDiffOptions<TAtom>,
+        readonly options: HCSDiffOptions<TAtom>,
         hcs?: HCS,
     ) {
         this.equals = this.wrapEquals(options.equals || Atom.sameContent);
