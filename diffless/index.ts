@@ -1,7 +1,8 @@
 import { reduce } from 'lodash';
+import { extname } from 'path';
 import { ArrayDiffTool } from './array/diff';
 import {
-    DEFAULT_CONTENT_TYPE, DiffLevel, DiffTool, DiffToolFactory, Document, DocumentDiff,
+    DiffLevel, DiffTool, DiffToolFactory, Document, DocumentDiff,
 } from './model';
 
 const lineDiffTool = new ArrayDiffTool({
@@ -29,17 +30,38 @@ export function compose(...diffs: DiffTool[]): DiffTool {
     };
 }
 
-const DIFF_TOOL_FACTORIES: { [contentType: string]: DiffToolFactory } = {};
+const TEXT_DIFF_TOOL_FACTORY = (_: unknown) => compose(lineDiff, characterDiff);
 
-export function registerDiffTool(contentType: string, diffToolFactory: DiffToolFactory): void {
-    DIFF_TOOL_FACTORIES[contentType] = diffToolFactory;
-}
+export class DiffToolRegistry {
+    byExtension: Map<string, DiffToolFactory>;
 
-registerDiffTool(DEFAULT_CONTENT_TYPE, _ => compose(lineDiff, characterDiff));
-
-export function getDiffTool(contentType: string, options: any): DiffTool {
-    if (contentType in DIFF_TOOL_FACTORIES) {
-        return DIFF_TOOL_FACTORIES[contentType](options);
+    constructor(
+        readonly defaultFactory: DiffToolFactory = TEXT_DIFF_TOOL_FACTORY,
+    ) {
+        this.byExtension = new Map();
     }
-    return getDiffTool(DEFAULT_CONTENT_TYPE, options);
+
+    registerExtension(extension: string, factory: DiffToolFactory) {
+        console.info(`Registering ${extension} extension`);
+        this.byExtension.set(extension, factory);
+    }
+
+    getByExtension(leftPath: string, rightPath: string): DiffToolFactory {
+        let factory = this.defaultFactory;
+        const leftExtension = extname(leftPath);
+        const rightExtension = extname(rightPath);
+
+        if (leftExtension !== rightExtension) {
+            console.warn(`Left extension is "${leftExtension}", but right is "${rightExtension}"`);
+        }
+
+        const registeredFactory = this.byExtension.get(leftExtension);
+        if (registeredFactory) {
+            factory = registeredFactory;
+        } else {
+            console.warn(`No diff tools registered for "${leftExtension}" extension`);
+        }
+
+        return factory;
+    }
 }

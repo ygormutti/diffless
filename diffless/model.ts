@@ -199,11 +199,6 @@ export class Character extends Atom {
 }
 
 /**
- * The default content type for text documents
- */
-export const DEFAULT_CONTENT_TYPE = 'text/plain';
-
-/**
  * A text document
  */
 @JSIN.enabled
@@ -214,7 +209,6 @@ export class Document {
     constructor(
         readonly uri: DocumentURI,
         readonly content: string,
-        readonly contentType: string = DEFAULT_CONTENT_TYPE,
     ) {
         const linesContents = normalizeEOLs(content).split(EOL);
         this.lines = buildLines(linesContents, uri);
@@ -268,22 +262,13 @@ function normalizeEOLs(content: string): string {
     return content.replace('\r\n', EOL).replace('\r', EOL);
 }
 
-export enum EditOperation {
-    Add,
-    Delete,
-    Replace,
-    Move,
-    Copy,
-    Rename,
-}
-
 export enum DiffLevel {
-    Binary,
+    // Binary,
     Textual,
     Lexical,
-    Syntactic,
-    Semantic,
-    DataFlow,
+    // Syntactic,
+    // Semantic,
+    // DataFlow,
 }
 
 @JSIN.enabled
@@ -293,6 +278,15 @@ export class DiffItem {
         readonly left?: Location,
         readonly right?: Location,
     ) { }
+}
+
+export enum EditOperation {
+    Add,
+    Delete,
+    // Replace,
+    Move,
+    // Copy,
+    // Rename,
 }
 
 @JSIN.enabled

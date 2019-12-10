@@ -1,0 +1,1 @@
+The grammars in this directory were obtained from [VSCode extensions](https://github.com/microsoft/vscode/tree/master/extensions), which in turn were obtained from many sources, like TextMate, Atom, etc

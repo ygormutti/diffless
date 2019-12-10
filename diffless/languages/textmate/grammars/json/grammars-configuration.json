@@ -1,0 +1,22 @@
+{
+    "json": {
+        "tokens": {
+            "ignore": [
+                "#stringcontent",
+                "#comments"
+            ],
+            "valued": [
+                "#constant",
+                "#number",
+                "#string",
+                "#objectkey"
+            ],
+            "synonyms": [
+                [
+                    "#string",
+                    "#objectkey"
+                ]
+            ]
+        }
+    }
+}

@@ -3,16 +3,16 @@ import { Token, ValuedToken } from '../../array/model';
 import { Document, DocumentURI, Location, Position, Range } from '../../model';
 
 enum TokenType {
-    LeftBrace,
-    RightBrace,
-    Semicolon,
-    Comma,
-    LeftBracket,
-    RightBracket,
-    String,
-    Number,
-    Boolean,
-    Null,
+    LeftBrace = 'LeftBrace',
+    RightBrace = 'RightBrace',
+    Semicolon = 'Semicolon',
+    Comma = 'Comma',
+    LeftBracket = 'LeftBracket',
+    RightBracket = 'RightBracket',
+    String = 'String',
+    Number = 'Number',
+    Boolean = 'Boolean',
+    Null = 'Null',
 }
 
 export function tokenize(document: Document): Token[] {
