@@ -10,7 +10,7 @@ import { directory as getTmpDirName } from 'tempy';
 
 import { DiffToolRegistry } from '../';
 import { buildAnnotatedHTML, readTextFile, writeTextFile } from '../cli';
-// import { jsonDiff } from '../languages/json';
+import { jsonDiff } from '../languages/json';
 import { registerDiffTools } from '../languages/textmate';
 import { Document, DocumentDiff } from '../model';
 
@@ -47,6 +47,10 @@ async function main() {
             `output format. One of: ${Object.keys(outputFormatters).join('|')}`,
             'gui',
         )
+        .option(
+            '--old-json-parser',
+            'enable old JSON parser',
+        )
         .parse(argv);
 
     if (!program.left || !program.right || !(program.output in outputFormatters)) {
@@ -58,8 +62,11 @@ async function main() {
     const rightDocument = new Document('file://' + program.right, readTextFile(program.right));
 
     const registry = new DiffToolRegistry();
-    // registry.registerExtension('.json', (_: unknown) => jsonDiff);
-    await registerDiffTools(registry);
+    if (program.oldJsonParser) {
+        registry.registerExtension('.json', (_: unknown) => jsonDiff);
+    } else {
+        await registerDiffTools(registry);
+    }
 
     const diffTool = registry.getByExtension(program.left, program.right)(program);
     const documentDiff = diffTool(leftDocument, rightDocument);
