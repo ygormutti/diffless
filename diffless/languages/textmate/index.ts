@@ -19,6 +19,7 @@ import { DiffLevel, DiffToolFactory, Document, Location, Position, Range } from 
 interface TokenMetadata {
     ignored: string[];
     valued: string[];
+    force: string[];
 }
 
 interface GrammarMetadata {
@@ -58,12 +59,10 @@ function loadGrammarsMetadata(): { [scopeName: string]: GrammarMetadata } {
             path: './syntaxes/JSONC.tmLanguage.json', // languages[].grammars[].path
             scopeName: 'source.json.comments', // languages[].grammars[].scopeName
             tokens: {
-                ignored: [
-                    'source.json.comments',
-                    'meta.structure.dictionary.json.comments',
-                    'meta.structure.dictionary.value.json.comments',
-                    'meta.structure.array.json.comments',
+                force: [
+                    'string.quoted.double.json.comments',
                 ],
+                ignored: [],
                 valued: [
                     'support.type.property-name.json.comments',
                     'string.quoted.double.json.comments',
@@ -80,6 +79,7 @@ function loadGrammarsMetadata(): { [scopeName: string]: GrammarMetadata } {
             path: './syntaxes/lua.tmLanguage.json',
             scopeName: 'source.lua',
             tokens: {
+                force: [],
                 ignored: [],
                 valued: [],
             },
@@ -156,6 +156,9 @@ export function tokenize(scopeName: string, grammar: IGrammar, document: Documen
             const content = line.content.substring(token.startIndex, token.endIndex);
 
             let modelToken: Token;
+            if (!content.trim() && !tokenMetadata.force.includes(type)) {
+                continue;
+            }
             if (tokenMetadata.valued.includes(type)) {
                 modelToken = new ValuedToken(
                     location, content, type, parseTokenValue(content), (a, b) => a === b);
