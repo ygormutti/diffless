@@ -163,7 +163,7 @@ export function tokenize(scopeName: string, grammar: IGrammar, document: Documen
                 modelToken = new Token(location, content, type);
             }
             tokens.push(modelToken);
-            console.log(modelToken.code);
+            console.debug(modelToken.code);
         }
         ruleStack = lineTokens.ruleStack;
     }
