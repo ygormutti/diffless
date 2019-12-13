@@ -36,7 +36,7 @@ export function buildAnnotatedHTML(leftOrDiff: DocumentDiff | Document, right?: 
         |    <meta charset="utf-8" />
         |    <link rel="stylesheet" href="index.css" />
         |</head>
-        |<body>
+        |<body class="light">
         |
         |<div id="diff">
         |${diffHtml}

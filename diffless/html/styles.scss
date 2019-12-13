@@ -7,6 +7,11 @@ body {
     font-size: 14px;
 }
 
+.light {
+    background-color: white;
+    color: black;
+}
+
 .EditView--enabled.Add {
     background-color: rgba(0,255,0,0.3);
 }
@@ -23,6 +28,10 @@ body {
     border: 1px solid white;
     margin: -1px;
     box-sizing: border-box;
+}
+
+.light .EditView--highlighted {
+    border: 1px solid black;
 }
 
 .EnumMultiSelect {
